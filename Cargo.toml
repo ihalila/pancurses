@@ -6,6 +6,12 @@ authors = ["Ilkka Halila <ilkka@hali.la>"]
 [lib]
 name = "pancurses"
 
-[dependencies]
-pdcurses-sys = { path = "/Users/User/eclipse_workspace/pdcurses-sys" }
+[target.x86_64-pc-windows-gnu.dependencies]
+pdcurses-sys = { path = "../pdcurses-sys" }
+[target.i686-pc-windows-gnu.dependencies]
+pdcurses-sys = { path = "../pdcurses-sys" }
+
+[target.i686-unknown-linux-gnu.dependencies]
+ncurses = "5.80.0"
+[target.x86_64-unknown-linux-gnu.dependencies]
 ncurses = "5.80.0"
