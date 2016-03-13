@@ -40,10 +40,3 @@ pub fn end() {
 pub fn noecho() {
 	unsafe { curses::noecho(); }
 }
-
-#[test]
-pub fn test_cursor_position() {
-	let window = initialize();
-	assert!(window.cursor_x() == 0);
-	end();
-}
