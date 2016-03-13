@@ -1,0 +1,11 @@
+[package]
+name = "pancurses"
+version = "0.1.0"
+authors = ["Ilkka Halila <ilkka@hali.la>"]
+
+[lib]
+name = "pancurses"
+
+[dependencies]
+pdcurses-sys = { path = "/Users/User/eclipse_workspace/pdcurses-sys" }
+ncurses = "5.80.0"
