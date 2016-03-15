@@ -3,11 +3,17 @@ extern crate pdcurses;
 #[cfg(unix)]
 extern crate ncurses;
 
+#[cfg(windows)]
 use pdcurses as curses;
+#[cfg(unix)]
+use ncurses::ll as curses;
 
 #[derive(Copy, Clone, Debug)]
 pub struct CursesWindow {
-	_window: *mut curses::WINDOW
+	#[cfg(windows)]
+	_window: *mut curses::WINDOW,
+	#[cfg(unix)]
+	_window: ncurses::WINDOW
 }
 
 impl CursesWindow {
@@ -15,10 +21,23 @@ impl CursesWindow {
 	pub fn cursor_x(&self) -> i32 {
 		unsafe { (*self._window)._curx }
 	}
-	
+
+	#[cfg(windows)]
 	pub fn set_nodelay(&self, enabled: bool) {
 		unsafe { curses::nodelay(self._window, if enabled { 1u8 } else { 0u8 }); }
 	}
+	#[cfg(unix)]
+	pub fn set_nodelay(&self, enabled: bool) {
+		unsafe { curses::nodelay(self._window, enabled as c_bool); }
+	}
+}
+
+pub fn has_colors() -> bool {
+	unsafe { curses::has_colors() > 0 }
+}
+
+pub fn start_color() {
+	unsafe { curses::start_color(); }
 }
 
 /// Initialize the curses system, this must be the first function that is called
