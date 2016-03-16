@@ -4,9 +4,13 @@ extern crate pdcurses;
 extern crate ncurses;
 
 #[cfg(windows)]
-pub mod windows;
+mod windows;
+#[cfg(windows)]
+pub use self::windows::*;
 #[cfg(unix)]
-pub mod unix;
+mod unix;
+#[cfg(unix)]
+pub use self::unix::*;
 
 #[cfg(windows)]
 use pdcurses as curses;
