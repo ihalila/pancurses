@@ -4,6 +4,11 @@ extern crate pdcurses;
 extern crate ncurses;
 
 #[cfg(windows)]
+pub mod windows;
+#[cfg(unix)]
+pub mod unix;
+
+#[cfg(windows)]
 use pdcurses as curses;
 #[cfg(unix)]
 use ncurses::ll as curses;
@@ -13,22 +18,12 @@ pub struct CursesWindow {
 	#[cfg(windows)]
 	_window: *mut curses::WINDOW,
 	#[cfg(unix)]
-	_window: ncurses::WINDOW
+	_window: curses::WINDOW
 }
 
 impl CursesWindow {
-	///Return the current x coordinate of the cursor
-	pub fn cursor_x(&self) -> i32 {
-		unsafe { (*self._window)._curx }
-	}
-
-	#[cfg(windows)]
 	pub fn set_nodelay(&self, enabled: bool) {
-		unsafe { curses::nodelay(self._window, if enabled { 1u8 } else { 0u8 }); }
-	}
-	#[cfg(unix)]
-	pub fn set_nodelay(&self, enabled: bool) {
-		unsafe { curses::nodelay(self._window, enabled as c_bool); }
+		unsafe { curses::nodelay(self._window, enabled as u8); }
 	}
 }
 
