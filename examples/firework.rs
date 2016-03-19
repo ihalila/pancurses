@@ -71,7 +71,7 @@ fn main() {
             flag += 1;
         }
 
-        explode(lines - row, diff * direction + start, &window);
+        explode(lines - row, diff * direction + start, &window, &mut rng);
         erase();
         myrefresh(&window);
     }
@@ -79,14 +79,14 @@ fn main() {
     endwin();
 }
 
-fn explode(row: i32, mut col: i32, window: &Window) {
+fn explode<T: Rng>(row: i32, mut col: i32, window: &Window, rng: &mut T) {
     erase();
     mvaddstr(row, col, "-");
     myrefresh(window);
 
     col -= 1;
 
-    get_color();
+    get_color(rng);
     mvaddstr(row - 1, col, " - ");
     mvaddstr(row,     col, "-+-");
     mvaddstr(row + 1, col, " - ");
@@ -94,7 +94,7 @@ fn explode(row: i32, mut col: i32, window: &Window) {
 
     col -= 1;
 
-    get_color();
+    get_color(rng);
     mvaddstr(row - 2, col, " --- ");
     mvaddstr(row - 1, col, "-+++-");
     mvaddstr(row,     col, "-+#+-");
@@ -102,7 +102,7 @@ fn explode(row: i32, mut col: i32, window: &Window) {
     mvaddstr(row + 2, col, " --- ");
     myrefresh(window);
 
-    get_color();
+    get_color(rng);
     mvaddstr(row - 2, col, " +++ ");
     mvaddstr(row - 1, col, "++#++");
     mvaddstr(row,     col, "+# #+");
@@ -110,7 +110,7 @@ fn explode(row: i32, mut col: i32, window: &Window) {
     mvaddstr(row + 2, col, " +++ ");
     myrefresh(window);
 
-    get_color();
+    get_color(rng);
     mvaddstr(row - 2, col, "  #  ");
     mvaddstr(row - 1, col, "## ##");
     mvaddstr(row,     col, "#   #");
@@ -118,7 +118,7 @@ fn explode(row: i32, mut col: i32, window: &Window) {
     mvaddstr(row + 2, col, "  #  ");
     myrefresh(window);
 
-    get_color();
+    get_color(rng);
     mvaddstr(row - 2, col, " # # ");
     mvaddstr(row - 1, col, "#   #");
     mvaddstr(row,     col, "     ");
@@ -133,8 +133,7 @@ fn myrefresh(window: &Window) {
     refresh();
 }
 
-fn get_color() {
-    let mut rng = rand::thread_rng();
+fn get_color<T: Rng>(rng: &mut T) {
     let bold = if rng.gen::<bool>() { A_BOLD } else { A_NORMAL } as chtype;
     attrset(COLOR_PAIR(rng.gen::<chtype>() % 8) | bold);
 }
