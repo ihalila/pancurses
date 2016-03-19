@@ -43,16 +43,34 @@ fn main() {
         while diff < 2 || diff >= lines - 2 {
             start = rng.gen::<i32>() % (cols - 3);
             let mut end = rng.gen::<i32>() % (cols - 3);
-            start = if start < 2 { 2 } else { start };
-            end = if end < 2 { 2 } else { end };
-            direction = if start > end { -1 } else { 1 };
+            start = if start < 2 {
+                2
+            } else {
+                start
+            };
+            end = if end < 2 {
+                2
+            } else {
+                end
+            };
+            direction = if start > end {
+                -1
+            } else {
+                1
+            };
             diff = (start - end).abs();
         }
 
         attrset(A_NORMAL);
 
         for row in 0..diff {
-            mvaddstr(lines -row, row * direction + start, if direction < 0 { "\\" } else { "/" });
+            mvaddstr(lines - row,
+                     row * direction + start,
+                     if direction < 0 {
+                         "\\"
+                     } else {
+                         "/"
+                     });
 
             if flag != 0 {
                 myrefresh(&window);
@@ -134,6 +152,10 @@ fn myrefresh(window: &Window) {
 }
 
 fn get_color<T: Rng>(rng: &mut T) {
-    let bold = if rng.gen::<bool>() { A_BOLD } else { A_NORMAL } as chtype;
+    let bold = if rng.gen::<bool>() {
+        A_BOLD
+    } else {
+        A_NORMAL
+    } as chtype;
     attrset(COLOR_PAIR(rng.gen::<chtype>() % 8) | bold);
 }

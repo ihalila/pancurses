@@ -61,21 +61,15 @@ impl Window {
 }
 
 pub fn attrset(attribute: chtype) -> i32 {
-    unsafe {
-        curses::attrset(attribute)
-    }
+    unsafe { curses::attrset(attribute) }
 }
 
 pub fn endwin() -> i32 {
-    unsafe {
-        curses::endwin()
-    }
+    unsafe { curses::endwin() }
 }
 
 pub fn erase() -> i32 {
-    unsafe {
-        curses::erase()
-    }
+    unsafe { curses::erase() }
 }
 
 pub fn has_colors() -> bool {
@@ -104,21 +98,15 @@ pub fn mvaddstr(y: i32, x: i32, string: &str) -> i32 {
 }
 
 pub fn napms(ms: i32) -> i32 {
-    unsafe {
-        curses::napms(ms)
-    }
+    unsafe { curses::napms(ms) }
 }
 
 pub fn noecho() -> i32 {
-    unsafe {
-        curses::noecho()
-    }
+    unsafe { curses::noecho() }
 }
 
 pub fn refresh() -> i32 {
-    unsafe {
-        curses::refresh()
-    }
+    unsafe { curses::refresh() }
 }
 
 pub fn start_color() -> i32 {
