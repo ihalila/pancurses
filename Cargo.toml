@@ -6,6 +6,7 @@ platforms by abstracting away the backend that it uses
 (ncurses-rs and pdcurses-sys respectively).
 """
 homepage = "https://github.com/ihalila/pancurses"
+documentation = "http://ihalila.github.io/pancurses/pancurses/"
 repository = "https://github.com/ihalila/pancurses"
 readme = "README.md"
 license = "MIT"

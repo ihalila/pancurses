@@ -8,6 +8,8 @@ platforms by abstracting away the backend that it uses
 The aim is to provide a more Rustic interface over the usual curses functions
 for ease of use while remaining close enough to curses to make porting easy.
 
+## [Documentation](http://ihalila.github.io/pancurses/pancurses/)
+
 ## Requirements
 #### Unix platforms
 ncurses-rs links with the native ncurses library so that needs to be installed
