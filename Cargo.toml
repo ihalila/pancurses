@@ -1,8 +1,9 @@
 [package]
 name = "pancurses"
 description = """
-Platform-independent Curses library for Rust.
-Uses ncurses-rs on Unix platforms and pdcurses-sys for Windows.
+pancurses is a curses libary for Rust that supports both Unix and Windows
+platforms by abstracting away the backend that it uses
+(ncurses-rs and pdcurses-sys respectively).
 """
 homepage = "https://github.com/ihalila/pancurses"
 repository = "https://github.com/ihalila/pancurses"
