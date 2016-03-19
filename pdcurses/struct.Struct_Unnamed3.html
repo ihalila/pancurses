@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Struct_Unnamed3` struct in crate `pdcurses`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Struct_Unnamed3">
+
+    <title>pdcurses::Struct_Unnamed3 - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>pdcurses</a></p><script>window.sidebarCurrent = {name: 'Struct_Unnamed3', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>pdcurses</a>::<wbr><a class='struct' href=''>Struct_Unnamed3</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-153' class='srclink' href='../src/pdcurses/lib.rs.html#204-237' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Struct_Unnamed3 {
+    pub alive: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub autocr: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub cbreak: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub echo: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub raw_inp: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub raw_out: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub audible: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub mono: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub resized: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub orig_attr: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub orig_fore: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_short.html' title='std::os::raw::c_short'>c_short</a>,
+    pub orig_back: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_short.html' title='std::os::raw::c_short'>c_short</a>,
+    pub cursrow: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub curscol: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub visibility: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub orig_cursor: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub lines: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub cols: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _trap_mbe: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_ulong.html' title='std::os::raw::c_ulong'>c_ulong</a>,
+    pub _map_mbe_to_key: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_ulong.html' title='std::os::raw::c_ulong'>c_ulong</a>,
+    pub mouse_wait: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub slklines: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub slk_winptr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='type' href='../pdcurses/type.WINDOW.html' title='pdcurses::WINDOW'>WINDOW</a></a>,
+    pub linesrippedoff: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub linesrippedoffontop: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub delaytenths: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _preserve: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _restore: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub save_key_modifiers: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub return_key_modifiers: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub key_code: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub line_color: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_short.html' title='std::os::raw::c_short'>c_short</a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.alive'><code>alive</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.autocr'><code>autocr</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.cbreak'><code>cbreak</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.echo'><code>echo</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.raw_inp'><code>raw_inp</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.raw_out'><code>raw_out</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.audible'><code>audible</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.mono'><code>mono</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.resized'><code>resized</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.orig_attr'><code>orig_attr</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.orig_fore'><code>orig_fore</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.orig_back'><code>orig_back</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.cursrow'><code>cursrow</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.curscol'><code>curscol</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.visibility'><code>visibility</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.orig_cursor'><code>orig_cursor</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.lines'><code>lines</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.cols'><code>cols</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._trap_mbe'><code>_trap_mbe</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._map_mbe_to_key'><code>_map_mbe_to_key</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.mouse_wait'><code>mouse_wait</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.slklines'><code>slklines</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.slk_winptr'><code>slk_winptr</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.linesrippedoff'><code>linesrippedoff</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.linesrippedoffontop'><code>linesrippedoffontop</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.delaytenths'><code>delaytenths</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._preserve'><code>_preserve</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._restore'><code>_restore</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.save_key_modifiers'><code>save_key_modifiers</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.return_key_modifiers'><code>return_key_modifiers</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.key_code'><code>key_code</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.line_color'><code>line_color</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../pdcurses/struct.Struct_Unnamed3.html' title='pdcurses::Struct_Unnamed3'>Struct_Unnamed3</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; Self</code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../pdcurses/struct.Struct_Unnamed3.html' title='pdcurses::Struct_Unnamed3'>Struct_Unnamed3</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; Self</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../pdcurses/struct.Struct_Unnamed3.html' title='pdcurses::Struct_Unnamed3'>Struct_Unnamed3</a></code></h3><div class='impl-items'></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "pdcurses";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

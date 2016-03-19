@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Struct__win` struct in crate `pdcurses`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Struct__win">
+
+    <title>pdcurses::Struct__win - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>pdcurses</a></p><script>window.sidebarCurrent = {name: 'Struct__win', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>pdcurses</a>::<wbr><a class='struct' href=''>Struct__win</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-120' class='srclink' href='../src/pdcurses/lib.rs.html#164-190' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Struct__win {
+    pub _cury: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _curx: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _maxy: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _maxx: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _begy: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _begx: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _flags: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _attrs: <a class='type' href='../pdcurses/type.chtype.html' title='pdcurses::chtype'>chtype</a>,
+    pub _bkgd: <a class='type' href='../pdcurses/type.chtype.html' title='pdcurses::chtype'>chtype</a>,
+    pub _clear: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _leaveit: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _scroll: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _nodelay: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _immed: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _sync: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _use_keypad: <a class='type' href='../pdcurses/type._bool.html' title='pdcurses::_bool'>_bool</a>,
+    pub _y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='type' href='../pdcurses/type.chtype.html' title='pdcurses::chtype'>chtype</a></a></a>,
+    pub _firstch: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a></a>,
+    pub _lastch: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a></a>,
+    pub _tmarg: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _bmarg: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _delayms: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _parx: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _pary: <a class='type' href='https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html' title='std::os::raw::c_int'>c_int</a>,
+    pub _parent: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='struct' href='../pdcurses/struct.Struct__win.html' title='pdcurses::Struct__win'>Struct__win</a></a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield._cury'><code>_cury</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._curx'><code>_curx</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._maxy'><code>_maxy</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._maxx'><code>_maxx</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._begy'><code>_begy</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._begx'><code>_begx</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._flags'><code>_flags</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._attrs'><code>_attrs</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._bkgd'><code>_bkgd</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._clear'><code>_clear</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._leaveit'><code>_leaveit</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._scroll'><code>_scroll</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._nodelay'><code>_nodelay</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._immed'><code>_immed</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._sync'><code>_sync</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._use_keypad'><code>_use_keypad</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._y'><code>_y</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._firstch'><code>_firstch</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._lastch'><code>_lastch</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._tmarg'><code>_tmarg</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._bmarg'><code>_bmarg</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._delayms'><code>_delayms</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._parx'><code>_parx</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._pary'><code>_pary</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield._parent'><code>_parent</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../pdcurses/struct.Struct__win.html' title='pdcurses::Struct__win'>Struct__win</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; Self</code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../pdcurses/struct.Struct__win.html' title='pdcurses::Struct__win'>Struct__win</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; Self</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../pdcurses/struct.Struct__win.html' title='pdcurses::Struct__win'>Struct__win</a></code></h3><div class='impl-items'></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "pdcurses";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
