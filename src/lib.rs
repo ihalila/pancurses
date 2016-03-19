@@ -23,8 +23,6 @@ mod unix;
 #[cfg(unix)]
 pub use self::unix::*;
 
-pub const A_NORMAL: chtype = 0;
-
 pub const COLOR_BLACK: i16 = 0;
 pub const COLOR_RED: i16 = 1;
 pub const COLOR_GREEN: i16 = 2;
@@ -98,10 +96,6 @@ pub fn init() -> Window {
 
 pub fn init_pair(pair_index: i16, foreground_color: i16, background_color: i16) -> i32 {
     unsafe { curses::init_pair(pair_index, foreground_color, background_color) as i32 }
-}
-
-pub fn mv(y: i32, x: i32) -> i32 {
-    unsafe { curses::_move(y, x) }
 }
 
 pub fn mvaddstr(y: i32, x: i32, string: &str) -> i32 {
