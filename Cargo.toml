@@ -7,11 +7,14 @@ authors = ["Ilkka Halila <ilkka@hali.la>"]
 name = "pancurses"
 
 [target.x86_64-pc-windows-gnu.dependencies]
-pdcurses-sys = { path = "../pdcurses-sys" }
+pdcurses-sys = "0.2"
 [target.i686-pc-windows-gnu.dependencies]
-pdcurses-sys = { path = "../pdcurses-sys" }
+pdcurses-sys = "0.2"
 
 [target.i686-unknown-linux-gnu.dependencies]
 ncurses = "5.80.0"
 [target.x86_64-unknown-linux-gnu.dependencies]
 ncurses = "5.80.0"
+
+[dev-dependencies]
+rand = "0.3"
