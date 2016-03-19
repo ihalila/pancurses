@@ -1,5 +1,14 @@
 [package]
 name = "pancurses"
+description = """
+Platform-independent Curses library for Rust.
+Uses ncurses-rs on Unix platforms and pdcurses-sys for Windows.
+"""
+homepage = "https://github.com/ihalila/pancurses"
+repository = "https://github.com/ihalila/pancurses"
+readme = "README.md"
+license = "MIT"
+keywords = ["pancurses", "curses", "ncurses", "pdcurses"]
 version = "0.1.0"
 authors = ["Ilkka Halila <ilkka@hali.la>"]
 
