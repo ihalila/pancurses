@@ -16,7 +16,7 @@ const COLOR_TABLE: [i16; 8] = [COLOR_RED,
                                COLOR_WHITE];
 
 fn main() {
-    let window = init();
+    let window = initscr();
     window.set_nodelay(true);
     noecho();
 

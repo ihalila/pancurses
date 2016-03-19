@@ -77,13 +77,7 @@ pub fn has_colors() -> bool {
 }
 
 /// Initialize the curses system, this must be the first function that is called
-///
-/// ```
-/// # use pancurses::*;
-/// init();
-/// # endwin();
-/// ```
-pub fn init() -> Window {
+pub fn initscr() -> Window {
     let window_pointer = unsafe { curses::initscr() };
     Window { _window: window_pointer }
 }
@@ -103,6 +97,11 @@ pub fn napms(ms: i32) -> i32 {
 
 pub fn noecho() -> i32 {
     unsafe { curses::noecho() }
+}
+
+pub fn printw(string: &str) -> i32 {
+    let s = CString::new(string).unwrap();
+    unsafe { curses::printw(s.as_ptr()) }
 }
 
 pub fn refresh() -> i32 {
