@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/pancurses/lib.rs.html#1-113' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/pancurses/lib.rs.html#1-172' title='goto source code'>[src]</a></span></h1>
 <h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr class=' module-item'>
@@ -156,8 +156,8 @@
                     </tr>
                 
                     <tr class=' module-item'>
-                        <td><a class='fn' href='fn.attrset.html'
-                               title='pancurses::attrset'>attrset</a></td>
+                        <td><a class='fn' href='fn._attrset.html'
+                               title='pancurses::_attrset'>_attrset</a></td>
                         <td class='docblock short'>
                              
                         </td>
@@ -167,15 +167,8 @@
                         <td><a class='fn' href='fn.endwin.html'
                                title='pancurses::endwin'>endwin</a></td>
                         <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.erase.html'
-                               title='pancurses::erase'>erase</a></td>
-                        <td class='docblock short'>
-                             
+                             <p>Should be called before exiting or escaping from curses mode temporarily.</p>
+
                         </td>
                     </tr>
                 
@@ -183,7 +176,8 @@
                         <td><a class='fn' href='fn.has_colors.html'
                                title='pancurses::has_colors'>has_colors</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Indicates if the terminal supports, and can maniplulate color.</p>
+
                         </td>
                     </tr>
                 
@@ -191,7 +185,8 @@
                         <td><a class='fn' href='fn.init_pair.html'
                                title='pancurses::init_pair'>init_pair</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Changes the definition of a color-pair.</p>
+
                         </td>
                     </tr>
                 
@@ -199,24 +194,8 @@
                         <td><a class='fn' href='fn.initscr.html'
                                title='pancurses::initscr'>initscr</a></td>
                         <td class='docblock short'>
-                             <p>Initialize the curses system, this must be the first function that is called</p>
+                             <p>Initialize the curses system, this must be the first function that is called.</p>
 
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.mv.html'
-                               title='pancurses::mv'>mv</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.mvaddstr.html'
-                               title='pancurses::mvaddstr'>mvaddstr</a></td>
-                        <td class='docblock short'>
-                             
                         </td>
                     </tr>
                 
@@ -224,7 +203,8 @@
                         <td><a class='fn' href='fn.napms.html'
                                title='pancurses::napms'>napms</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Suspends the program for the specified number of milliseconds.</p>
+
                         </td>
                     </tr>
                 
@@ -232,23 +212,8 @@
                         <td><a class='fn' href='fn.noecho.html'
                                title='pancurses::noecho'>noecho</a></td>
                         <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.printw.html'
-                               title='pancurses::printw'>printw</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.refresh.html'
-                               title='pancurses::refresh'>refresh</a></td>
-                        <td class='docblock short'>
-                             
+                             <p>Disables echoing typed characters.</p>
+
                         </td>
                     </tr>
                 
@@ -256,7 +221,10 @@
                         <td><a class='fn' href='fn.start_color.html'
                                title='pancurses::start_color'>start_color</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,
+and white), and two global variables; COLORS and COLOR_PAIRS (respectively defining the
+maximum number of colors and color-pairs the terminal is capable of displaying).</p>
+
                         </td>
                     </tr>
                 </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>

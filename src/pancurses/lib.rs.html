@@ -154,6 +154,65 @@
 <span id="111">111</span>
 <span id="112">112</span>
 <span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
 </pre><pre class='rust '>
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>windows</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>pdcurses</span>;
@@ -200,71 +259,130 @@
 }
 
 <span class='kw'>impl</span> <span class='ident'>Window</span> {
+    <span class='doccomment'>/// Sets the current attributes of the given window to attributes.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>attrset</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>attributes</span>: <span class='ident'>chtype</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+        <span class='ident'>_attrset</span>(<span class='self'>self</span>.<span class='ident'>_window</span>, <span class='ident'>attributes</span>)
+    }
+
+    <span class='doccomment'>/// Copies blanks (i.e. the background chtype) to every cell of the window.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>erase</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+        <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>werase</span>(<span class='self'>self</span>.<span class='ident'>_window</span>) }
+    }
+
+    <span class='doccomment'>/// Read a character from the terminal associated with the window.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// In nodelay mode, if there is no input waiting, the value ERR is returned. In delay mode,</span>
+    <span class='doccomment'>/// the program will hang until the system  passes text through to the program. Depending on</span>
+    <span class='doccomment'>/// the setting of cbreak(), this will be after one character or after the first newline.</span>
+    <span class='doccomment'>/// Unless noecho() has been set, the character will also be echoed into the designated window.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If keypad() is TRUE, and a function key is pressed, the token for that function key will be</span>
+    <span class='doccomment'>/// returned instead of the raw characters.</span>
+    <span class='doccomment'>/// If nodelay(win, TRUE) has been called on the window and no input is waiting, the value ERR</span>
+    <span class='doccomment'>/// is returned.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>getch</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
         <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>wgetch</span>(<span class='self'>self</span>.<span class='ident'>_window</span>) }
     }
 
+    <span class='doccomment'>/// Return the maximum x value of this Window, in other words the number of columns.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_max_x</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
         <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>getmaxx</span>(<span class='self'>self</span>.<span class='ident'>_window</span>) }
     }
 
+    <span class='doccomment'>/// Return the maximum y value of this Window, in other words the number of rows.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_max_y</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
         <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>getmaxy</span>(<span class='self'>self</span>.<span class='ident'>_window</span>) }
     }
 
+    <span class='doccomment'>/// The cursor associated with the window is moved to the given location.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// This does not move the physical cursor of the terminal until refresh() is called.  The</span>
+    <span class='doccomment'>/// position specified is relative to the upper left corner of the window, which is (0,0).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>mv</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+        <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>wmove</span>(<span class='self'>self</span>.<span class='ident'>_window</span>, <span class='ident'>y</span>, <span class='ident'>x</span>) }
+    }
+
+    <span class='doccomment'>/// Write all the characters of the string str to the given window. The functionality is</span>
+    <span class='doccomment'>/// similar to calling waddch() once for each character in the string.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>mvaddstr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>string</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+        <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>string</span>).<span class='ident'>unwrap</span>();
+        <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>mvwaddstr</span>(<span class='self'>self</span>.<span class='ident'>_window</span>, <span class='ident'>y</span>, <span class='ident'>x</span>, <span class='ident'>s</span>.<span class='ident'>as_ptr</span>()) }
+    }
+
+    <span class='doccomment'>///Add a string to the window at the current cursor position.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>printw</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>string</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+        <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>string</span>).<span class='ident'>unwrap</span>();
+        <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>wprintw</span>(<span class='self'>self</span>.<span class='ident'>_window</span>, <span class='ident'>s</span>.<span class='ident'>as_ptr</span>()) }
+    }
+
+    <span class='doccomment'>/// Copies the named window to the physical terminal screen, taking into account what</span>
+    <span class='doccomment'>/// is already there in order to optimize cursor movement.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// This function must be called to get any output on the terminal, as other routines only</span>
+    <span class='doccomment'>/// manipulate data structures. Unless leaveok() has been enabled, the physical cursor of the</span>
+    <span class='doccomment'>/// terminal is left at the location of the window&#39;s cursor.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>refresh</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+        <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>wrefresh</span>(<span class='self'>self</span>.<span class='ident'>_window</span>) }
+    }
+
+    <span class='doccomment'>/// Controls whether wgetch() is a non-blocking call. If the option is enabled, and</span>
+    <span class='doccomment'>/// no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is</span>
+    <span class='doccomment'>/// ready.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_nodelay</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>enabled</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
         <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>nodelay</span>(<span class='self'>self</span>.<span class='ident'>_window</span>, <span class='ident'>enabled</span> <span class='kw'>as</span> <span class='ident'>u8</span>) <span class='kw'>as</span> <span class='ident'>i32</span> }
     }
 }
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>attrset</span>(<span class='ident'>attribute</span>: <span class='ident'>chtype</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-    <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>attrset</span>(<span class='ident'>attribute</span>) }
-}
 
+<span class='doccomment'>/// Should be called before exiting or escaping from curses mode temporarily.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// It will restore tty modes, move the cursor to the lower left corner of the screen and reset the</span>
+<span class='doccomment'>/// terminal into the proper non-visual mode.  To resume curses after a temporary escape, call</span>
+<span class='doccomment'>/// refresh() or doupdate().</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>endwin</span>() <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
     <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>endwin</span>() }
 }
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>erase</span>() <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-    <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>erase</span>() }
-}
-
+<span class='doccomment'>/// Indicates if the terminal supports, and can maniplulate color.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>has_colors</span>() <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
     <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>has_colors</span>() <span class='op'>&gt;</span> <span class='number'>0</span> }
 }
 
-<span class='doccomment'>/// Initialize the curses system, this must be the first function that is called</span>
+<span class='doccomment'>/// Initialize the curses system, this must be the first function that is called.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Returns a Window struct that is used to access Window specific functions.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>initscr</span>() <span class='op'>-&gt;</span> <span class='ident'>Window</span> {
     <span class='kw'>let</span> <span class='ident'>window_pointer</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>initscr</span>() };
     <span class='ident'>Window</span> { <span class='ident'>_window</span>: <span class='ident'>window_pointer</span> }
 }
 
+<span class='doccomment'>/// Changes the definition of a color-pair.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// It takes three arguments: the number of the color-pair to be redefined, and the new values of</span>
+<span class='doccomment'>/// the foreground and background colors. The pair number must be between 0 and COLOR_PAIRS - 1,</span>
+<span class='doccomment'>/// inclusive. The foreground and background must be between 0 and COLORS - 1, inclusive. If the</span>
+<span class='doccomment'>/// color pair was previously initialized, the screen is refreshed, and all occurrences of that</span>
+<span class='doccomment'>/// color-pair are changed to the new definition.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>init_pair</span>(<span class='ident'>pair_index</span>: <span class='ident'>i16</span>, <span class='ident'>foreground_color</span>: <span class='ident'>i16</span>, <span class='ident'>background_color</span>: <span class='ident'>i16</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
     <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>init_pair</span>(<span class='ident'>pair_index</span>, <span class='ident'>foreground_color</span>, <span class='ident'>background_color</span>) <span class='kw'>as</span> <span class='ident'>i32</span> }
 }
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>mvaddstr</span>(<span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>string</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-    <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>string</span>).<span class='ident'>unwrap</span>();
-    <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>mvaddstr</span>(<span class='ident'>y</span>, <span class='ident'>x</span>, <span class='ident'>s</span>.<span class='ident'>as_ptr</span>()) }
-}
-
+<span class='doccomment'>/// Suspends the program for the specified number of milliseconds.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>napms</span>(<span class='ident'>ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
     <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>napms</span>(<span class='ident'>ms</span>) }
 }
 
+<span class='doccomment'>/// Disables echoing typed characters.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Initially, input characters are echoed. Subsequent calls to echo() and noecho() do not flush</span>
+<span class='doccomment'>/// type-ahead.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>noecho</span>() <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
     <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>noecho</span>() }
 }
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>printw</span>(<span class='ident'>string</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-    <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>string</span>).<span class='ident'>unwrap</span>();
-    <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>printw</span>(<span class='ident'>s</span>.<span class='ident'>as_ptr</span>()) }
-}
-
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>refresh</span>() <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-    <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>refresh</span>() }
-}
-
+<span class='doccomment'>/// Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,</span>
+<span class='doccomment'>/// and white), and two global variables; COLORS and COLOR_PAIRS (respectively defining the</span>
+<span class='doccomment'>/// maximum number of colors and color-pairs the terminal is capable of displaying).</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>start_color</span>() <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
     <span class='kw'>unsafe</span> { <span class='ident'>curses</span>::<span class='ident'>start_color</span>() <span class='kw'>as</span> <span class='ident'>i32</span> }
 }

@@ -79,8 +79,8 @@
     (<span class='ident'>n</span> <span class='op'>&lt;&lt;</span> <span class='ident'>PDC_COLOR_SHIFT</span>) <span class='kw-2'>&amp;</span> <span class='ident'>A_COLOR</span>
 }
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>mv</span>(<span class='ident'>y</span>: <span class='ident'>i32</span>, <span class='ident'>x</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-    <span class='kw'>unsafe</span> { <span class='ident'>_move</span>(<span class='ident'>y</span>, <span class='ident'>x</span>) }
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>_attrset</span>(<span class='ident'>w</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>WINDOW</span>, <span class='ident'>attributes</span>: <span class='ident'>chtype</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='kw'>unsafe</span> { <span class='ident'>wattrset</span>(<span class='ident'>w</span>, <span class='ident'>attributes</span>) }
 }
 </pre>
 </section>

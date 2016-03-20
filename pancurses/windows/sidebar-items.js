@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["A_BOLD",""],["A_NORMAL",""]],"fn":[["COLOR_PAIR",""],["mv",""]]});
+initSidebarItems({"constant":[["A_BOLD",""],["A_NORMAL",""]],"fn":[["COLOR_PAIR",""],["_attrset",""]]});

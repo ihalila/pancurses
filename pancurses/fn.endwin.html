@@ -46,8 +46,13 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-57' class='srclink' href='../src/pancurses/lib.rs.html#67-69' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn endwin() -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></pre></section>
+        </span><a id='src-76' class='srclink' href='../src/pancurses/lib.rs.html#126-128' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn endwin() -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></pre><div class='docblock'><p>Should be called before exiting or escaping from curses mode temporarily.</p>
+
+<p>It will restore tty modes, move the cursor to the lower left corner of the screen and reset the
+terminal into the proper non-visual mode.  To resume curses after a temporary escape, call
+refresh() or doupdate().</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
