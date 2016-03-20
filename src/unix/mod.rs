@@ -3,7 +3,7 @@ extern crate ncurses;
 
 use ncurses::ll;
 
-use ncurses::ll::{chtype, attr_t};
+use ncurses::ll::{chtype, attr_t, WINDOW};
 
 use ncurses::NCURSES_ATTR_SHIFT;
 
@@ -36,4 +36,8 @@ pub const A_BOLD: attr_t = (1u32 << (13u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 
 pub fn COLOR_PAIR(n: chtype) -> attr_t {
     NCURSES_BITS(n as u32, 0u32) as attr_t
+}
+
+pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattrset(w, attributes as i32) }
 }

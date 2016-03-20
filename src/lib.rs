@@ -45,7 +45,7 @@ pub struct Window {
 impl Window {
     /// Sets the current attributes of the given window to attributes.
     pub fn attrset(&self, attributes: chtype) -> i32 {
-        unsafe { curses::wattrset(self._window, attributes) }
+        _attrset(self._window, attributes)
     }
 
     /// Copies blanks (i.e. the background chtype) to every cell of the window.

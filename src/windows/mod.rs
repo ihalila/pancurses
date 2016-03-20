@@ -14,3 +14,7 @@ pub const A_BOLD: chtype = 0x080 << PDC_CHARTEXT_BITS;
 pub fn COLOR_PAIR(n: chtype) -> chtype {
     (n << PDC_COLOR_SHIFT) & A_COLOR
 }
+
+pub fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattrset(w, attributes) }
+}
