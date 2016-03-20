@@ -35,12 +35,12 @@ main.rs
 ```rust
 extern crate pancurses;
 
-use pancurses::{initscr, printw, refresh, endwin};
+use pancurses::{initscr, endwin};
 
 fn main() {
   let window = initscr();
-  printw("Hello Rust");
-  refresh();
+  window.printw("Hello Rust");
+  window.refresh();
   window.getch();
   endwin();
 }
