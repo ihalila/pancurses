@@ -21,6 +21,10 @@ name = "pancurses"
 pdcurses-sys = "0.2"
 [target.i686-pc-windows-gnu.dependencies]
 pdcurses-sys = "0.2"
+[target.x86_64-pc-windows-msvc.dependencies]
+pdcurses-sys = "0.2"
+[target.i686-pc-windows-msvc.dependencies]
+pdcurses-sys = "0.2"
 
 [target.i686-unknown-linux-gnu.dependencies]
 ncurses = "5.80.0"
