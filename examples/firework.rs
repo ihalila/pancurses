@@ -61,20 +61,20 @@ fn main() {
             diff = (start - end).abs();
         }
 
-        attrset(A_NORMAL);
+        window.attrset(A_NORMAL);
 
         for row in 0..diff {
-            mvaddstr(lines - row,
-                     row * direction + start,
-                     if direction < 0 {
-                         "\\"
-                     } else {
-                         "/"
-                     });
+            window.mvaddstr(lines - row,
+                            row * direction + start,
+                            if direction < 0 {
+                                "\\"
+                            } else {
+                                "/"
+                            });
 
             if flag != 0 {
                 myrefresh(&window);
-                erase();
+                window.erase();
                 flag = 0;
             } else {
                 flag += 1;
@@ -90,7 +90,7 @@ fn main() {
         }
 
         explode(lines - row, diff * direction + start, &window, &mut rng);
-        erase();
+        window.erase();
         myrefresh(&window);
     }
 
@@ -98,64 +98,64 @@ fn main() {
 }
 
 fn explode<T: Rng>(row: i32, mut col: i32, window: &Window, rng: &mut T) {
-    erase();
-    mvaddstr(row, col, "-");
+    window.erase();
+    window.mvaddstr(row, col, "-");
     myrefresh(window);
 
     col -= 1;
 
-    get_color(rng);
-    mvaddstr(row - 1, col, " - ");
-    mvaddstr(row,     col, "-+-");
-    mvaddstr(row + 1, col, " - ");
+    get_color(rng, window);
+    window.mvaddstr(row - 1, col, " - ");
+    window.mvaddstr(row,     col, "-+-");
+    window.mvaddstr(row + 1, col, " - ");
     myrefresh(window);
 
     col -= 1;
 
-    get_color(rng);
-    mvaddstr(row - 2, col, " --- ");
-    mvaddstr(row - 1, col, "-+++-");
-    mvaddstr(row,     col, "-+#+-");
-    mvaddstr(row + 1, col, "-+++-");
-    mvaddstr(row + 2, col, " --- ");
+    get_color(rng, window);
+    window.mvaddstr(row - 2, col, " --- ");
+    window.mvaddstr(row - 1, col, "-+++-");
+    window.mvaddstr(row,     col, "-+#+-");
+    window.mvaddstr(row + 1, col, "-+++-");
+    window.mvaddstr(row + 2, col, " --- ");
     myrefresh(window);
 
-    get_color(rng);
-    mvaddstr(row - 2, col, " +++ ");
-    mvaddstr(row - 1, col, "++#++");
-    mvaddstr(row,     col, "+# #+");
-    mvaddstr(row + 1, col, "++#++");
-    mvaddstr(row + 2, col, " +++ ");
+    get_color(rng, window);
+    window.mvaddstr(row - 2, col, " +++ ");
+    window.mvaddstr(row - 1, col, "++#++");
+    window.mvaddstr(row,     col, "+# #+");
+    window.mvaddstr(row + 1, col, "++#++");
+    window.mvaddstr(row + 2, col, " +++ ");
     myrefresh(window);
 
-    get_color(rng);
-    mvaddstr(row - 2, col, "  #  ");
-    mvaddstr(row - 1, col, "## ##");
-    mvaddstr(row,     col, "#   #");
-    mvaddstr(row + 1, col, "## ##");
-    mvaddstr(row + 2, col, "  #  ");
+    get_color(rng, window);
+    window.mvaddstr(row - 2, col, "  #  ");
+    window.mvaddstr(row - 1, col, "## ##");
+    window.mvaddstr(row,     col, "#   #");
+    window.mvaddstr(row + 1, col, "## ##");
+    window.mvaddstr(row + 2, col, "  #  ");
     myrefresh(window);
 
-    get_color(rng);
-    mvaddstr(row - 2, col, " # # ");
-    mvaddstr(row - 1, col, "#   #");
-    mvaddstr(row,     col, "     ");
-    mvaddstr(row + 1, col, "#   #");
-    mvaddstr(row + 2, col, " # # ");
+    get_color(rng, window);
+    window.mvaddstr(row - 2, col, " # # ");
+    window.mvaddstr(row - 1, col, "#   #");
+    window.mvaddstr(row,     col, "     ");
+    window.mvaddstr(row + 1, col, "#   #");
+    window.mvaddstr(row + 2, col, " # # ");
     myrefresh(window);
 }
 
 fn myrefresh(window: &Window) {
     napms(DELAYSIZE);
-    mv(window.get_max_y() - 1, window.get_max_x() - 1);
-    refresh();
+    window.mv(window.get_max_y() - 1, window.get_max_x() - 1);
+    window.refresh();
 }
 
-fn get_color<T: Rng>(rng: &mut T) {
+fn get_color<T: Rng>(rng: &mut T, window: &Window) {
     let bold = if rng.gen::<bool>() {
         A_BOLD
     } else {
         A_NORMAL
     } as chtype;
-    attrset(COLOR_PAIR(rng.gen::<chtype>() % 8) | bold);
+    window.attrset(COLOR_PAIR(rng.gen::<chtype>() % 8) | bold);
 }

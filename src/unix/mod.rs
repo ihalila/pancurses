@@ -37,7 +37,3 @@ pub const A_BOLD: attr_t = (1u32 << (13u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub fn COLOR_PAIR(n: chtype) -> attr_t {
     NCURSES_BITS(n as u32, 0u32) as attr_t
 }
-
-pub fn mv(y: i32, x: i32) -> i32 {
-    unsafe { ll::mv(y, x) }
-}
