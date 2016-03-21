@@ -32,6 +32,8 @@ pub const A_COLOR: attr_t = ((((1u32) << 8) - 1u32) << (0u32 + NCURSES_ATTR_SHIF
 
 pub const A_BOLD: attr_t = (1u32 << (13u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 
+pub const KEY_RESIZE: i32 = 0632;
+
 pub fn COLOR_PAIR(n: chtype) -> attr_t {
     NCURSES_BITS(n as u32, 0u32) as attr_t
 }
