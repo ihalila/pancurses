@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate log;
+
 #[cfg(windows)]
 extern crate pdcurses;
 #[cfg(unix)]
@@ -213,7 +216,7 @@ pub fn noecho() -> i32 {
 /// resize_term(0, 0). Then, with either user or programmatic resizing, you'll have to resize any
 /// windows you've created.
 pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
-    unsafe { curses::resize_term(nlines, ncols) }
+    _resize_term(nlines, ncols)
 }
 
 /// Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,

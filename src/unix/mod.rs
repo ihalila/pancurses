@@ -41,3 +41,8 @@ pub fn COLOR_PAIR(n: chtype) -> attr_t {
 pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes as i32) }
 }
+
+pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
+    error!("resize_term is not implemented in ncurses-rs");
+    -1
+}

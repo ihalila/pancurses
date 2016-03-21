@@ -21,3 +21,7 @@ pub fn COLOR_PAIR(n: chtype) -> chtype {
 pub fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes) }
 }
+
+pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
+    unsafe { resize_term(nlines, ncols) }
+}
