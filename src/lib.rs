@@ -24,14 +24,15 @@ mod unix;
 pub use self::unix::*;
 
 pub const COLOR_BLACK: i16 = 0;
-pub const COLOR_RED: i16 = 1;
+pub const COLOR_BLUE: i16 = 1;
 pub const COLOR_GREEN: i16 = 2;
-pub const COLOR_BLUE: i16 = 4;
+pub const COLOR_RED: i16 = 4;
 pub const COLOR_CYAN: i16 = (COLOR_BLUE | COLOR_GREEN);
 pub const COLOR_MAGENTA: i16 = (COLOR_RED | COLOR_BLUE);
 pub const COLOR_YELLOW: i16 = (COLOR_RED | COLOR_GREEN);
 pub const COLOR_WHITE: i16 = 7;
 
+pub const OK: i32 = 0;
 pub const ERR: i32 = -1;
 
 #[derive(Copy, Clone, Debug)]
@@ -78,12 +79,26 @@ impl Window {
         unsafe { curses::getmaxy(self._window) }
     }
 
+    /// Controls whether getch() returns function/special keys as single key codes (e.g., the left
+    /// arrow key as KEY_LEFT).
+    ///
+    /// Per X/Open, the default for keypad mode is OFF. You'll probably want it on. With keypad
+    /// mode off, if a special key is pressed, getch() does nothing or returns ERR.
+    pub fn keypad(&self, use_keypad: bool) -> i32 {
+        unsafe { curses::keypad(self._window, use_keypad as u8) }
+    }
+
     /// The cursor associated with the window is moved to the given location.
     ///
     /// This does not move the physical cursor of the terminal until refresh() is called.  The
     /// position specified is relative to the upper left corner of the window, which is (0,0).
     pub fn mv(&self, y: i32, x: i32) -> i32 {
         unsafe { curses::wmove(self._window, y, x) }
+    }
+
+    /// moves the cursor to the specified position and adds ch to the specified window
+    pub fn mvaddch(&self, y: i32, x: i32, ch: char) -> i32 {
+        unsafe { curses::mvwaddch(self._window, y, x, ch as chtype) }
     }
 
     /// Write all the characters of the string str to the given window. The functionality is
@@ -112,11 +127,28 @@ impl Window {
     /// Controls whether wgetch() is a non-blocking call. If the option is enabled, and
     /// no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is
     /// ready.
-    pub fn set_nodelay(&self, enabled: bool) -> i32 {
+    pub fn nodelay(&self, enabled: bool) -> i32 {
         unsafe { curses::nodelay(self._window, enabled as u8) as i32 }
+    }
+
+    /// Set blocking or non-blocking reads for the specified window.
+    ///
+    /// The delay is measured in milliseconds. If it's negative, a blocking read is used; if zero,
+    /// then non-blocking reads are done -- if no input is waiting, ERR is returned immediately.
+    /// If the delay is positive, the read blocks for the delay period; if the period expires,
+    /// ERR is returned.
+    pub fn timeout(&self, milliseconds: i32) {
+        unsafe { curses::wtimeout(self._window, milliseconds) }
     }
 }
 
+/// Alters the appearance of the cursor
+///
+///  A visibility of 0 makes it disappear; 1 makes it appear "normal" (usually an underline) and 2
+/// makes it "highly visible" (usually a block).
+pub fn curs_set(visibility: i32) -> i32 {
+    unsafe { curses::curs_set(visibility) }
+}
 
 /// Should be called before exiting or escaping from curses mode temporarily.
 ///
@@ -156,6 +188,13 @@ pub fn napms(ms: i32) -> i32 {
     unsafe { curses::napms(ms) }
 }
 
+/// Enables the translation of a carriage return into a newline on input.
+///
+/// nonl() disables this. Initially, the translation does occur.
+pub fn nl() -> i32 {
+    unsafe { curses::nl() }
+}
+
 /// Disables echoing typed characters.
 ///
 /// Initially, input characters are echoed. Subsequent calls to echo() and noecho() do not flush
@@ -164,9 +203,30 @@ pub fn noecho() -> i32 {
     unsafe { curses::noecho() }
 }
 
+/// Attempts to resize the screen to the given size.
+///
+/// resize_term() is effectively two functions: When called with nonzero values for nlines and
+/// ncols, it attempts to resize the screen to the given size. When called with (0, 0), it merely
+/// adjusts the internal structures to match the current size after the screen is resized by the
+/// user. If you want to support user resizing, you should check for getch() returning KEY_RESIZE,
+/// and/or call is_termresized() at appropriate times; if either condition occurs, call
+/// resize_term(0, 0). Then, with either user or programmatic resizing, you'll have to resize any
+/// windows you've created.
+pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
+    unsafe { curses::resize_term(nlines, ncols) }
+}
+
 /// Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,
 /// and white), and two global variables; COLORS and COLOR_PAIRS (respectively defining the
 /// maximum number of colors and color-pairs the terminal is capable of displaying).
 pub fn start_color() -> i32 {
     unsafe { curses::start_color() as i32 }
+}
+
+/// Allows the use of -1 as a foreground or background color with init_pair().
+///
+/// Calls assume_default_colors(-1, -1); -1 represents the foreground or background color that
+/// the terminal had at startup.
+pub fn use_default_colors() -> i32 {
+    unsafe { curses::use_default_colors() }
 }
