@@ -26,15 +26,6 @@ mod unix;
 #[cfg(unix)]
 pub use self::unix::*;
 
-pub const COLOR_BLACK: i16 = 0;
-pub const COLOR_BLUE: i16 = 1;
-pub const COLOR_GREEN: i16 = 2;
-pub const COLOR_RED: i16 = 4;
-pub const COLOR_CYAN: i16 = (COLOR_BLUE | COLOR_GREEN);
-pub const COLOR_MAGENTA: i16 = (COLOR_RED | COLOR_BLUE);
-pub const COLOR_YELLOW: i16 = (COLOR_RED | COLOR_GREEN);
-pub const COLOR_WHITE: i16 = 7;
-
 pub const OK: i32 = 0;
 pub const ERR: i32 = -1;
 

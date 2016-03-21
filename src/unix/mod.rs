@@ -9,6 +9,15 @@ pub fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
     mask << (shift + NCURSES_ATTR_SHIFT) as usize
 }
 
+pub const COLOR_BLACK: i16 = 0;
+pub const COLOR_RED: i16 = 1;
+pub const COLOR_GREEN: i16 = 2;
+pub const COLOR_YELLOW: i16 = 3;
+pub const COLOR_BLUE: i16 = 4;
+pub const COLOR_MAGENTA: i16 = 5;
+pub const COLOR_CYAN: i16 = 6;
+pub const COLOR_WHITE: i16 = 7;
+
 pub const A_NORMAL: attr_t = 0u32 as attr_t;
 pub const A_ATTRIBUTES: attr_t = (!0u32 << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_CHARTEXT: attr_t = (1u32 << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;

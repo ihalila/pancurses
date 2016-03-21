@@ -3,6 +3,15 @@ extern crate pdcurses;
 
 use pdcurses::*;
 
+pub const COLOR_BLACK: i16 = 0;
+pub const COLOR_BLUE: i16 = 1;
+pub const COLOR_GREEN: i16 = 2;
+pub const COLOR_RED: i16 = 4;
+pub const COLOR_CYAN: i16 = (COLOR_BLUE | COLOR_GREEN);
+pub const COLOR_MAGENTA: i16 = (COLOR_RED | COLOR_BLUE);
+pub const COLOR_YELLOW: i16 = (COLOR_RED | COLOR_GREEN);
+pub const COLOR_WHITE: i16 = 7;
+
 const PDC_CHARTEXT_BITS: chtype = 21;
 const PDC_COLOR_SHIFT: chtype = PDC_CHARTEXT_BITS + 12;
 
