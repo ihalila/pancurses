@@ -35,7 +35,7 @@ fn main() {
     let lines = window.get_max_y();
     let cols = window.get_max_x();
 
-    while window.getch() == ERR {
+    while window.getch().is_none() {
         let mut start = 0;
         let mut direction = 0;
         let mut diff = 0;

@@ -123,18 +123,18 @@ fn main() {
         ypos[j] = y;
 
         match window.getch() {
-            q if q == 'q' as i32 || q == 'Q' as i32 => {
+            Some(Input::Character(q)) if q == 'q' || q == 'Q' => {
                 curs_set(1);
                 endwin();
                 return;
             }
-            s if s == 's' as i32 => {
+            Some(Input::Character('s')) => {
                 window.nodelay(false);
             }
-            space if space == ' ' as i32 => {
+            Some(Input::Character(' ')) => {
                 window.nodelay(true);
             }
-            k if k == KEY_RESIZE => {
+            Some(Input::SpecialKeyCode(KEY_RESIZE)) => {
                 resize_term(0, 0);
                 window.erase();
                 r = window.get_max_y() - 4;

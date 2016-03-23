@@ -37,6 +37,12 @@ pub struct Window {
     _window: curses::WINDOW,
 }
 
+#[derive(Copy, Clone, Debug)]
+pub enum Input {
+    Character(char),
+    SpecialKeyCode(i32),
+}
+
 impl Window {
     /// Sets the current attributes of the given window to attributes.
     pub fn attrset(&self, attributes: chtype) -> i32 {
@@ -50,17 +56,24 @@ impl Window {
 
     /// Read a character from the terminal associated with the window.
     ///
-    /// In nodelay mode, if there is no input waiting, the value ERR is returned. In delay mode,
+    /// In nodelay mode, if there is no input waiting, None is returned. In delay mode,
     /// the program will hang until the system  passes text through to the program. Depending on
     /// the setting of cbreak(), this will be after one character or after the first newline.
     /// Unless noecho() has been set, the character will also be echoed into the designated window.
     ///
     /// If keypad() is TRUE, and a function key is pressed, the token for that function key will be
     /// returned instead of the raw characters.
-    /// If nodelay(win, TRUE) has been called on the window and no input is waiting, the value ERR
-    /// is returned.
-    pub fn getch(&self) -> i32 {
-        unsafe { curses::wgetch(self._window) }
+    /// If nodelay(win, TRUE) has been called on the window and no input is waiting, None is
+    /// returned.
+    pub fn getch(&self) -> Option<Input> {
+        let i = unsafe { curses::wgetch(self._window) };
+        if i >= ' ' as i32 && i <= '~' as i32 {
+            Some(Input::Character(i as u8 as char))
+        } else if i != ERR {
+            Some(Input::SpecialKeyCode(i))
+        } else {
+            None
+        }
     }
 
     /// Return the maximum x value of this Window, in other words the number of columns.
