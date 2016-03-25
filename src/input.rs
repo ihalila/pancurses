@@ -109,4 +109,11 @@ pub enum Input {
     KeyUndo,
 
     KeyResize,
+    KeyEvent,
+
+    KeyA1,
+    KeyA3,
+    KeyB2,
+    KeyC1,
+    KeyC3,
 }

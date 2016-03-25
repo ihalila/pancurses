@@ -55,3 +55,163 @@ pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
     error!("resize_term is not implemented in ncurses-rs");
     -1
 }
+
+use input::Input;
+
+const KEY_OFFSET: i32 = 0o0400;
+const KEY_F15: i32 = (KEY_OFFSET + 0x17);
+const KEY_EVENT: i32 = (KEY_OFFSET + 0o633);
+
+const SPECIAL_KEY_CODES: [Input; 102] = [Input::KeyCodeYes,
+
+                                         Input::KeyBreak,
+                                         Input::KeyDown,
+                                         Input::KeyUp,
+                                         Input::KeyLeft,
+                                         Input::KeyRight,
+                                         Input::KeyHome,
+                                         Input::KeyBackspace,
+
+                                         Input::KeyF0,
+                                         Input::KeyF1,
+                                         Input::KeyF2,
+                                         Input::KeyF3,
+                                         Input::KeyF4,
+                                         Input::KeyF5,
+                                         Input::KeyF6,
+                                         Input::KeyF7,
+                                         Input::KeyF8,
+                                         Input::KeyF9,
+                                         Input::KeyF10,
+                                         Input::KeyF11,
+                                         Input::KeyF12,
+                                         Input::KeyF13,
+                                         Input::KeyF14,
+                                         Input::KeyF15,
+                                         // ncurses reserves space for 64 function keys, but we've
+                                         // only implemented 15. This has to be taken into account
+                                         // when converting the integer into an index of this array
+                                         Input::KeyDL,
+                                         Input::KeyIL,
+                                         Input::KeyDC,
+                                         Input::KeyIC,
+                                         Input::KeyEIC,
+                                         Input::KeyClear,
+                                         Input::KeyEOS,
+                                         Input::KeyEOL,
+                                         Input::KeySF,
+                                         Input::KeySR,
+                                         Input::KeyNPage,
+                                         Input::KeyPPage,
+                                         Input::KeySTab,
+                                         Input::KeyCTab,
+                                         Input::KeyCATab,
+                                         Input::KeyEnter,
+                                         Input::KeySReset,
+                                         Input::KeyReset,
+                                         Input::KeyPrint,
+                                         Input::KeyLL,
+                                         Input::KeyA1,
+                                         Input::KeyA3,
+                                         Input::KeyB2,
+                                         Input::KeyC1,
+                                         Input::KeyC3,
+                                         Input::KeyBTab,
+                                         Input::KeyBeg,
+                                         Input::KeyCancel,
+                                         Input::KeyClose,
+                                         Input::KeyCommand,
+                                         Input::KeyCopy,
+                                         Input::KeyCreate,
+                                         Input::KeyEnd,
+                                         Input::KeyExit,
+                                         Input::KeyFind,
+                                         Input::KeyHelp,
+                                         Input::KeyMark,
+                                         Input::KeyMessage,
+                                         Input::KeyMove,
+                                         Input::KeyNext,
+                                         Input::KeyOpen,
+                                         Input::KeyOptions,
+                                         Input::KeyPrevious,
+                                         Input::KeyRedo,
+                                         Input::KeyReference,
+                                         Input::KeyRefresh,
+                                         Input::KeyReplace,
+                                         Input::KeyRestart,
+                                         Input::KeyResume,
+                                         Input::KeySave,
+                                         Input::KeySBeg,
+                                         Input::KeySCancel,
+                                         Input::KeySCommand,
+                                         Input::KeySCopy,
+                                         Input::KeySCreate,
+                                         Input::KeySDC,
+                                         Input::KeySDL,
+                                         Input::KeySelect,
+                                         Input::KeySEnd,
+                                         Input::KeySEOL,
+                                         Input::KeySExit,
+                                         Input::KeySFind,
+                                         Input::KeySHelp,
+                                         Input::KeySHome,
+                                         Input::KeySIC,
+
+                                         Input::KeySLeft,
+                                         Input::KeySMessage,
+                                         Input::KeySMove,
+                                         Input::KeySNext,
+                                         Input::KeySOptions,
+                                         Input::KeySPrevious,
+                                         Input::KeySPrint,
+                                         Input::KeySRedo,
+                                         Input::KeySReplace,
+                                         Input::KeySRight,
+                                         Input::KeySResume,
+                                         Input::KeySSave,
+                                         Input::KeySSuspend,
+                                         Input::KeySUndo,
+                                         Input::KeySuspend,
+                                         Input::KeyUndo,
+                                         Input::KeyMouse,
+                                         Input::KeyResize,
+                                         Input::KeyEvent,
+];
+
+/// Converts an integer returned by getch() to a Input value
+pub fn to_special_keycode(i: i32) -> Input {
+    assert!(i >= KEY_OFFSET && i <= KEY_EVENT);
+    let i = if i <= KEY_F15 {
+        i - KEY_OFFSET
+    } else {
+        i - KEY_OFFSET - 48
+    };
+    SPECIAL_KEY_CODES[i as usize]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use input::Input;
+
+    #[test]
+    fn test_key_dl_to_special_keycode() {
+        let keyOffset = 0xec00;
+        let keyDl = keyOffset + 0x48;
+        assert_eq!(Input::KeyDL, to_special_keycode(keyDl));
+    }
+
+    #[test]
+    fn test_key_f15_to_input() {
+        let keyOffset = 0xec00;
+        let keyF15 = keyOffset + 0x08 + 15;
+        assert_eq!(Input::KeyF15, to_special_keycode(keyF15));
+    }
+
+    #[test]
+    fn test_key_up_to_input() {
+        let keyOffset = 0xec00;
+        let keyUp = keyOffset + 3;
+        assert_eq!(Input::KeyUp, to_special_keycode(keyUp));
+    }
+}
