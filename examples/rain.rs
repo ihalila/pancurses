@@ -134,7 +134,7 @@ fn main() {
             Some(Input::Character(' ')) => {
                 window.nodelay(true);
             }
-            Some(Input::SpecialKeyCode(KEY_RESIZE)) => {
+            Some(Input::KeyResize) => {
                 resize_term(0, 0);
                 window.erase();
                 r = window.get_max_y() - 4;

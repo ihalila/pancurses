@@ -17,6 +17,9 @@ use ncurses::ll as curses;
 #[cfg(unix)]
 pub use ncurses::ll::chtype;
 
+mod input;
+pub use self::input::*;
+
 #[cfg(windows)]
 mod windows;
 #[cfg(windows)]
@@ -35,12 +38,6 @@ pub struct Window {
     _window: *mut curses::WINDOW,
     #[cfg(unix)]
     _window: curses::WINDOW,
-}
-
-#[derive(Copy, Clone, Debug)]
-pub enum Input {
-    Character(char),
-    SpecialKeyCode(i32),
 }
 
 impl Window {
@@ -67,12 +64,12 @@ impl Window {
     /// returned.
     pub fn getch(&self) -> Option<Input> {
         let i = unsafe { curses::wgetch(self._window) };
-        if i >= ' ' as i32 && i <= '~' as i32 {
-            Some(Input::Character(i as u8 as char))
-        } else if i != ERR {
-            Some(Input::SpecialKeyCode(i))
-        } else {
+        if i < 0 {
             None
+        } else if i <= '~' as i32 {
+            Some(Input::Character(i as u8 as char))
+        } else {
+            Some(to_special_keycode(i))
         }
     }
 
