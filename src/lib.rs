@@ -66,7 +66,7 @@ impl Window {
         let i = unsafe { curses::wgetch(self._window) };
         if i < 0 {
             None
-        } else if i <= '~' as i32 {
+        } else if i <= u8::max_value() as i32 {
             Some(Input::Character(i as u8 as char))
         } else {
             Some(to_special_keycode(i))
