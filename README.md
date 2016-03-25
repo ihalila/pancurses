@@ -28,7 +28,7 @@ Check [pdcurses-sys](https://github.com/ihalila/pdcurses-sys) for more details.
 Cargo.toml
 ```toml
 [dependencies]
-pancurses = "0.1"
+pancurses = "0.2"
 ```
 
 main.rs
@@ -49,9 +49,9 @@ fn main() {
 ## Status
 
 I'm working through implementing the various functions using the PDCurses
-examples as a priority list. Version 0.1 has everything that a simple hello
-world program and the firework example need. Version 0.2 will include everything
-needed for the rain example.
+demos as a priority list. Version 0.2 has everything that a simple hello
+world program, the firework example and the rain example need.
+For 0.3 I'll select one of the remaining demos.
 
 ## License
 
