@@ -62,7 +62,7 @@ const KEY_OFFSET: i32 = 0o0400;
 const KEY_F15: i32 = (KEY_OFFSET + 0x17);
 const KEY_EVENT: i32 = (KEY_OFFSET + 0o633);
 
-const SPECIAL_KEY_CODES: [Input; 102] = [Input::KeyCodeYes,
+const SPECIAL_KEY_CODES: [Input; 108] = [Input::KeyCodeYes,
 
                                          Input::KeyBreak,
                                          Input::KeyDown,
@@ -196,22 +196,19 @@ mod tests {
 
     #[test]
     fn test_key_dl_to_special_keycode() {
-        let keyOffset = 0xec00;
-        let keyDl = keyOffset + 0x48;
+        let keyDl = 0o510;
         assert_eq!(Input::KeyDL, to_special_keycode(keyDl));
     }
 
     #[test]
     fn test_key_f15_to_input() {
-        let keyOffset = 0xec00;
-        let keyF15 = keyOffset + 0x08 + 15;
+        let keyF15 = 0o410 + 15;
         assert_eq!(Input::KeyF15, to_special_keycode(keyF15));
     }
 
     #[test]
     fn test_key_up_to_input() {
-        let keyOffset = 0xec00;
-        let keyUp = keyOffset + 3;
+        let keyUp = 0o403;
         assert_eq!(Input::KeyUp, to_special_keycode(keyUp));
     }
 }
