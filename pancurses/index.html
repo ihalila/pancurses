@@ -46,12 +46,21 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/pancurses/lib.rs.html#1-172' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/pancurses/lib.rs.html#1-236' title='goto source code'>[src]</a></span></h1>
 <h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='struct' href='struct.Window.html'
                                title='pancurses::Window'>Window</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='enum' href='enum.Input.html'
+                               title='pancurses::Input'>Input</a></td>
                         <td class='docblock short'>
                              
                         </td>
@@ -145,6 +154,14 @@
                              
                         </td>
                     </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.OK.html'
+                               title='pancurses::OK'>OK</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
                 </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
                     <tr class=' module-item'>
@@ -160,6 +177,23 @@
                                title='pancurses::_attrset'>_attrset</a></td>
                         <td class='docblock short'>
                              
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn._resize_term.html'
+                               title='pancurses::_resize_term'>_resize_term</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.curs_set.html'
+                               title='pancurses::curs_set'>curs_set</a></td>
+                        <td class='docblock short'>
+                             <p>Alters the appearance of the cursor</p>
+
                         </td>
                     </tr>
                 
@@ -209,10 +243,28 @@
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.nl.html'
+                               title='pancurses::nl'>nl</a></td>
+                        <td class='docblock short'>
+                             <p>Enables the translation of a carriage return into a newline on input.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.noecho.html'
                                title='pancurses::noecho'>noecho</a></td>
                         <td class='docblock short'>
                              <p>Disables echoing typed characters.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.resize_term.html'
+                               title='pancurses::resize_term'>resize_term</a></td>
+                        <td class='docblock short'>
+                             <p>Attempts to resize the screen to the given size.</p>
 
                         </td>
                     </tr>
@@ -224,6 +276,24 @@
                              <p>Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,
 and white), and two global variables; COLORS and COLOR_PAIRS (respectively defining the
 maximum number of colors and color-pairs the terminal is capable of displaying).</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.to_special_keycode.html'
+                               title='pancurses::to_special_keycode'>to_special_keycode</a></td>
+                        <td class='docblock short'>
+                             <p>Converts an integer returned by getch() to a Input value</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.use_default_colors.html'
+                               title='pancurses::use_default_colors'>use_default_colors</a></td>
+                        <td class='docblock short'>
+                             <p>Allows the use of -1 as a foreground or background color with init_pair().</p>
 
                         </td>
                     </tr>

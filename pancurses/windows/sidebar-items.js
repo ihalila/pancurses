@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["A_BOLD",""],["A_NORMAL",""]],"fn":[["COLOR_PAIR",""],["_attrset",""]]});
+initSidebarItems({"constant":[["A_BOLD",""],["A_NORMAL",""],["COLOR_BLACK",""],["COLOR_BLUE",""],["COLOR_CYAN",""],["COLOR_GREEN",""],["COLOR_MAGENTA",""],["COLOR_RED",""],["COLOR_WHITE",""],["COLOR_YELLOW",""]],"fn":[["COLOR_PAIR",""],["_attrset",""],["_resize_term",""],["to_special_keycode","Converts an integer returned by getch() to a Input value"]]});

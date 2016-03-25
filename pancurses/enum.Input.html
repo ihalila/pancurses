@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Input` enum in crate `pancurses`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Input">
+
+    <title>pancurses::Input - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>pancurses</a></p><script>window.sidebarCurrent = {name: 'Input', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>pancurses</a>::<wbr><a class='enum' href=''>Input</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-11' class='srclink' href='../src/pancurses/input.rs.html#2-120' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Input {
+    Character(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>),
+    KeyCodeYes,
+    KeyBreak,
+    KeyDown,
+    KeyUp,
+    KeyLeft,
+    KeyRight,
+    KeyHome,
+    KeyBackspace,
+    KeyF0,
+    KeyF1,
+    KeyF2,
+    KeyF3,
+    KeyF4,
+    KeyF5,
+    KeyF6,
+    KeyF7,
+    KeyF8,
+    KeyF9,
+    KeyF10,
+    KeyF11,
+    KeyF12,
+    KeyF13,
+    KeyF14,
+    KeyF15,
+    KeyDL,
+    KeyIL,
+    KeyDC,
+    KeyIC,
+    KeyEIC,
+    KeyClear,
+    KeyEOS,
+    KeyEOL,
+    KeySF,
+    KeySR,
+    KeyNPage,
+    KeyPPage,
+    KeySTab,
+    KeyCTab,
+    KeyCATab,
+    KeyEnter,
+    KeySReset,
+    KeyReset,
+    KeyPrint,
+    KeyLL,
+    KeyAbort,
+    KeySHelp,
+    KeyLHelp,
+    KeyBTab,
+    KeyBeg,
+    KeyCancel,
+    KeyClose,
+    KeyCommand,
+    KeyCopy,
+    KeyCreate,
+    KeyEnd,
+    KeyExit,
+    KeyFind,
+    KeyHelp,
+    KeyMark,
+    KeyMessage,
+    KeyMove,
+    KeyNext,
+    KeyOpen,
+    KeyOptions,
+    KeyPrevious,
+    KeyRedo,
+    KeyReference,
+    KeyRefresh,
+    KeyReplace,
+    KeyRestart,
+    KeyResume,
+    KeySave,
+    KeySBeg,
+    KeySCancel,
+    KeySCommand,
+    KeySCopy,
+    KeySCreate,
+    KeySDC,
+    KeySDL,
+    KeySelect,
+    KeySEnd,
+    KeySEOL,
+    KeySExit,
+    KeySFind,
+    KeySHome,
+    KeySIC,
+    KeySLeft,
+    KeySMessage,
+    KeySMove,
+    KeySNext,
+    KeySOptions,
+    KeySPrevious,
+    KeySPrint,
+    KeySRedo,
+    KeySReplace,
+    KeySRight,
+    KeySResume,
+    KeySSave,
+    KeySSuspend,
+    KeySUndo,
+    KeySuspend,
+    KeyUndo,
+    KeyResize,
+    KeyEvent,
+    KeyMouse,
+    KeyA1,
+    KeyA3,
+    KeyB2,
+    KeyC1,
+    KeyC3,
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Character'><code>Character</code></td><td></td></tr><tr><td id='variant.KeyCodeYes'><code>KeyCodeYes</code></td><td></td></tr><tr><td id='variant.KeyBreak'><code>KeyBreak</code></td><td></td></tr><tr><td id='variant.KeyDown'><code>KeyDown</code></td><td></td></tr><tr><td id='variant.KeyUp'><code>KeyUp</code></td><td></td></tr><tr><td id='variant.KeyLeft'><code>KeyLeft</code></td><td></td></tr><tr><td id='variant.KeyRight'><code>KeyRight</code></td><td></td></tr><tr><td id='variant.KeyHome'><code>KeyHome</code></td><td></td></tr><tr><td id='variant.KeyBackspace'><code>KeyBackspace</code></td><td></td></tr><tr><td id='variant.KeyF0'><code>KeyF0</code></td><td></td></tr><tr><td id='variant.KeyF1'><code>KeyF1</code></td><td></td></tr><tr><td id='variant.KeyF2'><code>KeyF2</code></td><td></td></tr><tr><td id='variant.KeyF3'><code>KeyF3</code></td><td></td></tr><tr><td id='variant.KeyF4'><code>KeyF4</code></td><td></td></tr><tr><td id='variant.KeyF5'><code>KeyF5</code></td><td></td></tr><tr><td id='variant.KeyF6'><code>KeyF6</code></td><td></td></tr><tr><td id='variant.KeyF7'><code>KeyF7</code></td><td></td></tr><tr><td id='variant.KeyF8'><code>KeyF8</code></td><td></td></tr><tr><td id='variant.KeyF9'><code>KeyF9</code></td><td></td></tr><tr><td id='variant.KeyF10'><code>KeyF10</code></td><td></td></tr><tr><td id='variant.KeyF11'><code>KeyF11</code></td><td></td></tr><tr><td id='variant.KeyF12'><code>KeyF12</code></td><td></td></tr><tr><td id='variant.KeyF13'><code>KeyF13</code></td><td></td></tr><tr><td id='variant.KeyF14'><code>KeyF14</code></td><td></td></tr><tr><td id='variant.KeyF15'><code>KeyF15</code></td><td></td></tr><tr><td id='variant.KeyDL'><code>KeyDL</code></td><td></td></tr><tr><td id='variant.KeyIL'><code>KeyIL</code></td><td></td></tr><tr><td id='variant.KeyDC'><code>KeyDC</code></td><td></td></tr><tr><td id='variant.KeyIC'><code>KeyIC</code></td><td></td></tr><tr><td id='variant.KeyEIC'><code>KeyEIC</code></td><td></td></tr><tr><td id='variant.KeyClear'><code>KeyClear</code></td><td></td></tr><tr><td id='variant.KeyEOS'><code>KeyEOS</code></td><td></td></tr><tr><td id='variant.KeyEOL'><code>KeyEOL</code></td><td></td></tr><tr><td id='variant.KeySF'><code>KeySF</code></td><td></td></tr><tr><td id='variant.KeySR'><code>KeySR</code></td><td></td></tr><tr><td id='variant.KeyNPage'><code>KeyNPage</code></td><td></td></tr><tr><td id='variant.KeyPPage'><code>KeyPPage</code></td><td></td></tr><tr><td id='variant.KeySTab'><code>KeySTab</code></td><td></td></tr><tr><td id='variant.KeyCTab'><code>KeyCTab</code></td><td></td></tr><tr><td id='variant.KeyCATab'><code>KeyCATab</code></td><td></td></tr><tr><td id='variant.KeyEnter'><code>KeyEnter</code></td><td></td></tr><tr><td id='variant.KeySReset'><code>KeySReset</code></td><td></td></tr><tr><td id='variant.KeyReset'><code>KeyReset</code></td><td></td></tr><tr><td id='variant.KeyPrint'><code>KeyPrint</code></td><td></td></tr><tr><td id='variant.KeyLL'><code>KeyLL</code></td><td></td></tr><tr><td id='variant.KeyAbort'><code>KeyAbort</code></td><td></td></tr><tr><td id='variant.KeySHelp'><code>KeySHelp</code></td><td></td></tr><tr><td id='variant.KeyLHelp'><code>KeyLHelp</code></td><td></td></tr><tr><td id='variant.KeyBTab'><code>KeyBTab</code></td><td></td></tr><tr><td id='variant.KeyBeg'><code>KeyBeg</code></td><td></td></tr><tr><td id='variant.KeyCancel'><code>KeyCancel</code></td><td></td></tr><tr><td id='variant.KeyClose'><code>KeyClose</code></td><td></td></tr><tr><td id='variant.KeyCommand'><code>KeyCommand</code></td><td></td></tr><tr><td id='variant.KeyCopy'><code>KeyCopy</code></td><td></td></tr><tr><td id='variant.KeyCreate'><code>KeyCreate</code></td><td></td></tr><tr><td id='variant.KeyEnd'><code>KeyEnd</code></td><td></td></tr><tr><td id='variant.KeyExit'><code>KeyExit</code></td><td></td></tr><tr><td id='variant.KeyFind'><code>KeyFind</code></td><td></td></tr><tr><td id='variant.KeyHelp'><code>KeyHelp</code></td><td></td></tr><tr><td id='variant.KeyMark'><code>KeyMark</code></td><td></td></tr><tr><td id='variant.KeyMessage'><code>KeyMessage</code></td><td></td></tr><tr><td id='variant.KeyMove'><code>KeyMove</code></td><td></td></tr><tr><td id='variant.KeyNext'><code>KeyNext</code></td><td></td></tr><tr><td id='variant.KeyOpen'><code>KeyOpen</code></td><td></td></tr><tr><td id='variant.KeyOptions'><code>KeyOptions</code></td><td></td></tr><tr><td id='variant.KeyPrevious'><code>KeyPrevious</code></td><td></td></tr><tr><td id='variant.KeyRedo'><code>KeyRedo</code></td><td></td></tr><tr><td id='variant.KeyReference'><code>KeyReference</code></td><td></td></tr><tr><td id='variant.KeyRefresh'><code>KeyRefresh</code></td><td></td></tr><tr><td id='variant.KeyReplace'><code>KeyReplace</code></td><td></td></tr><tr><td id='variant.KeyRestart'><code>KeyRestart</code></td><td></td></tr><tr><td id='variant.KeyResume'><code>KeyResume</code></td><td></td></tr><tr><td id='variant.KeySave'><code>KeySave</code></td><td></td></tr><tr><td id='variant.KeySBeg'><code>KeySBeg</code></td><td></td></tr><tr><td id='variant.KeySCancel'><code>KeySCancel</code></td><td></td></tr><tr><td id='variant.KeySCommand'><code>KeySCommand</code></td><td></td></tr><tr><td id='variant.KeySCopy'><code>KeySCopy</code></td><td></td></tr><tr><td id='variant.KeySCreate'><code>KeySCreate</code></td><td></td></tr><tr><td id='variant.KeySDC'><code>KeySDC</code></td><td></td></tr><tr><td id='variant.KeySDL'><code>KeySDL</code></td><td></td></tr><tr><td id='variant.KeySelect'><code>KeySelect</code></td><td></td></tr><tr><td id='variant.KeySEnd'><code>KeySEnd</code></td><td></td></tr><tr><td id='variant.KeySEOL'><code>KeySEOL</code></td><td></td></tr><tr><td id='variant.KeySExit'><code>KeySExit</code></td><td></td></tr><tr><td id='variant.KeySFind'><code>KeySFind</code></td><td></td></tr><tr><td id='variant.KeySHome'><code>KeySHome</code></td><td></td></tr><tr><td id='variant.KeySIC'><code>KeySIC</code></td><td></td></tr><tr><td id='variant.KeySLeft'><code>KeySLeft</code></td><td></td></tr><tr><td id='variant.KeySMessage'><code>KeySMessage</code></td><td></td></tr><tr><td id='variant.KeySMove'><code>KeySMove</code></td><td></td></tr><tr><td id='variant.KeySNext'><code>KeySNext</code></td><td></td></tr><tr><td id='variant.KeySOptions'><code>KeySOptions</code></td><td></td></tr><tr><td id='variant.KeySPrevious'><code>KeySPrevious</code></td><td></td></tr><tr><td id='variant.KeySPrint'><code>KeySPrint</code></td><td></td></tr><tr><td id='variant.KeySRedo'><code>KeySRedo</code></td><td></td></tr><tr><td id='variant.KeySReplace'><code>KeySReplace</code></td><td></td></tr><tr><td id='variant.KeySRight'><code>KeySRight</code></td><td></td></tr><tr><td id='variant.KeySResume'><code>KeySResume</code></td><td></td></tr><tr><td id='variant.KeySSave'><code>KeySSave</code></td><td></td></tr><tr><td id='variant.KeySSuspend'><code>KeySSuspend</code></td><td></td></tr><tr><td id='variant.KeySUndo'><code>KeySUndo</code></td><td></td></tr><tr><td id='variant.KeySuspend'><code>KeySuspend</code></td><td></td></tr><tr><td id='variant.KeyUndo'><code>KeyUndo</code></td><td></td></tr><tr><td id='variant.KeyResize'><code>KeyResize</code></td><td></td></tr><tr><td id='variant.KeyEvent'><code>KeyEvent</code></td><td></td></tr><tr><td id='variant.KeyMouse'><code>KeyMouse</code></td><td></td></tr><tr><td id='variant.KeyA1'><code>KeyA1</code></td><td></td></tr><tr><td id='variant.KeyA3'><code>KeyA3</code></td><td></td></tr><tr><td id='variant.KeyB2'><code>KeyB2</code></td><td></td></tr><tr><td id='variant.KeyC1'><code>KeyC1</code></td><td></td></tr><tr><td id='variant.KeyC3'><code>KeyC3</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a></code></h3><div class='impl-items'></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "pancurses";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
