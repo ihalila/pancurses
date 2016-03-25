@@ -110,6 +110,7 @@ pub enum Input {
 
     KeyResize,
     KeyEvent,
+    KeyMouse,
 
     KeyA1,
     KeyA3,
