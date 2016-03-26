@@ -146,7 +146,17 @@ impl Window {
     }
 }
 
-/// Alters the appearance of the cursor
+/// Set cbreak mode.
+///
+/// In cbreak mode, characters typed by the user are made available immediately, and erase/kill
+/// character processing is not performed.  In nocbreak mode, typed characters are buffered until
+/// a newline or carriage return. Interrupt and flow control characters are unaffected by this
+/// mode.
+pub fn cbreak() -> i32 {
+    unsafe { curses::cbreak() }
+}
+
+/// Alters the appearance of the cursor.
 ///
 ///  A visibility of 0 makes it disappear; 1 makes it appear "normal" (usually an underline) and 2
 /// makes it "highly visible" (usually a block).
