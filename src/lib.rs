@@ -202,6 +202,16 @@ pub fn napms(ms: i32) -> i32 {
     unsafe { curses::napms(ms) }
 }
 
+/// Creates a new window with the given number of lines, nlines and columns, ncols.
+///
+/// The upper left corner of the window is at line begy, column begx. If nlines is zero, it
+/// defaults to LINES - begy; ncols to COLS - begx. Create a new full-screen window by calling
+/// newwin(0, 0, 0, 0).
+pub fn newwin(nlines: i32, ncols: i32, begy: i32, begx: i32) -> Window {
+    let window_pointer = unsafe { curses::newwin(nlines, ncols, begy, begx) };
+    Window { _window: window_pointer }
+}
+
 /// Enables the translation of a carriage return into a newline on input.
 ///
 /// nonl() disables this. Initially, the translation does occur.
