@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, non_snake_case)]
 extern crate ncurses;
 
-use ncurses::ll::{chtype, attr_t, WINDOW, wattrset};
+use ncurses::ll::{box_, chtype, attr_t, WINDOW, wattrset};
 
 use ncurses::NCURSES_ATTR_SHIFT;
 
@@ -49,7 +49,7 @@ pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes as i32) }
 }
 
-pub fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
+pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
     unsafe { box_(w, verch, horch) }
 }
 
