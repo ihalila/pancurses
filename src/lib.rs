@@ -32,7 +32,7 @@ pub use self::unix::*;
 pub const OK: i32 = 0;
 pub const ERR: i32 = -1;
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Debug)]
 pub struct Window {
     #[cfg(windows)]
     _window: *mut curses::WINDOW,
@@ -216,6 +216,12 @@ pub fn curs_set(visibility: i32) -> i32 {
     unsafe { curses::curs_set(visibility) }
 }
 
+/// Deletes the window, freeing all associated memory. In the case of overlapping windows,
+/// subwindows should be deleted before the main window.
+pub fn delwin(window: Window) -> i32 {
+    unsafe { curses::delwin(window._window) }
+}
+
 /// Should be called before exiting or escaping from curses mode temporarily.
 ///
 /// It will restore tty modes, move the cursor to the lower left corner of the screen and reset the
@@ -223,6 +229,14 @@ pub fn curs_set(visibility: i32) -> i32 {
 /// refresh() or doupdate().
 pub fn endwin() -> i32 {
     unsafe { curses::endwin() }
+}
+
+/// Similar to cbreak(), but allows for a time limit to be specified, in tenths of a second.
+///
+/// This causes getch() to block for that period before returning None if no key has been received.
+/// tenths must be between 1 and 255.
+pub fn half_delay(tenths: i32) -> i32 {
+    unsafe { curses::halfdelay(tenths) }
 }
 
 /// Indicates if the terminal supports, and can maniplulate color.
@@ -269,6 +283,16 @@ pub fn newwin(nlines: i32, ncols: i32, begy: i32, begx: i32) -> Window {
 /// nonl() disables this. Initially, the translation does occur.
 pub fn nl() -> i32 {
     unsafe { curses::nl() }
+}
+
+/// Set nocbreak mode.
+///
+/// In cbreak mode, characters typed by the user are made available immediately, and erase/kill
+/// character processing is not performed.  In nocbreak mode, typed characters are buffered until
+/// a newline or carriage return. Interrupt and flow control characters are unaffected by this
+/// mode.
+pub fn nocbreak() -> i32 {
+    unsafe { curses::nocbreak() }
 }
 
 /// Disables echoing typed characters.
