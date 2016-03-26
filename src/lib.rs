@@ -51,6 +51,10 @@ impl Window {
         unsafe { curses::wbkgd(self._window, ch) }
     }
 
+    pub fn draw_box(&self, verch: chtype, horch: chtype) -> i32 {
+        _draw_box(self._window, verch, horch)
+    }
+
     /// Copies blanks (i.e. the background chtype) to every cell of the window.
     pub fn erase(&self) -> i32 {
         unsafe { curses::werase(self._window) }
