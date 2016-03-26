@@ -60,6 +60,21 @@ impl Window {
         unsafe { curses::werase(self._window) }
     }
 
+    /// Get the upper-left y coordinate of this window
+    pub fn get_beg_y(&self) -> i32 {
+        unsafe { curses::getbegy(self._window) }
+    }
+
+    // Get the upper-left x coordinate of this window
+    pub fn get_beg_x(&self) -> i32 {
+        unsafe { curses::getbegx(self._window) }
+    }
+
+    /// Get the upper-left y and x coordinates of this window
+    pub fn get_beg_yx(&self) -> (i32, i32) {
+        (self.get_beg_y(), self.get_beg_x())
+    }
+
     /// Read a character from the terminal associated with the window.
     ///
     /// In nodelay mode, if there is no input waiting, None is returned. In delay mode,
@@ -90,6 +105,11 @@ impl Window {
     /// Return the maximum y value of this Window, in other words the number of rows.
     pub fn get_max_y(&self) -> i32 {
         unsafe { curses::getmaxy(self._window) }
+    }
+
+    /// Return the maximum y and x value of this Window
+    pub fn get_max_yx(&self) -> (i32, i32) {
+        (self.get_max_y(), self.get_max_x())
     }
 
     /// Controls whether getch() returns function/special keys as single key codes (e.g., the left
