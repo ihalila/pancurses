@@ -121,6 +121,13 @@ impl Window {
         unsafe { curses::mvwaddstr(self._window, y, x, s.as_ptr()) }
     }
 
+    /// Controls whether wgetch() is a non-blocking call. If the option is enabled, and
+    /// no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is
+    /// ready.
+    pub fn nodelay(&self, enabled: bool) -> i32 {
+        unsafe { curses::nodelay(self._window, enabled as u8) as i32 }
+    }
+
     ///Add a string to the window at the current cursor position.
     pub fn printw(&self, string: &str) -> i32 {
         let s = CString::new(string).unwrap();
@@ -135,13 +142,6 @@ impl Window {
     /// terminal is left at the location of the window's cursor.
     pub fn refresh(&self) -> i32 {
         unsafe { curses::wrefresh(self._window) }
-    }
-
-    /// Controls whether wgetch() is a non-blocking call. If the option is enabled, and
-    /// no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is
-    /// ready.
-    pub fn nodelay(&self, enabled: bool) -> i32 {
-        unsafe { curses::nodelay(self._window, enabled as u8) as i32 }
     }
 
     /// Set blocking or non-blocking reads for the specified window.
