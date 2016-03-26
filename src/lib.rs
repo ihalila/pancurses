@@ -46,6 +46,11 @@ impl Window {
         _attrset(self._window, attributes)
     }
 
+    ///Not only change the background, but apply it immediately to every cell in the window.
+    pub fn bkgd(&self, ch: chtype) -> i32 {
+        unsafe { curses::wbkgd(self._window, ch) }
+    }
+
     /// Copies blanks (i.e. the background chtype) to every cell of the window.
     pub fn erase(&self) -> i32 {
         unsafe { curses::werase(self._window) }
