@@ -46,9 +46,17 @@ impl Window {
         _attrset(self._window, attributes)
     }
 
-    ///Not only change the background, but apply it immediately to every cell in the window.
+    /// Not only change the background, but apply it immediately to every cell in the window.
     pub fn bkgd(&self, ch: chtype) -> i32 {
         unsafe { curses::wbkgd(self._window, ch) }
+    }
+
+    /// The same as subwin(), except that begy and begx are relative to the origin of the window
+    /// rather than the screen.
+    ///
+    /// There is no difference between subwindows and derived windows.
+    pub fn derwin(&self, nlines: i32, ncols: i32, begy: i32, begx: i32) -> Result<Window, i32> {
+        self.subwin(nlines, ncols, begy + self.get_beg_y(), begx + self.get_beg_x())
     }
 
     pub fn draw_box(&self, verch: chtype, horch: chtype) -> i32 {
@@ -162,6 +170,21 @@ impl Window {
     /// terminal is left at the location of the window's cursor.
     pub fn refresh(&self) -> i32 {
         unsafe { curses::wrefresh(self._window) }
+    }
+
+    /// Creates a new subwindow within a window.
+    ///
+    /// The dimensions of the subwindow are nlines lines and ncols columns. The subwindow is at
+    /// position (begy, begx) on the screen. This position is relative to the screen, and not to
+    /// the window orig. Changes made to either window will affect both. When using this routine,
+    /// you will often need to call touchwin() before calling wrefresh().
+    pub fn subwin(&self, nlines: i32, ncols: i32, begy: i32, begx: i32) -> Result<Window, i32> {
+        let new_window = unsafe { curses::subwin(self._window, nlines, ncols, begy, begx) };
+        if new_window.is_null() {
+            Err(ERR)
+        } else {
+            Ok(Window { _window: new_window })
+        }
     }
 
     /// Set blocking or non-blocking reads for the specified window.
