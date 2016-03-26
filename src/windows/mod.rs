@@ -19,6 +19,7 @@ pub const A_NORMAL: chtype = 0;
 
 const A_COLOR: chtype = 0x7fffffff << PDC_COLOR_SHIFT;
 pub const A_BOLD: chtype = 0x080 << PDC_CHARTEXT_BITS;
+pub const A_BLINK: chtype = 0x040 << PDC_CHARTEXT_BITS;
 
 pub fn COLOR_PAIR(n: chtype) -> chtype {
     (n << PDC_COLOR_SHIFT) & A_COLOR
