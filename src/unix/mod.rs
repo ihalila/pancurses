@@ -1,7 +1,8 @@
 #![allow(non_camel_case_types, non_snake_case)]
 extern crate libc;
 
-use ncurses::ll::{box_, chtype, attr_t, WINDOW, wattron, wattrset, ungetch};
+use ncurses::box_;
+use ncurses::ll::{chtype, attr_t, WINDOW, wattron, wattrset, ungetch};
 use self::libc::c_int;
 
 use ncurses::NCURSES_ATTR_SHIFT;
@@ -46,7 +47,7 @@ pub fn COLOR_PAIR(n: chtype) -> attr_t {
     NCURSES_BITS(n as u32, 0u32) as attr_t
 }
 
-fn _attron(w: WINDOW, attributes: chtype) -> i32 {
+pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattron(w, attributes as i32) }
 }
 
@@ -55,7 +56,7 @@ pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
 }
 
 pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
-    unsafe { box_(w, verch, horch) }
+    box_(w, verch, horch)
 }
 
 pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
@@ -224,6 +225,7 @@ mod tests {
     use super::convert_input_to_c_int;
     use super::*;
     use input::Input;
+    use super::libc::c_int;
 
     #[test]
     fn test_key_dl_to_special_keycode() {
