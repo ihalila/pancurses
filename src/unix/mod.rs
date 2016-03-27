@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, non_snake_case)]
 extern crate ncurses;
 
-use ncurses::ll::{box_, chtype, attr_t, WINDOW, wattrset};
+use ncurses::ll::{box_, chtype, attr_t, WINDOW, wattron, wattrset};
 
 use ncurses::NCURSES_ATTR_SHIFT;
 
