@@ -22,26 +22,6 @@ const A_COLOR: chtype = 0x7fffffff << PDC_COLOR_SHIFT;
 pub const A_BOLD: chtype = 0x080 << PDC_CHARTEXT_BITS;
 pub const A_BLINK: chtype = 0x040 << PDC_CHARTEXT_BITS;
 
-pub fn COLOR_PAIR(n: chtype) -> chtype {
-    (n << PDC_COLOR_SHIFT) & A_COLOR
-}
-
-pub fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattron(w, attributes) }
-}
-
-pub fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattrset(w, attributes) }
-}
-
-pub fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
-    unsafe { _box(w, verch, horch) }
-}
-
-pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
-    unsafe { resize_term(nlines, ncols) }
-}
-
 use input::Input;
 
 const KEY_OFFSET: i32 = 0xec00;
@@ -157,6 +137,26 @@ const SPECIAL_KEY_CODES: [Input; 102] = [Input::KeyCodeYes,
                                          Input::KeySUndo,
                                          Input::KeySuspend,
                                          Input::KeyUndo];
+
+pub fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattron(w, attributes) }
+}
+
+pub fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattrset(w, attributes) }
+}
+
+pub fn COLOR_PAIR(n: chtype) -> chtype {
+    (n << PDC_COLOR_SHIFT) & A_COLOR
+}
+
+pub fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
+    unsafe { _box(w, verch, horch) }
+}
+
+pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
+    unsafe { resize_term(nlines, ncols) }
+}
 
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Input {

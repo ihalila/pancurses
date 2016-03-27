@@ -43,26 +43,6 @@ pub const A_BOLD: attr_t = (1u32 << (13u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 
 pub const KEY_RESIZE: i32 = 0632;
 
-pub fn COLOR_PAIR(n: chtype) -> attr_t {
-    NCURSES_BITS(n as u32, 0u32) as attr_t
-}
-
-pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattron(w, attributes as i32) }
-}
-
-pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattrset(w, attributes as i32) }
-}
-
-pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
-    box_(w, verch, horch)
-}
-
-pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
-    error!("resize_term is not implemented in ncurses-rs");
-    -1
-}
 
 use input::Input;
 
@@ -184,6 +164,27 @@ const SPECIAL_KEY_CODES: [Input; 108] = [Input::KeyCodeYes,
                                          Input::KeyMouse,
                                          Input::KeyResize,
                                          Input::KeyEvent];
+
+pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattron(w, attributes as i32) }
+}
+
+pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattrset(w, attributes as i32) }
+}
+
+pub fn COLOR_PAIR(n: chtype) -> attr_t {
+    NCURSES_BITS(n as u32, 0u32) as attr_t
+}
+
+pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
+    box_(w, verch, horch)
+}
+
+pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
+    error!("resize_term is not implemented in ncurses-rs");
+    -1
+}
 
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Input {
