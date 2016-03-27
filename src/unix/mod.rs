@@ -1,7 +1,8 @@
 #![allow(non_camel_case_types, non_snake_case)]
-extern crate ncurses;
+extern crate libc;
 
-use ncurses::ll::{box_, chtype, attr_t, WINDOW, wattron, wattrset};
+use ncurses::ll::{box_, chtype, attr_t, WINDOW, wattron, wattrset, ungetch};
+use self::libc::c_int;
 
 use ncurses::NCURSES_ATTR_SHIFT;
 
@@ -45,7 +46,7 @@ pub fn COLOR_PAIR(n: chtype) -> attr_t {
     NCURSES_BITS(n as u32, 0u32) as attr_t
 }
 
-pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
+fn _attron(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattron(w, attributes as i32) }
 }
 
@@ -181,8 +182,7 @@ const SPECIAL_KEY_CODES: [Input; 108] = [Input::KeyCodeYes,
                                          Input::KeyUndo,
                                          Input::KeyMouse,
                                          Input::KeyResize,
-                                         Input::KeyEvent,
-];
+                                         Input::KeyEvent];
 
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Input {
@@ -195,8 +195,33 @@ pub fn to_special_keycode(i: i32) -> Input {
     SPECIAL_KEY_CODES[i as usize]
 }
 
+pub fn _ungetch(input: &Input) -> i32 {
+    let i = convert_input_to_c_int(input);
+    unsafe { ungetch(i) }
+}
+
+fn convert_input_to_c_int(input: &Input) -> c_int {
+    match *input {
+        Input::Character(c) => c as c_int,
+        specialKeyCode => {
+            for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
+                if *skc == specialKeyCode {
+                    let result = i as c_int + KEY_OFFSET;
+                    if result <= KEY_F15 {
+                        return result;
+                    } else {
+                        return result + 48;
+                    }
+                }
+            }
+            panic!("Failed to convert Input back to a c_int");
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use super::convert_input_to_c_int;
     use super::*;
     use input::Input;
 
@@ -217,4 +242,23 @@ mod tests {
         let keyUp = 0o403;
         assert_eq!(Input::KeyUp, to_special_keycode(keyUp));
     }
+
+    #[test]
+    fn test_convert_input_to_c_int() {
+        let i = convert_input_to_c_int(&Input::Character('a'));
+        assert_eq!('a' as c_int, i);
+    }
+
+    #[test]
+    fn test_convert_backspace_to_c_int() {
+        let i = convert_input_to_c_int(&Input::KeyBackspace);
+        assert_eq!(0o407, i);
+    }
+
+    #[test]
+    fn test_convert_sdl_to_c_int() {
+        let i = convert_input_to_c_int(&Input::KeySDL);
+        assert_eq!(0o600, i);
+    }
+
 }

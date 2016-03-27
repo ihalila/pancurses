@@ -60,7 +60,10 @@ impl Window {
     ///
     /// There is no difference between subwindows and derived windows.
     pub fn derwin(&self, nlines: i32, ncols: i32, begy: i32, begx: i32) -> Result<Window, i32> {
-        self.subwin(nlines, ncols, begy + self.get_beg_y(), begx + self.get_beg_x())
+        self.subwin(nlines,
+                    ncols,
+                    begy + self.get_beg_y(),
+                    begx + self.get_beg_x())
     }
 
     pub fn draw_box(&self, verch: chtype, horch: chtype) -> i32 {
@@ -142,8 +145,8 @@ impl Window {
     }
 
     /// moves the cursor to the specified position and adds ch to the specified window
-    pub fn mvaddch(&self, y: i32, x: i32, ch: char) -> i32 {
-        unsafe { curses::mvwaddch(self._window, y, x, ch as chtype) }
+    pub fn mvaddch(&self, y: i32, x: i32, ch: chtype) -> i32 {
+        unsafe { curses::mvwaddch(self._window, y, x, ch) }
     }
 
     /// Write all the characters of the string str to the given window. The functionality is
@@ -151,6 +154,12 @@ impl Window {
     pub fn mvaddstr(&self, y: i32, x: i32, string: &str) -> i32 {
         let s = CString::new(string).unwrap();
         unsafe { curses::mvwaddstr(self._window, y, x, s.as_ptr()) }
+    }
+
+    /// Retrieves the character and attribute from the specified window position, in the form of a
+    /// chtype.
+    pub fn mvinch(&self, y: i32, x: i32) -> chtype {
+        unsafe { curses::mvwinch(self._window, y, x) }
     }
 
     /// Controls whether wgetch() is a non-blocking call. If the option is enabled, and
@@ -199,6 +208,11 @@ impl Window {
     /// ERR is returned.
     pub fn timeout(&self, milliseconds: i32) {
         unsafe { curses::wtimeout(self._window, milliseconds) }
+    }
+
+    /// Places ch back onto the input queue to be returned by the next call to getch().
+    pub fn ungetch(&self, input: &Input) -> i32 {
+        _ungetch(input)
     }
 }
 

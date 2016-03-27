@@ -1,7 +1,8 @@
 #![allow(non_camel_case_types, non_snake_case)]
-extern crate pdcurses;
+extern crate libc;
 
 use pdcurses::*;
+use self::libc::c_int;
 
 pub const COLOR_BLACK: i16 = 0;
 pub const COLOR_BLUE: i16 = 1;
@@ -175,29 +176,67 @@ pub fn to_special_keycode(i: i32) -> Input {
     }
 }
 
+pub fn _ungetch(input: &Input) -> i32 {
+    let i = convert_input_to_c_int(input);
+    unsafe { PDC_ungetch(i) }
+}
+
+fn convert_input_to_c_int(input: &Input) -> c_int {
+    match *input {
+        Input::Character(c) => c as c_int,
+        specialKeyCode => {
+            for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
+                if *skc == specialKeyCode {
+                    let result = i as c_int + KEY_OFFSET;
+                    if result <= KEY_F15 {
+                        return result;
+                    } else {
+                        return result + 48;
+                    }
+                }
+            }
+            panic!("Failed to convert Input back to a c_int");
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use super::{convert_input_to_c_int, KEY_OFFSET};
     use input::Input;
+    use super::libc::c_int;
 
     #[test]
     fn test_key_dl_to_special_keycode() {
-        let keyOffset = 0xec00;
-        let keyDl = keyOffset + 0x48;
-        assert_eq!(Input::KeyDL, to_special_keycode(keyDl));
+        assert_eq!(Input::KeyDL, to_special_keycode(KEY_OFFSET + 0x48));
     }
 
     #[test]
     fn test_key_f15_to_input() {
-        let keyOffset = 0xec00;
-        let keyF15 = keyOffset + 0x08 + 15;
-        assert_eq!(Input::KeyF15, to_special_keycode(keyF15));
+        assert_eq!(Input::KeyF15, to_special_keycode(KEY_OFFSET + 0x08 + 15));
     }
 
     #[test]
     fn test_key_up_to_input() {
-        let keyOffset = 0xec00;
-        let keyUp = keyOffset + 3;
-        assert_eq!(Input::KeyUp, to_special_keycode(keyUp));
+        assert_eq!(Input::KeyUp, to_special_keycode(KEY_OFFSET + 3));
+    }
+
+    #[test]
+    fn test_convert_input_to_c_int() {
+        let i = convert_input_to_c_int(&Input::Character('a'));
+        assert_eq!('a' as c_int, i);
+    }
+
+    #[test]
+    fn test_convert_backspace_to_c_int() {
+        let i = convert_input_to_c_int(&Input::KeyBackspace);
+        assert_eq!(KEY_OFFSET + 0x07, i);
+    }
+
+    #[test]
+    fn test_convert_sdl_to_c_int() {
+        let i = convert_input_to_c_int(&Input::KeySDL);
+        assert_eq!(KEY_OFFSET + 0x7e, i);
     }
 }

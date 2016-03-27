@@ -93,31 +93,31 @@ fn main() {
         let x = rng.gen::<i32>() % c + 2;
         let y = rng.gen::<i32>() % r + 2;
 
-        window.mvaddch(y, x, '.');
+        window.mvaddch(y, x, '.' as chtype);
 
-        window.mvaddch(ypos[j], xpos[j], 'o');
-
-        j = next_j(j, &mut rng, &window);
-        window.mvaddch(ypos[j], xpos[j], 'O');
+        window.mvaddch(ypos[j], xpos[j], 'o' as chtype);
 
         j = next_j(j, &mut rng, &window);
-        window.mvaddch(ypos[j] - 1, xpos[j], '-');
+        window.mvaddch(ypos[j], xpos[j], 'O' as chtype);
+
+        j = next_j(j, &mut rng, &window);
+        window.mvaddch(ypos[j] - 1, xpos[j], '-' as chtype);
         window.mvaddstr(ypos[j], xpos[j] - 1, "|.|");
-        window.mvaddch(ypos[j] + 1, xpos[j], '-');
+        window.mvaddch(ypos[j] + 1, xpos[j], '-' as chtype);
 
         j = next_j(j, &mut rng, &window);
-        window.mvaddch(ypos[j] - 2, xpos[j], '-');
+        window.mvaddch(ypos[j] - 2, xpos[j], '-' as chtype);
         window.mvaddstr(ypos[j] - 1, xpos[j] - 1, "/ \\");
         window.mvaddstr(ypos[j], xpos[j] - 2, "| O |");
         window.mvaddstr(ypos[j] + 1, xpos[j] - 1, "\\ /");
-        window.mvaddch(ypos[j] + 2, xpos[j], '-');
+        window.mvaddch(ypos[j] + 2, xpos[j], '-' as chtype);
 
         j = next_j(j, &mut rng, &window);
-        window.mvaddch(ypos[j] - 2, xpos[j], ' ');
+        window.mvaddch(ypos[j] - 2, xpos[j], ' ' as chtype);
         window.mvaddstr(ypos[j] - 1, xpos[j] - 1, "   ");
         window.mvaddstr(ypos[j], xpos[j] - 2, "     ");
         window.mvaddstr(ypos[j] + 1, xpos[j] - 1, "   ");
-        window.mvaddch(ypos[j] + 2, xpos[j], ' ');
+        window.mvaddch(ypos[j] + 2, xpos[j], ' ' as chtype);
 
         xpos[j] = x;
         ypos[j] = y;
