@@ -231,6 +231,12 @@ pub fn endwin() -> i32 {
     unsafe { curses::endwin() }
 }
 
+/// Throws away any type-ahead that has been typed by the user and has not yet been read by the
+/// program.
+pub fn flushinp() -> i32 {
+    unsafe { curses::flushinp() }
+}
+
 /// Similar to cbreak(), but allows for a time limit to be specified, in tenths of a second.
 ///
 /// This causes getch() to block for that period before returning None if no key has been received.
