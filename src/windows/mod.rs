@@ -25,6 +25,10 @@ pub fn COLOR_PAIR(n: chtype) -> chtype {
     (n << PDC_COLOR_SHIFT) & A_COLOR
 }
 
+pub fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattron(w, attributes) }
+}
+
 pub fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes) }
 }

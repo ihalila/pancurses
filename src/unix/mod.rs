@@ -45,6 +45,10 @@ pub fn COLOR_PAIR(n: chtype) -> attr_t {
     NCURSES_BITS(n as u32, 0u32) as attr_t
 }
 
+pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattron(w, attributes as i32) }
+}
+
 pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes as i32) }
 }

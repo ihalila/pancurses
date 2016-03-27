@@ -41,6 +41,10 @@ pub struct Window {
 }
 
 impl Window {
+    pub fn attron(&self, attributes: chtype) -> i32 {
+        _attron(self._window, attributes)
+    }
+
     /// Sets the current attributes of the given window to attributes.
     pub fn attrset(&self, attributes: chtype) -> i32 {
         _attrset(self._window, attributes)
