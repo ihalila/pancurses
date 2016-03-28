@@ -1,5 +1,6 @@
 #[macro_use]
 extern crate log;
+extern crate libc;
 
 #[cfg(windows)]
 extern crate pdcurses;
