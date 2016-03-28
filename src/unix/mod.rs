@@ -1,169 +1,15 @@
 #![allow(non_camel_case_types, non_snake_case)]
-extern crate libc;
+mod constants;
+pub use self::constants::*;
 
-use ncurses::box_;
+use ncurses::{box_, NCURSES_ATTR_SHIFT};
 use ncurses::ll::{chtype, attr_t, WINDOW, wattron, wattrset, ungetch};
-use self::libc::c_int;
-
-use ncurses::NCURSES_ATTR_SHIFT;
+use libc::c_int;
+use input::Input;
 
 pub fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
     mask << (shift + NCURSES_ATTR_SHIFT) as usize
 }
-
-pub const COLOR_BLACK: i16 = 0;
-pub const COLOR_RED: i16 = 1;
-pub const COLOR_GREEN: i16 = 2;
-pub const COLOR_YELLOW: i16 = 3;
-pub const COLOR_BLUE: i16 = 4;
-pub const COLOR_MAGENTA: i16 = 5;
-pub const COLOR_CYAN: i16 = 6;
-pub const COLOR_WHITE: i16 = 7;
-
-pub const A_NORMAL: attr_t = 0u32 as attr_t;
-pub const A_ATTRIBUTES: attr_t = (!0u32 << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_CHARTEXT: attr_t = (1u32 << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_COLOR: attr_t = ((((1u32) << 8) - 1u32) << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_BLINK: attr_t = (1u32 << (11u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-
-// pub fn A_STANDOUT() -> attr_t
-// { NCURSES_BITS(1u32, 8u32) as attr_t }
-//
-// pub fn A_UNDERLINE() -> attr_t
-// { NCURSES_BITS(1u32, 9u32) as attr_t }
-//
-// pub fn A_REVERSE() -> attr_t
-// { NCURSES_BITS(1u32, 10u32) as attr_t }
-//
-// pub fn A_DIM() -> attr_t
-// { NCURSES_BITS(1u32, 12u32) as attr_t }
-//
-
-pub const A_BOLD: attr_t = (1u32 << (13u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-
-pub const KEY_RESIZE: i32 = 0632;
-
-
-use input::Input;
-
-const KEY_OFFSET: i32 = 0o0400;
-const KEY_F15: i32 = (KEY_OFFSET + 0x17);
-const KEY_EVENT: i32 = (KEY_OFFSET + 0o633);
-
-const SPECIAL_KEY_CODES: [Input; 108] = [Input::KeyCodeYes,
-
-                                         Input::KeyBreak,
-                                         Input::KeyDown,
-                                         Input::KeyUp,
-                                         Input::KeyLeft,
-                                         Input::KeyRight,
-                                         Input::KeyHome,
-                                         Input::KeyBackspace,
-
-                                         Input::KeyF0,
-                                         Input::KeyF1,
-                                         Input::KeyF2,
-                                         Input::KeyF3,
-                                         Input::KeyF4,
-                                         Input::KeyF5,
-                                         Input::KeyF6,
-                                         Input::KeyF7,
-                                         Input::KeyF8,
-                                         Input::KeyF9,
-                                         Input::KeyF10,
-                                         Input::KeyF11,
-                                         Input::KeyF12,
-                                         Input::KeyF13,
-                                         Input::KeyF14,
-                                         Input::KeyF15,
-                                         // ncurses reserves space for 64 function keys, but we've
-                                         // only implemented 15. This has to be taken into account
-                                         // when converting the integer into an index of this array
-                                         Input::KeyDL,
-                                         Input::KeyIL,
-                                         Input::KeyDC,
-                                         Input::KeyIC,
-                                         Input::KeyEIC,
-                                         Input::KeyClear,
-                                         Input::KeyEOS,
-                                         Input::KeyEOL,
-                                         Input::KeySF,
-                                         Input::KeySR,
-                                         Input::KeyNPage,
-                                         Input::KeyPPage,
-                                         Input::KeySTab,
-                                         Input::KeyCTab,
-                                         Input::KeyCATab,
-                                         Input::KeyEnter,
-                                         Input::KeySReset,
-                                         Input::KeyReset,
-                                         Input::KeyPrint,
-                                         Input::KeyLL,
-                                         Input::KeyA1,
-                                         Input::KeyA3,
-                                         Input::KeyB2,
-                                         Input::KeyC1,
-                                         Input::KeyC3,
-                                         Input::KeyBTab,
-                                         Input::KeyBeg,
-                                         Input::KeyCancel,
-                                         Input::KeyClose,
-                                         Input::KeyCommand,
-                                         Input::KeyCopy,
-                                         Input::KeyCreate,
-                                         Input::KeyEnd,
-                                         Input::KeyExit,
-                                         Input::KeyFind,
-                                         Input::KeyHelp,
-                                         Input::KeyMark,
-                                         Input::KeyMessage,
-                                         Input::KeyMove,
-                                         Input::KeyNext,
-                                         Input::KeyOpen,
-                                         Input::KeyOptions,
-                                         Input::KeyPrevious,
-                                         Input::KeyRedo,
-                                         Input::KeyReference,
-                                         Input::KeyRefresh,
-                                         Input::KeyReplace,
-                                         Input::KeyRestart,
-                                         Input::KeyResume,
-                                         Input::KeySave,
-                                         Input::KeySBeg,
-                                         Input::KeySCancel,
-                                         Input::KeySCommand,
-                                         Input::KeySCopy,
-                                         Input::KeySCreate,
-                                         Input::KeySDC,
-                                         Input::KeySDL,
-                                         Input::KeySelect,
-                                         Input::KeySEnd,
-                                         Input::KeySEOL,
-                                         Input::KeySExit,
-                                         Input::KeySFind,
-                                         Input::KeySHelp,
-                                         Input::KeySHome,
-                                         Input::KeySIC,
-
-                                         Input::KeySLeft,
-                                         Input::KeySMessage,
-                                         Input::KeySMove,
-                                         Input::KeySNext,
-                                         Input::KeySOptions,
-                                         Input::KeySPrevious,
-                                         Input::KeySPrint,
-                                         Input::KeySRedo,
-                                         Input::KeySReplace,
-                                         Input::KeySRight,
-                                         Input::KeySResume,
-                                         Input::KeySSave,
-                                         Input::KeySSuspend,
-                                         Input::KeySUndo,
-                                         Input::KeySuspend,
-                                         Input::KeyUndo,
-                                         Input::KeyMouse,
-                                         Input::KeyResize,
-                                         Input::KeyEvent];
 
 pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattron(w, attributes as i32) }
@@ -226,7 +72,7 @@ mod tests {
     use super::convert_input_to_c_int;
     use super::*;
     use input::Input;
-    use super::libc::c_int;
+    use libc::c_int;
 
     #[test]
     fn test_key_dl_to_special_keycode() {
