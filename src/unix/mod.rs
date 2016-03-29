@@ -2,8 +2,8 @@
 pub mod constants;
 use self::constants::*;
 
-use ncurses::{box_, NCURSES_ATTR_SHIFT};
-use ncurses::ll::{chtype, attr_t, WINDOW, wattron, wattrset, ungetch};
+use ncurses::{box_};
+use ncurses::ll::{chtype, WINDOW, wattron, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
 
@@ -63,7 +63,6 @@ fn convert_input_to_c_int(input: &Input) -> c_int {
 mod tests {
     use super::convert_input_to_c_int;
     use super::*;
-    use super::constants::*;
     use input::Input;
     use libc::c_int;
 

@@ -1,5 +1,5 @@
 use input::Input;
-use ncurses::ll::attr_t;
+use ncurses::ll::{attr_t, chtype};
 use ncurses::NCURSES_ATTR_SHIFT;
 
 fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
