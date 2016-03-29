@@ -1,15 +1,11 @@
 #![allow(non_camel_case_types, non_snake_case)]
-mod constants;
-pub use self::constants::*;
+pub mod constants;
+use self::constants::*;
 
 use ncurses::{box_, NCURSES_ATTR_SHIFT};
 use ncurses::ll::{chtype, attr_t, WINDOW, wattron, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
-
-pub fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
-    mask << (shift + NCURSES_ATTR_SHIFT) as usize
-}
 
 pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattron(w, attributes as i32) }
@@ -17,10 +13,6 @@ pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
 
 pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes as i32) }
-}
-
-pub fn COLOR_PAIR(n: chtype) -> attr_t {
-    NCURSES_BITS(n as u32, 0u32) as attr_t
 }
 
 pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
@@ -71,6 +63,7 @@ fn convert_input_to_c_int(input: &Input) -> c_int {
 mod tests {
     use super::convert_input_to_c_int;
     use super::*;
+    use super::constants::*;
     use input::Input;
     use libc::c_int;
 

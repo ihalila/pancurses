@@ -2,8 +2,8 @@
 use pdcurses::*;
 use libc::c_int;
 
-mod constants;
-pub use self::constants::*;
+pub mod constants;
+use self::constants::*;
 
 use input::Input;
 
@@ -13,10 +13,6 @@ pub fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
 
 pub fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes) }
-}
-
-pub fn COLOR_PAIR(n: chtype) -> chtype {
-    (n << PDC_COLOR_SHIFT) & A_COLOR
 }
 
 pub fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
@@ -73,6 +69,7 @@ fn convert_input_to_c_int(input: &Input) -> c_int {
 mod tests {
     use super::*;
     use super::convert_input_to_c_int;
+    use super::constants::*;
     use input::Input;
     use libc::c_int;
 

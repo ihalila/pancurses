@@ -1,6 +1,10 @@
 use input::Input;
 use pdcurses::chtype;
 
+pub fn COLOR_PAIR(n: chtype) -> chtype {
+    (n << PDC_COLOR_SHIFT) & A_COLOR
+}
+
 pub const COLOR_BLACK: i16 = 0;
 pub const COLOR_BLUE: i16 = 1;
 pub const COLOR_GREEN: i16 = 2;

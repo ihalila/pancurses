@@ -2,6 +2,14 @@ use input::Input;
 use ncurses::ll::attr_t;
 use ncurses::NCURSES_ATTR_SHIFT;
 
+fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
+    mask << (shift + NCURSES_ATTR_SHIFT) as usize
+}
+
+pub fn COLOR_PAIR(n: chtype) -> attr_t {
+    NCURSES_BITS(n as u32, 0u32) as attr_t
+}
+
 pub const COLOR_BLACK: i16 = 0;
 pub const COLOR_RED: i16 = 1;
 pub const COLOR_GREEN: i16 = 2;

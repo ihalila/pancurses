@@ -24,11 +24,16 @@ pub use self::input::*;
 #[cfg(windows)]
 mod windows;
 #[cfg(windows)]
-pub use self::windows::*;
+pub use self::windows::constants::*;
+#[cfg(windows)]
+use self::windows as platform_specific;
+
 #[cfg(unix)]
 mod unix;
 #[cfg(unix)]
-pub use self::unix::*;
+pub use self::unix::constants::*;
+#[cfg(unix)]
+use self::unix as platform_specific;
 
 pub const OK: i32 = 0;
 pub const ERR: i32 = -1;
@@ -43,12 +48,12 @@ pub struct Window {
 
 impl Window {
     pub fn attron(&self, attributes: chtype) -> i32 {
-        _attron(self._window, attributes)
+        platform_specific::_attron(self._window, attributes)
     }
 
     /// Sets the current attributes of the given window to attributes.
     pub fn attrset(&self, attributes: chtype) -> i32 {
-        _attrset(self._window, attributes)
+        platform_specific::_attrset(self._window, attributes)
     }
 
     /// Not only change the background, but apply it immediately to every cell in the window.
@@ -68,7 +73,7 @@ impl Window {
     }
 
     pub fn draw_box(&self, verch: chtype, horch: chtype) -> i32 {
-        _draw_box(self._window, verch, horch)
+        platform_specific::_draw_box(self._window, verch, horch)
     }
 
     /// Copies blanks (i.e. the background chtype) to every cell of the window.
@@ -109,7 +114,7 @@ impl Window {
         } else if i <= u8::max_value() as i32 {
             Some(Input::Character(i as u8 as char))
         } else {
-            Some(to_special_keycode(i))
+            Some(platform_specific::to_special_keycode(i))
         }
     }
 
@@ -213,7 +218,7 @@ impl Window {
 
     /// Places ch back onto the input queue to be returned by the next call to getch().
     pub fn ungetch(&self, input: &Input) -> i32 {
-        _ungetch(input)
+        platform_specific::_ungetch(input)
     }
 }
 
@@ -338,7 +343,7 @@ pub fn noecho() -> i32 {
 /// resize_term(0, 0). Then, with either user or programmatic resizing, you'll have to resize any
 /// windows you've created.
 pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
-    _resize_term(nlines, ncols)
+    platform_specific::_resize_term(nlines, ncols)
 }
 
 /// Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,
