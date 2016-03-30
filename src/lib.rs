@@ -38,6 +38,22 @@ use self::unix as platform_specific;
 pub const OK: i32 = 0;
 pub const ERR: i32 = -1;
 
+pub trait ToChtype {
+    fn to_chtype(&self) -> chtype;
+}
+
+impl ToChtype for char {
+    fn to_chtype(&self) -> chtype {
+        *self as chtype
+    }
+}
+
+impl ToChtype for chtype {
+    fn to_chtype(&self) -> chtype {
+        *self
+    }
+}
+
 #[derive(Debug)]
 pub struct Window {
     #[cfg(windows)]
@@ -72,8 +88,8 @@ impl Window {
                     begx + self.get_beg_x())
     }
 
-    pub fn draw_box(&self, verch: chtype, horch: chtype) -> i32 {
-        platform_specific::_draw_box(self._window, verch, horch)
+    pub fn draw_box<T: ToChtype>(&self, verch: T, horch: T) -> i32 {
+        platform_specific::_draw_box(self._window, verch.to_chtype(), horch.to_chtype())
     }
 
     /// Copies blanks (i.e. the background chtype) to every cell of the window.
@@ -151,8 +167,8 @@ impl Window {
     }
 
     /// moves the cursor to the specified position and adds ch to the specified window
-    pub fn mvaddch(&self, y: i32, x: i32, ch: chtype) -> i32 {
-        unsafe { curses::mvwaddch(self._window, y, x, ch) }
+    pub fn mvaddch<T: ToChtype>(&self, y: i32, x: i32, ch: T) -> i32 {
+        unsafe { curses::mvwaddch(self._window, y, x, ch.to_chtype()) }
     }
 
     /// Write all the characters of the string str to the given window. The functionality is

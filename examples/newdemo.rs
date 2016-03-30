@@ -57,14 +57,14 @@ fn main() {
 
         init_pair(2, COLOR_RED, COLOR_RED);
         win.attrset(COLOR_PAIR(2));
-        win.draw_box(' ' as chtype, ' ' as chtype);
+        win.draw_box(' ', ' ');
         win.refresh();
 
         win.attrset(0);
 
         // Do random output of a character
 
-        let mut ch = 'a' as chtype;
+        let mut ch = 'a';
 
         main_window.nodelay(true);
 
@@ -84,7 +84,7 @@ fn main() {
             }
 
             if i == 2000 {
-                ch = 'b' as chtype;
+                ch = 'b';
                 init_pair(3, COLOR_CYAN, COLOR_YELLOW);
                 win.attrset(COLOR_PAIR(3));
             }
@@ -105,7 +105,7 @@ fn main() {
         // Draw RED bounding box
 
         win.attrset(COLOR_PAIR(2));
-        win.draw_box(' ' as chtype, ' ' as chtype);
+        win.draw_box(' ', ' ');
         win.refresh();
 
         // Display Australia map
