@@ -28,7 +28,7 @@ Check [pdcurses-sys](https://github.com/ihalila/pdcurses-sys) for more details.
 Cargo.toml
 ```toml
 [dependencies]
-pancurses = "0.2"
+pancurses = "0.3"
 ```
 
 main.rs
@@ -46,12 +46,38 @@ fn main() {
 }
 ```
 
+## Example of a more Rustic API
+
+```rust
+extern crate pancurses;
+
+use pancurses::{initscr, endwin, Input, noecho};
+
+fn main() {
+  let window = initscr();
+  window.printw("Type things, press delete to quit\n");
+  window.refresh();
+  window.keypad(true);
+  noecho();
+  loop {
+      match window.getch() {
+          Some(Input::Character(c)) => { window.addch(c); },
+          Some(Input::KeyDC) => break,
+          Some(input) => { window.addstr(&format!("{:?}", input)); },
+          None => ()
+      }
+  }
+  endwin();
+}
+```
+
 ## Status
 
 I'm working through implementing the various functions using the PDCurses
-demos as a priority list. Version 0.2 has everything that a simple hello
-world program, the firework example and the rain example need.
-For 0.3 I'll select one of the remaining demos.
+demos as a priority list. Version 0.3 has everything that a simple hello
+world program, the firework example, the rain example need and the newdemo
+example needs.
+For 0.4 I'll tackle the 'newtest' example.
 
 ## License
 
