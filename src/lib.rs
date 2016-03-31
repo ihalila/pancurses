@@ -63,6 +63,15 @@ pub struct Window {
 }
 
 impl Window {
+    pub fn addch<T: ToChtype>(&self, ch: T) -> i32 {
+        unsafe { curses::waddch(self._window, ch.to_chtype()) }
+    }
+
+    pub fn addstr(&self, string: &str) -> i32 {
+        let s = CString::new(string).unwrap();
+        unsafe { curses::waddstr(self._window, s.as_ptr()) }
+    }
+
     pub fn attron(&self, attributes: chtype) -> i32 {
         platform_specific::_attron(self._window, attributes)
     }
