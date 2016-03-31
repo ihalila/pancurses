@@ -53,6 +53,7 @@ pub fn _ungetch(input: &Input) -> i32 {
 fn convert_input_to_c_int(input: &Input) -> c_int {
     match *input {
         Input::Character(c) => c as c_int,
+        Input::Unknown(i) => i,
         specialKeyCode => {
             for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
                 if *skc == specialKeyCode {
