@@ -31,13 +31,17 @@ pub fn to_special_keycode(i: i32) -> Input {
     if i == KEY_RESIZE {
         Input::KeyResize
     } else {
-        assert!(i >= KEY_OFFSET && i <= KEY_UNDO);
-        let i = if i <= KEY_F15 {
-            i - KEY_OFFSET
+        assert!(i >= KEY_OFFSET, format!("Input value less than expected: {:?}", i));
+        if i > KEY_UNDO {
+            Input::Unknown(i)
         } else {
-            i - KEY_OFFSET - 48
-        };
-        SPECIAL_KEY_CODES[i as usize]
+            let i = if i <= KEY_F15 {
+                i - KEY_OFFSET
+            } else {
+                i - KEY_OFFSET - 48
+            };
+            SPECIAL_KEY_CODES[i as usize]
+        }
     }
 }
 

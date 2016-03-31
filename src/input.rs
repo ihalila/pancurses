@@ -1,6 +1,7 @@
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Input {
     Character(char),
+    Unknown(i32),
     KeyCodeYes,
 
     KeyBreak,

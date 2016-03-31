@@ -26,13 +26,17 @@ pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
 
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Input {
-    assert!(i >= KEY_OFFSET && i <= KEY_EVENT);
-    let i = if i <= KEY_F15 {
-        i - KEY_OFFSET
+    assert!(i >= KEY_OFFSET, format!("Input value less than expected: {:?}", i));
+    if i > KEY_EVENT {
+        Input::Unknown(i)
     } else {
-        i - KEY_OFFSET - 48
-    };
-    SPECIAL_KEY_CODES[i as usize]
+        let i = if i <= KEY_F15 {
+            i - KEY_OFFSET
+        } else {
+            i - KEY_OFFSET - 48
+        };
+        SPECIAL_KEY_CODES[i as usize]
+    }
 }
 
 pub fn _ungetch(input: &Input) -> i32 {
