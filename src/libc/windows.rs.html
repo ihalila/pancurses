@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `C:\Tools\msys64\home\User\.cargo\registry\src\github.com-88ac128001ac3a9a\libc-0.2.8\src\windows.rs`.">
+    <meta name="description" content="Source to the Rust file `C:\Tools\msys64\home\User\.cargo\registry\src\github.com-88ac128001ac3a9a\libc-0.2.9\src\windows.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>windows.rs.html -- source</title>
@@ -221,6 +221,8 @@
 <span id="178">178</span>
 <span id="179">179</span>
 <span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Windows CRT definitions</span>
 
@@ -296,9 +298,11 @@
     <span class='kw'>if</span> <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>target_env</span> <span class='op'>=</span> <span class='string'>&quot;gnu&quot;</span>))]</span> {
         <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>L_tmpnam</span>: ::<span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>14</span>;
         <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TMP_MAX</span>: ::<span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>0x7fff</span>;
-    } <span class='kw'>else</span> {
+    } <span class='kw'>else</span> <span class='kw'>if</span> <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>target_env</span> <span class='op'>=</span> <span class='string'>&quot;msvc&quot;</span>))]</span> {
         <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>L_tmpnam</span>: ::<span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>260</span>;
         <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TMP_MAX</span>: ::<span class='ident'>c_uint</span> <span class='op'>=</span> <span class='number'>0x7fff_ffff</span>;
+    } <span class='kw'>else</span> {
+        <span class='comment'>// Unknown target_env</span>
     }
 }
 

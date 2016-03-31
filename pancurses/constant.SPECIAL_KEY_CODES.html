@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SPECIAL_KEY_CODES` constant in crate `pancurses`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SPECIAL_KEY_CODES">
+
+    <title>pancurses::SPECIAL_KEY_CODES - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>pancurses</a></p><script>window.sidebarCurrent = {name: 'SPECIAL_KEY_CODES', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content constant">
+<h1 class='fqn'><span class='in-band'><a href='index.html'>pancurses</a>::<wbr><a class='constant' href=''>SPECIAL_KEY_CODES</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-299' class='srclink' href='../src/pancurses/windows/constants.rs.html#30-137' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>pub const SPECIAL_KEY_CODES: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a>; 102]</a><code> = </code><code>[Input::KeyCodeYes,
+
+                                             Input::KeyBreak,
+                                             Input::KeyDown,
+                                             Input::KeyUp,
+                                             Input::KeyLeft,
+                                             Input::KeyRight,
+                                             Input::KeyHome,
+                                             Input::KeyBackspace,
+
+                                             Input::KeyF0,
+                                             Input::KeyF1,
+                                             Input::KeyF2,
+                                             Input::KeyF3,
+                                             Input::KeyF4,
+                                             Input::KeyF5,
+                                             Input::KeyF6,
+                                             Input::KeyF7,
+                                             Input::KeyF8,
+                                             Input::KeyF9,
+                                             Input::KeyF10,
+                                             Input::KeyF11,
+                                             Input::KeyF12,
+                                             Input::KeyF13,
+                                             Input::KeyF14,
+                                             Input::KeyF15,
+                                             // PDcurses reserves space for 64 function keys, but we've
+                                             // only implemented 15. This has to be taken into account
+                                             // when converting the integer into an index of this array
+                                             Input::KeyDL,
+                                             Input::KeyIL,
+                                             Input::KeyDC,
+                                             Input::KeyIC,
+                                             Input::KeyEIC,
+                                             Input::KeyClear,
+                                             Input::KeyEOS,
+                                             Input::KeyEOL,
+                                             Input::KeySF,
+                                             Input::KeySR,
+                                             Input::KeyNPage,
+                                             Input::KeyPPage,
+                                             Input::KeySTab,
+                                             Input::KeyCTab,
+                                             Input::KeyCATab,
+                                             Input::KeyEnter,
+                                             Input::KeySReset,
+                                             Input::KeyReset,
+                                             Input::KeyPrint,
+                                             Input::KeyLL,
+                                             Input::KeyAbort,
+                                             Input::KeySHelp,
+                                             Input::KeyLHelp,
+                                             Input::KeyBTab,
+                                             Input::KeyBeg,
+                                             Input::KeyCancel,
+                                             Input::KeyClose,
+                                             Input::KeyCommand,
+                                             Input::KeyCopy,
+                                             Input::KeyCreate,
+                                             Input::KeyEnd,
+                                             Input::KeyExit,
+                                             Input::KeyFind,
+                                             Input::KeyHelp,
+                                             Input::KeyMark,
+                                             Input::KeyMessage,
+                                             Input::KeyMove,
+                                             Input::KeyNext,
+                                             Input::KeyOpen,
+                                             Input::KeyOptions,
+                                             Input::KeyPrevious,
+                                             Input::KeyRedo,
+                                             Input::KeyReference,
+                                             Input::KeyRefresh,
+                                             Input::KeyReplace,
+                                             Input::KeyRestart,
+                                             Input::KeyResume,
+                                             Input::KeySave,
+                                             Input::KeySBeg,
+                                             Input::KeySCancel,
+                                             Input::KeySCommand,
+                                             Input::KeySCopy,
+                                             Input::KeySCreate,
+                                             Input::KeySDC,
+                                             Input::KeySDL,
+                                             Input::KeySelect,
+                                             Input::KeySEnd,
+                                             Input::KeySEOL,
+                                             Input::KeySExit,
+                                             Input::KeySFind,
+                                             Input::KeySHome,
+                                             Input::KeySIC,
+
+                                             Input::KeySLeft,
+                                             Input::KeySMessage,
+                                             Input::KeySMove,
+                                             Input::KeySNext,
+                                             Input::KeySOptions,
+                                             Input::KeySPrevious,
+                                             Input::KeySPrint,
+                                             Input::KeySRedo,
+                                             Input::KeySReplace,
+                                             Input::KeySRight,
+                                             Input::KeySResume,
+                                             Input::KeySSave,
+                                             Input::KeySSuspend,
+                                             Input::KeySUndo,
+                                             Input::KeySuspend,
+                                             Input::KeyUndo]</code></pre></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "pancurses";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

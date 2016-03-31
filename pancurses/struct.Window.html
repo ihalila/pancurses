@@ -46,13 +46,29 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-299' class='srclink' href='../src/pancurses/lib.rs.html#36-41' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-348' class='srclink' href='../src/pancurses/lib.rs.html#58-63' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Window {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a></code></h3><div class='impl-items'><h4 id='method.attrset' class='method'><code>fn <a href='#method.attrset' class='fnname'>attrset</a>(&amp;self, attributes: <a class='type' href='../pancurses/type.chtype.html' title='pancurses::chtype'>chtype</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a></code></h3><div class='impl-items'><h4 id='method.addch' class='method'><code>fn <a href='#method.addch' class='fnname'>addch</a>&lt;T: <a class='trait' href='../pancurses/trait.ToChtype.html' title='pancurses::ToChtype'>ToChtype</a>&gt;(&amp;self, ch: T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.addstr' class='method'><code>fn <a href='#method.addstr' class='fnname'>addstr</a>(&amp;self, string: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.attron' class='method'><code>fn <a href='#method.attron' class='fnname'>attron</a>(&amp;self, attributes: <a class='type' href='../pancurses/type.chtype.html' title='pancurses::chtype'>chtype</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.attrset' class='method'><code>fn <a href='#method.attrset' class='fnname'>attrset</a>(&amp;self, attributes: <a class='type' href='../pancurses/type.chtype.html' title='pancurses::chtype'>chtype</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
 <div class='docblock'><p>Sets the current attributes of the given window to attributes.</p>
-</div><h4 id='method.erase' class='method'><code>fn <a href='#method.erase' class='fnname'>erase</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+</div><h4 id='method.bkgd' class='method'><code>fn <a href='#method.bkgd' class='fnname'>bkgd</a>(&amp;self, ch: <a class='type' href='../pancurses/type.chtype.html' title='pancurses::chtype'>chtype</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<div class='docblock'><p>Not only change the background, but apply it immediately to every cell in the window.</p>
+</div><h4 id='method.derwin' class='method'><code>fn <a href='#method.derwin' class='fnname'>derwin</a>(&amp;self, nlines: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, ncols: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, begy: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, begx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>&gt;</code></h4>
+<div class='docblock'><p>The same as subwin(), except that begy and begx are relative to the origin of the window
+rather than the screen.</p>
+
+<p>There is no difference between subwindows and derived windows.</p>
+</div><h4 id='method.draw_box' class='method'><code>fn <a href='#method.draw_box' class='fnname'>draw_box</a>&lt;T: <a class='trait' href='../pancurses/trait.ToChtype.html' title='pancurses::ToChtype'>ToChtype</a>&gt;(&amp;self, verch: T, horch: T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.erase' class='method'><code>fn <a href='#method.erase' class='fnname'>erase</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
 <div class='docblock'><p>Copies blanks (i.e. the background chtype) to every cell of the window.</p>
+</div><h4 id='method.get_beg_y' class='method'><code>fn <a href='#method.get_beg_y' class='fnname'>get_beg_y</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<div class='docblock'><p>Get the upper-left y coordinate of this window</p>
+</div><h4 id='method.get_beg_x' class='method'><code>fn <a href='#method.get_beg_x' class='fnname'>get_beg_x</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.get_beg_yx' class='method'><code>fn <a href='#method.get_beg_yx' class='fnname'>get_beg_yx</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</a></code></h4>
+<div class='docblock'><p>Get the upper-left y and x coordinates of this window</p>
 </div><h4 id='method.getch' class='method'><code>fn <a href='#method.getch' class='fnname'>getch</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a>&gt;</code></h4>
 <div class='docblock'><p>Read a character from the terminal associated with the window.</p>
 
@@ -69,6 +85,8 @@ returned.</p>
 <div class='docblock'><p>Return the maximum x value of this Window, in other words the number of columns.</p>
 </div><h4 id='method.get_max_y' class='method'><code>fn <a href='#method.get_max_y' class='fnname'>get_max_y</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
 <div class='docblock'><p>Return the maximum y value of this Window, in other words the number of rows.</p>
+</div><h4 id='method.get_max_yx' class='method'><code>fn <a href='#method.get_max_yx' class='fnname'>get_max_yx</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</a></code></h4>
+<div class='docblock'><p>Return the maximum y and x value of this Window</p>
 </div><h4 id='method.keypad' class='method'><code>fn <a href='#method.keypad' class='fnname'>keypad</a>(&amp;self, use_keypad: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
 <div class='docblock'><p>Controls whether getch() returns function/special keys as single key codes (e.g., the left
 arrow key as KEY_LEFT).</p>
@@ -80,11 +98,18 @@ mode off, if a special key is pressed, getch() does nothing or returns ERR.</p>
 
 <p>This does not move the physical cursor of the terminal until refresh() is called.  The
 position specified is relative to the upper left corner of the window, which is (0,0).</p>
-</div><h4 id='method.mvaddch' class='method'><code>fn <a href='#method.mvaddch' class='fnname'>mvaddch</a>(&amp;self, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, ch: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+</div><h4 id='method.mvaddch' class='method'><code>fn <a href='#method.mvaddch' class='fnname'>mvaddch</a>&lt;T: <a class='trait' href='../pancurses/trait.ToChtype.html' title='pancurses::ToChtype'>ToChtype</a>&gt;(&amp;self, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, ch: T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
 <div class='docblock'><p>moves the cursor to the specified position and adds ch to the specified window</p>
 </div><h4 id='method.mvaddstr' class='method'><code>fn <a href='#method.mvaddstr' class='fnname'>mvaddstr</a>(&amp;self, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, string: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
 <div class='docblock'><p>Write all the characters of the string str to the given window. The functionality is
 similar to calling waddch() once for each character in the string.</p>
+</div><h4 id='method.mvinch' class='method'><code>fn <a href='#method.mvinch' class='fnname'>mvinch</a>(&amp;self, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='type' href='../pancurses/type.chtype.html' title='pancurses::chtype'>chtype</a></code></h4>
+<div class='docblock'><p>Retrieves the character and attribute from the specified window position, in the form of a
+chtype.</p>
+</div><h4 id='method.nodelay' class='method'><code>fn <a href='#method.nodelay' class='fnname'>nodelay</a>(&amp;self, enabled: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<div class='docblock'><p>Controls whether wgetch() is a non-blocking call. If the option is enabled, and
+no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is
+ready.</p>
 </div><h4 id='method.printw' class='method'><code>fn <a href='#method.printw' class='fnname'>printw</a>(&amp;self, string: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
 <div class='docblock'><p>Add a string to the window at the current cursor position.</p>
 </div><h4 id='method.refresh' class='method'><code>fn <a href='#method.refresh' class='fnname'>refresh</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
@@ -94,10 +119,13 @@ is already there in order to optimize cursor movement.</p>
 <p>This function must be called to get any output on the terminal, as other routines only
 manipulate data structures. Unless leaveok() has been enabled, the physical cursor of the
 terminal is left at the location of the window&#39;s cursor.</p>
-</div><h4 id='method.nodelay' class='method'><code>fn <a href='#method.nodelay' class='fnname'>nodelay</a>(&amp;self, enabled: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
-<div class='docblock'><p>Controls whether wgetch() is a non-blocking call. If the option is enabled, and
-no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is
-ready.</p>
+</div><h4 id='method.subwin' class='method'><code>fn <a href='#method.subwin' class='fnname'>subwin</a>(&amp;self, nlines: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, ncols: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, begy: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, begx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>&gt;</code></h4>
+<div class='docblock'><p>Creates a new subwindow within a window.</p>
+
+<p>The dimensions of the subwindow are nlines lines and ncols columns. The subwindow is at
+position (begy, begx) on the screen. This position is relative to the screen, and not to
+the window orig. Changes made to either window will affect both. When using this routine,
+you will often need to call touchwin() before calling wrefresh().</p>
 </div><h4 id='method.timeout' class='method'><code>fn <a href='#method.timeout' class='fnname'>timeout</a>(&amp;self, milliseconds: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
 <div class='docblock'><p>Set blocking or non-blocking reads for the specified window.</p>
 
@@ -105,10 +133,10 @@ ready.</p>
 then non-blocking reads are done -- if no input is waiting, ERR is returned immediately.
 If the delay is positive, the read blocks for the delay period; if the period expires,
 ERR is returned.</p>
+</div><h4 id='method.ungetch' class='method'><code>fn <a href='#method.ungetch' class='fnname'>ungetch</a>(&amp;self, input: &amp;<a class='enum' href='../pancurses/enum.Input.html' title='pancurses::Input'>Input</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<div class='docblock'><p>Places ch back onto the input queue to be returned by the next call to getch().</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../pancurses/struct.Window.html' title='pancurses::Window'>Window</a></code></h3><div class='impl-items'></div></section>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
