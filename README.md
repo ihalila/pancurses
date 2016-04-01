@@ -46,7 +46,7 @@ fn main() {
 }
 ```
 
-## Example of a more Rustic API
+## Example: Pattern matching with getch()
 
 ```rust
 extern crate pancurses;
