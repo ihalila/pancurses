@@ -1,7 +1,7 @@
 use input::Input;
-use ncurses::ll::{attr_t, chtype};
+use ncurses;
+use ncurses::ll::{attr_t, chtype, mmask_t};
 use ncurses::NCURSES_ATTR_SHIFT;
-pub use ncurses::ll::ALL_MOUSE_EVENTS;
 
 fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
     mask << (shift + NCURSES_ATTR_SHIFT) as usize
@@ -161,3 +161,5 @@ pub const SPECIAL_KEY_CODES: [Input; 108] = [Input::KeyCodeYes,
                                              Input::KeyMouse,
                                              Input::KeyResize,
                                              Input::KeyEvent];
+
+pub const ALL_MOUSE_EVENTS: mmask_t = ncurses::ALL_MOUSE_EVENTS as mmask_t;
