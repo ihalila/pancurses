@@ -12,11 +12,11 @@ use std::ffi::CString;
 #[cfg(windows)]
 use pdcurses as curses;
 #[cfg(windows)]
-pub use pdcurses::chtype;
+pub use pdcurses::{chtype, mmask_t};
 #[cfg(unix)]
 use ncurses::ll as curses;
 #[cfg(unix)]
-pub use ncurses::ll::chtype;
+pub use ncurses::ll::{chtype, mmask_t};
 
 mod input;
 pub use self::input::*;
@@ -84,6 +84,12 @@ impl Window {
     /// Not only change the background, but apply it immediately to every cell in the window.
     pub fn bkgd(&self, ch: chtype) -> i32 {
         unsafe { curses::wbkgd(self._window, ch) }
+    }
+
+    /// Similar to erase(), but also calls clearok() to ensure that the the window is cleared on
+    /// the next refresh().
+    pub fn clear(&self) -> i32 {
+        unsafe { curses::wclear(self._window) }
     }
 
     /// The same as subwin(), except that begy and begx are relative to the origin of the window
@@ -316,6 +322,17 @@ pub fn initscr() -> Window {
 /// color-pair are changed to the new definition.
 pub fn init_pair(pair_index: i16, foreground_color: i16, background_color: i16) -> i32 {
     unsafe { curses::init_pair(pair_index, foreground_color, background_color) as i32 }
+}
+
+/// Nearly equivalent to mouse_set(), but instead of OK/ERR, it returns the value of the mask after
+/// setting it.
+///
+/// (This isn't necessarily the same value passed in, since the mask could be altered on some
+/// platforms.) And if the second parameter is a non-null pointer, mousemask() stores the previous
+/// mask value there. Also, since the ncurses interface doesn't work with PDCurses' BUTTON_MOVED
+/// events, mousemask() filters them out.
+pub fn mousemask(arg1: mmask_t, arg2: *mut mmask_t) -> mmask_t {
+    unsafe { curses::mousemask(arg1, arg2) }
 }
 
 /// Suspends the program for the specified number of milliseconds.
