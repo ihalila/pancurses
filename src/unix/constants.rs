@@ -1,6 +1,7 @@
 use input::Input;
 use ncurses::ll::{attr_t, chtype};
 use ncurses::NCURSES_ATTR_SHIFT;
+pub use ncurses::ll::ALL_MOUSE_EVENTS;
 
 fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
     mask << (shift + NCURSES_ATTR_SHIFT) as usize

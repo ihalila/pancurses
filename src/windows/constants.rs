@@ -1,5 +1,6 @@
 use input::Input;
 use pdcurses::chtype;
+use pdcurses::mmask_t;
 
 pub fn COLOR_PAIR(n: chtype) -> chtype {
     (n << PDC_COLOR_SHIFT) & A_COLOR
@@ -135,3 +136,5 @@ pub const SPECIAL_KEY_CODES: [Input; 102] = [Input::KeyCodeYes,
                                              Input::KeySUndo,
                                              Input::KeySuspend,
                                              Input::KeyUndo];
+
+pub const ALL_MOUSE_EVENTS: mmask_t = 0x1fffffff;
