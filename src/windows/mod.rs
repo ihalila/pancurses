@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types, non_snake_case)]
 use pdcurses::*;
 use libc::c_int;
+use std::ffi::CString;
 
 pub mod constants;
 use self::constants::*;
@@ -21,6 +22,11 @@ pub fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
 
 pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
     unsafe { resize_term(nlines, ncols) }
+}
+
+pub fn _set_title(title: &str) {
+    let s = CString::new(title).unwrap();
+    unsafe { PDC_set_title(s.as_ptr()) }
 }
 
 /// Converts an integer returned by getch() to a Input value

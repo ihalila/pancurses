@@ -375,6 +375,12 @@ pub fn noecho() -> i32 {
     unsafe { curses::noecho() }
 }
 
+/// Sets the title of the window in which the curses program is running. This function may not do
+/// anything on some platforms. (Currently it only works in Win32)
+pub fn set_title(title: &str) {
+    platform_specific::_set_title(title);
+}
+
 /// Attempts to resize the screen to the given size.
 ///
 /// resize_term() is effectively two functions: When called with nonzero values for nlines and

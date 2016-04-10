@@ -19,6 +19,8 @@ fn main() {
     init_pair(1, 15, COLOR_BLACK);
     init_pair(2, COLOR_BLACK, COLOR_YELLOW);
 
+    set_title("NewTest: tests various PDCurses features");
+
     mousemask(ALL_MOUSE_EVENTS, std::ptr::null_mut());
 
     endwin();

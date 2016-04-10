@@ -24,6 +24,10 @@ pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
     -1
 }
 
+pub fn _set_title(title: &str) {
+    //Not supported
+}
+
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Input {
     assert!(i >= KEY_OFFSET, format!("Input value less than expected: {:?}", i));
