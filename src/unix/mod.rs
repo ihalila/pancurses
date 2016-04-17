@@ -3,7 +3,7 @@ pub mod constants;
 use self::constants::*;
 
 use ncurses::{box_};
-use ncurses::ll::{chtype, WINDOW, wattron, wattrset, ungetch};
+use ncurses::ll::{chtype, WINDOW, wattron, wattroff, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
 
