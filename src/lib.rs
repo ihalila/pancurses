@@ -76,6 +76,10 @@ impl Window {
         platform_specific::_attron(self._window, attributes)
     }
 
+    pub fn attroff(&self, attributes: chtype) -> i32 {
+        platform_specific::_attroff(self._window, attributes)
+    }
+
     /// Sets the current attributes of the given window to attributes.
     pub fn attrset(&self, attributes: chtype) -> i32 {
         platform_specific::_attrset(self._window, attributes)

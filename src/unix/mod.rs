@@ -11,6 +11,10 @@ pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattron(w, attributes as i32) }
 }
 
+pub fn _attroff(w: WINDOW, attributes: chtype) -> i32 {
+    unsafe { wattroff(w, attributes as i32) }
+}
+
 pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes as i32) }
 }

@@ -18,10 +18,20 @@ pub const COLOR_WHITE: i16 = 7;
 pub const PDC_CHARTEXT_BITS: chtype = 21;
 pub const PDC_COLOR_SHIFT: chtype = PDC_CHARTEXT_BITS + 12;
 
-pub const A_NORMAL: chtype = 0;
-pub const A_COLOR: chtype = 0x7fffffff << PDC_COLOR_SHIFT;
-pub const A_BOLD: chtype = 0x080 << PDC_CHARTEXT_BITS;
-pub const A_BLINK: chtype = 0x040 << PDC_CHARTEXT_BITS;
+pub const A_ALTCHARSET : chtype = 0x001 << PDC_CHARTEXT_BITS;
+pub const A_BOLD       : chtype = 0x080 << PDC_CHARTEXT_BITS;
+pub const A_BLINK      : chtype = 0x040 << PDC_CHARTEXT_BITS;
+pub const A_COLOR      : chtype = 0x7fffffff << PDC_COLOR_SHIFT;
+pub const A_CHARTEXT   : chtype = (0x1 << PDC_CHARTEXT_BITS) - 1;
+pub const A_DIM        : chtype = 0x400 << PDC_CHARTEXT_BITS;
+pub const A_LEFTLINE   : chtype = 0x004 << PDC_CHARTEXT_BITS;
+pub const A_INVIS      : chtype = 0x008 << PDC_CHARTEXT_BITS;
+pub const A_NORMAL     : chtype = 0;
+pub const A_OVERLINE   : chtype = 0x100 << PDC_CHARTEXT_BITS;
+pub const A_REVERSE    : chtype = 0x020 << PDC_CHARTEXT_BITS;
+pub const A_RIGHTLINE  : chtype = 0x002 << PDC_CHARTEXT_BITS;
+pub const A_STRIKEOUT  : chtype = 0x200 << PDC_CHARTEXT_BITS;
+pub const A_UNDERLINE  : chtype = 0x010 << PDC_CHARTEXT_BITS;
 
 pub const KEY_OFFSET: i32 = 0xec00;
 pub const KEY_F15: i32 = (KEY_OFFSET + 0x17);
