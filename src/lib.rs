@@ -63,19 +63,29 @@ pub struct Window {
 }
 
 impl Window {
+    /// Adds the chtype ch to the window at the current cursor position, and advances the cursor.
+    ///
+    /// Note that chtypes can convey both text (a single character) and attributes, including a
+    /// color pair.
     pub fn addch<T: ToChtype>(&self, ch: T) -> i32 {
         unsafe { curses::waddch(self._window, ch.to_chtype()) }
     }
 
+    /// Write all the characters of the string to the given window.
+    ///
+    /// The functionality is similar to calling window.addch() once for each character in the
+    /// string.
     pub fn addstr(&self, string: &str) -> i32 {
         let s = CString::new(string).unwrap();
         unsafe { curses::waddstr(self._window, s.as_ptr()) }
     }
 
+    /// Turns on the named attributes without affecting any other attributes.
     pub fn attron(&self, attributes: chtype) -> i32 {
         platform_specific::_attron(self._window, attributes)
     }
 
+    /// Turns off the named attributes without affecting any other attributes.
     pub fn attroff(&self, attributes: chtype) -> i32 {
         platform_specific::_attroff(self._window, attributes)
     }
@@ -107,6 +117,8 @@ impl Window {
                     begx + self.get_beg_x())
     }
 
+    /// Draw a border around the edge of the window. If any argument is zero, an appropriate
+    /// default is used.
     pub fn draw_box<T: ToChtype>(&self, verch: T, horch: T) -> i32 {
         platform_specific::_draw_box(self._window, verch.to_chtype(), horch.to_chtype())
     }
