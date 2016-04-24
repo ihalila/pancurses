@@ -26,6 +26,7 @@ pub const A_CHARTEXT   : chtype = (0x1 << PDC_CHARTEXT_BITS) - 1;
 pub const A_DIM        : chtype = 0x400 << PDC_CHARTEXT_BITS;
 pub const A_LEFTLINE   : chtype = 0x004 << PDC_CHARTEXT_BITS;
 pub const A_INVIS      : chtype = 0x008 << PDC_CHARTEXT_BITS;
+pub const A_ITALIC     : chtype = A_INVIS;
 pub const A_NORMAL     : chtype = 0;
 pub const A_OVERLINE   : chtype = 0x100 << PDC_CHARTEXT_BITS;
 pub const A_REVERSE    : chtype = 0x020 << PDC_CHARTEXT_BITS;

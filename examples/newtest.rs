@@ -44,12 +44,35 @@ fn main() {
 
         if redraw {
             window.mvaddstr(1, COL1, "'Normal' white-on-black");
+
             window.attron(A_DIM);
             window.mvaddstr(2, COL1, "Dimmed text");
             window.attroff(A_DIM);
+
+            window.attron(A_BLINK);
+            window.mvaddstr(6, 40, "Blinking");
+            window.attron(A_BOLD);
+            window.mvaddstr(8, 40, "BlinkBold");
+            window.attron(A_ITALIC);
+            window.mvaddstr(0, COL2, "BlinkBoldItalic");
+            window.attrset(COLOR_PAIR(3));
+            window.attron(A_UNDERLINE);
+
+            window.mvaddstr(1, COL2, "Underlined");
+
+            window.attrset(COLOR_PAIR(1));
+            window.attron(A_UNDERLINE | A_ITALIC);
+            window.mvaddstr(2, COL2, "UnderlinedItalic");
+            window.attrset(COLOR_PAIR(2));
+            window.mvaddstr(4, COL1, "Black-on-yellow blinking");
+            window.attron(A_BLINK);
+
+            window.attrset(COLOR_PAIR(1));
+            window.mv(4, COL2);
+
         }
 
-        //These two lines are just here to allow running this until its finished
+        // These two lines are just here to allow running this until its finished
         window.getch();
         break;
     }
