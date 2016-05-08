@@ -27,14 +27,14 @@ pub const A_CHARTEXT: attr_t = (1u32 << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_COLOR: attr_t = ((((1u32) << 8) - 1u32) << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_DIM: attr_t = (1u32 << (12u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_ITALIC: attr_t = (1u32 << (23 + NCURSES_ATTR_SHIFT)) as attr_t;
+pub const A_LEFTLINE: attr_t = 0; // Not supported on ncurses
 pub const A_NORMAL: attr_t = 0u32 as attr_t;
+pub const A_OVERLINE: attr_t = 0; // Not supported on ncurses
+pub const A_RIGHTLINE: attr_t = 0; // Not supported on ncurses
 pub const A_UNDERLINE: attr_t = (1u32 << (9 + NCURSES_ATTR_SHIFT)) as attr_t;
 
 // pub fn A_STANDOUT() -> attr_t
 // { NCURSES_BITS(1u32, 8u32) as attr_t }
-//
-// pub fn A_UNDERLINE() -> attr_t
-// { NCURSES_BITS(1u32, 9u32) as attr_t }
 //
 // pub fn A_REVERSE() -> attr_t
 // { NCURSES_BITS(1u32, 10u32) as attr_t }
