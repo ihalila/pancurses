@@ -69,7 +69,7 @@ fn main() {
 
             window.attrset(COLOR_PAIR(1));
             window.mv(4, COL2);
-
+            text_in_a_box("Text in a box", &window);
         }
 
         // These two lines are just here to allow running this until its finished
@@ -78,4 +78,25 @@ fn main() {
     }
 
     endwin();
+}
+
+fn text_in_a_box(text: &str, window: &Window) {
+    let len = text.len();
+
+    window.attron(A_OVERLINE | A_UNDERLINE | A_LEFTLINE);
+    if len == 1 {
+        window.attron(A_RIGHTLINE);
+    }
+
+    window.addnstr(text, 1);
+    if len > 1 {
+        window.attroff(A_LEFTLINE);
+        if len > 2 {
+            window.addnstr(&text[1..], len - 2);
+        }
+        window.attron(A_RIGHTLINE);
+        window.addnstr(&text[len - 1..], 1);
+    }
+
+    window.attroff(A_OVERLINE | A_UNDERLINE | A_LEFTLINE | A_RIGHTLINE);
 }
