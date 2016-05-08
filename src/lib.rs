@@ -80,6 +80,13 @@ impl Window {
         unsafe { curses::waddstr(self._window, s.as_ptr()) }
     }
 
+    /// Write at most length characters; if length is negative, then the entire string will be
+    /// added.
+    pub fn addnstr(&self, string: &str, length: usize) -> i32 {
+        let s = CString::new(string).unwrap();
+        unsafe { curses::waddnstr(self._window, s.as_ptr(), length as i32) }
+    }
+
     /// Turns on the named attributes without affecting any other attributes.
     pub fn attron(&self, attributes: chtype) -> i32 {
         platform_specific::_attron(self._window, attributes)
