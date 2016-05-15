@@ -21,18 +21,9 @@ name = "pancurses"
 log = "0.3"
 libc = "0.2"
 
-[target.x86_64-pc-windows-gnu.dependencies]
+[target.'cfg(windows)'.dependencies]
 pdcurses-sys = "0.3"
-[target.i686-pc-windows-gnu.dependencies]
-pdcurses-sys = "0.3"
-[target.x86_64-pc-windows-msvc.dependencies]
-pdcurses-sys = "0.3"
-[target.i686-pc-windows-msvc.dependencies]
-pdcurses-sys = "0.3"
-
-[target.i686-unknown-linux-gnu.dependencies]
-ncurses = "5.80.0"
-[target.x86_64-unknown-linux-gnu.dependencies]
+[target.'cfg(unix)'.dependencies]
 ncurses = "5.80.0"
 
 [dev-dependencies]
