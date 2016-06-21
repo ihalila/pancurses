@@ -222,6 +222,12 @@ impl Window {
         unsafe { curses::mvwinch(self._window, y, x) }
     }
 
+    /// Add a string to the window at the specified cursor position.
+    pub fn mvprintw(&self, y: i32, x: i32, string: &str) -> i32 {
+        let s = CString::new(string).unwrap();
+        unsafe { curses::mvwprintw(self._window, y, x, s.as_ptr()) }
+    }
+
     /// Controls whether wgetch() is a non-blocking call. If the option is enabled, and
     /// no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is
     /// ready.
@@ -229,7 +235,7 @@ impl Window {
         unsafe { curses::nodelay(self._window, enabled as u8) as i32 }
     }
 
-    ///Add a string to the window at the current cursor position.
+    /// Add a string to the window at the current cursor position.
     pub fn printw(&self, string: &str) -> i32 {
         let s = CString::new(string).unwrap();
         unsafe { curses::wprintw(self._window, s.as_ptr()) }

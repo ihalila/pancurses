@@ -32,6 +32,8 @@ fn main() {
     const COL2: i32 = COL1 + 30;
     const COL3: i32 = 72;
 
+    let mut unicode_offset = 0x80;
+
     while !quit {
         let (y_max, x_max) = window.get_max_yx();
         let color_block_start = 54;
@@ -70,6 +72,19 @@ fn main() {
             window.attrset(COLOR_PAIR(1));
             window.mv(4, COL2);
             text_in_a_box("Text in a box", &window);
+
+            window.attrset(COLOR_PAIR(6));
+            window.attron(A_STRIKEOUT);
+            window.mvaddstr(10, 40, "Strikeout");
+            window.attrset(COLOR_PAIR(1));
+
+            window.mv(11, 40);
+            text_in_a_box("Next Ucode pg", &window);
+            if unicode_offset != 0 {
+                window.mv(12, 40);
+                text_in_a_box("Prev Ucode pg", &window);
+            }
+            window.mvprintw(13, 40, &format!("U+{:04X} ", unicode_offset));
         }
 
         // These two lines are just here to allow running this until its finished
