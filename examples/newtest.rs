@@ -85,6 +85,16 @@ fn main() {
                 text_in_a_box("Prev Ucode pg", &window);
             }
             window.mvprintw(13, 40, &format!("U+{:04X} ", unicode_offset));
+
+            for i in 0..128 { // Show extended characters
+                window.mvaddstr(5 + i % 16, (i / 16) * 5, &format!("{:02X} ", i + unicode_offset));
+                if i + unicode_offset > ' ' as i32 {
+                   window.addch((i + unicode_offset) as chtype);
+                } else {
+                   window.addch(' ');
+                }
+                window.addch(' ');
+            }
         }
 
         // These two lines are just here to allow running this until its finished
