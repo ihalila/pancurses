@@ -7,6 +7,7 @@ fn main() {
 
     start_color();
     use_default_colors();
+    set_blink(true);
 
     cbreak();
     noecho();
@@ -66,8 +67,8 @@ fn main() {
             window.attron(A_UNDERLINE | A_ITALIC);
             window.mvaddstr(2, COL2, "UnderlinedItalic");
             window.attrset(COLOR_PAIR(2));
-            window.mvaddstr(4, COL1, "Black-on-yellow blinking");
             window.attron(A_BLINK);
+            window.mvaddstr(4, COL1, "Black-on-yellow blinking");
 
             window.attrset(COLOR_PAIR(1));
             window.mv(4, COL2);

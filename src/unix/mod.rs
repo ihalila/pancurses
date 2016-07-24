@@ -28,6 +28,10 @@ pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
     -1
 }
 
+pub fn _set_blink(_: bool) -> i32 {
+    0 // Not supported
+}
+
 pub fn _set_title(_: &str) {
     //Not supported
 }

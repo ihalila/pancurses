@@ -424,12 +424,6 @@ pub fn noecho() -> i32 {
     unsafe { curses::noecho() }
 }
 
-/// Sets the title of the window in which the curses program is running. This function may not do
-/// anything on some platforms. (Currently it only works in Win32)
-pub fn set_title(title: &str) {
-    platform_specific::_set_title(title);
-}
-
 /// Attempts to resize the screen to the given size.
 ///
 /// resize_term() is effectively two functions: When called with nonzero values for nlines and
@@ -441,6 +435,23 @@ pub fn set_title(title: &str) {
 /// windows you've created.
 pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
     platform_specific::_resize_term(nlines, ncols)
+}
+
+/// Toggles whether the A_BLINK attribute sets an actual blink mode (TRUE), or sets the background
+/// color to hig intensity (FALSE).
+///
+/// The default is platform-dependent (FALSE in most cases). It returns OK if it could set the
+/// state to match the given parameter, ERR otherwise. Current platforms also adjust the value
+/// of COLORS according to this function -- 16 for FALSE, and 8 for TRUE.
+/// (Only supported on Windows)
+pub fn set_blink(enabled: bool) -> i32 {
+    platform_specific::_set_blink(enabled)
+}
+
+/// Sets the title of the window in which the curses program is running. This function may not do
+/// anything on some platforms. (Only supported on Windows)
+pub fn set_title(title: &str) {
+    platform_specific::_set_title(title);
 }
 
 /// Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,

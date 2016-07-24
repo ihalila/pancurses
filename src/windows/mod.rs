@@ -28,6 +28,10 @@ pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
     unsafe { resize_term(nlines, ncols) }
 }
 
+pub fn _set_blink(enabled: bool) -> i32 {
+    unsafe { PDC_set_blink(enabled as u8) }
+}
+
 pub fn _set_title(title: &str) {
     let s = CString::new(title).unwrap();
     unsafe { PDC_set_title(s.as_ptr()) }
