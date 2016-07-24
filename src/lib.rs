@@ -258,6 +258,19 @@ impl Window {
         unsafe { curses::wrefresh(self._window) }
     }
 
+   /// If enabled and a scrolling region is set with setscrreg(), any attempt to move off
+   /// the bottom margin will cause all lines in the scrolling region to scroll up one line.
+   pub fn scrollok(&self, bf: bool) -> i32 {
+       unsafe { curses::scrollok(self._window, bf as u8) }
+   }
+
+   /// Sets a scrolling region in a window.
+   ///
+   /// "top" and "bot" are the line numbers for the top and bottom margins.
+   pub fn setscrreg(&self, top: i32, bot: i32) -> i32 {
+       unsafe { curses::wsetscrreg(self._window, top, bot) }
+   }
+
     /// Creates a new subwindow within a window.
     ///
     /// The dimensions of the subwindow are nlines lines and ncols columns. The subwindow is at
