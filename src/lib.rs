@@ -113,6 +113,13 @@ impl Window {
         unsafe { curses::wclear(self._window) }
     }
 
+    /// With clearok(), if bf is TRUE, the next call to refresh() with
+    /// this window will clear the screen completely and redraw the
+    /// entire screen.
+    pub fn clearok(&self, bf: bool) -> i32 {
+        unsafe { curses::clearok(self._window, bf as u8) }
+    }
+
     /// The same as subwin(), except that begy and begx are relative to the origin of the window
     /// rather than the screen.
     ///
