@@ -223,6 +223,12 @@ impl Window {
         unsafe { curses::mvwaddstr(self._window, y, x, s.as_ptr()) }
     }
 
+    /// Write the first'n' characters of the string str to the given window.
+    pub fn mvaddnstr(&self, y: i32, x: i32, string: &str, n: i32) -> i32 {
+        let s = CString::new(string).unwrap();
+        unsafe { curses::mvwaddnstr(self._window, y, x, s.as_ptr(), n) }
+    }
+
     /// Retrieves the character and attribute from the specified window position, in the form of a
     /// chtype.
     pub fn mvinch(&self, y: i32, x: i32) -> chtype {
