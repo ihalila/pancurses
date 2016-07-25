@@ -96,6 +96,37 @@ fn main() {
                 }
                 window.addch(' ');
             }
+
+            // Skipped the full RGB example, I don't think there's a suitable feature in ncurses
+
+            redraw = false;
+            window.attrset(COLOR_PAIR(1));
+            
+            for i in 0..6 {
+                let line = 24 + i / 3;
+                let col = 5 + 25 * (i % 3);
+
+                let spanish = "Español";
+                let russian = "Русский язык";
+                let greek = "Ελληνικά";
+                let georgian = "ქართული ენა";
+                let fullwidth = " Ｆｕｌｌｗｉｄｔｈ";
+                let combining_marks =  "Cmin 	r";
+
+                let texts = [spanish, russian, greek, georgian, fullwidth, combining_marks];
+
+                if line < y_max && col < x_max {
+                    window.mvaddnstr(line, 5 + 25 * (i % 3), texts[i as usize], x_max - col);
+                }
+            }
+
+            window.mvaddstr(  1, COL3, "Click on cursor descriptions to");
+            window.mvaddstr(  2, COL3, "cycle through possible cursors");
+            window.mvaddstr(  3, COL3, "Click on colors at left to change");
+            window.mvaddstr(  4, COL3, "colors used for under/over/outlining");
+            window.mvaddstr(  5, COL3, "Click 'Blink' at bottom to toggle");
+            window.mvaddstr(  6, COL3, "'real' blinking vs. 'highlit' blink");
+
         }
 
         // These two lines are just here to allow running this until its finished
