@@ -30,15 +30,11 @@ pub const A_ITALIC: attr_t = (1u32 << (23 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_LEFTLINE: attr_t = 0; // Not supported on ncurses
 pub const A_NORMAL: attr_t = 0u32 as attr_t;
 pub const A_OVERLINE: attr_t = 0; // Not supported on ncurses
+pub const A_REVERSE: attr_t = (1u32 << (10 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_RIGHTLINE: attr_t = 0; // Not supported on ncurses
+pub const A_STANDOUT: attr_t = (1u32 << (8 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_STRIKEOUT: attr_t = 0; // Not supported on ncurses
 pub const A_UNDERLINE: attr_t = (1u32 << (9 + NCURSES_ATTR_SHIFT)) as attr_t;
-
-// pub fn A_STANDOUT() -> attr_t
-// { NCURSES_BITS(1u32, 8u32) as attr_t }
-//
-// pub fn A_REVERSE() -> attr_t
-// { NCURSES_BITS(1u32, 10u32) as attr_t }
 
 pub const KEY_RESIZE: i32 = 0632;
 
