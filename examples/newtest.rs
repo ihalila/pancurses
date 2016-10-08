@@ -203,6 +203,14 @@ fn main() {
                             } else if mouse_event.y == 20 { // cycle cursor state
                                 cursor_state_2 = (cursor_state_2 + 1) % N_CURSORS as usize;
                             }
+                        } else if mouse_event.x >= 40 && mouse_event.x < 40 + 10 {
+                            if mouse_event.y == 11 {
+                                redraw = true;
+                                unicode_offset += 0x80;
+                            } else if (mouse_event.y == 12 && unicode_offset != 0) {
+                                redraw = true;
+                                unicode_offset -= 0x80;
+                            }
                         }
                     }
                     Err(_) => (),
