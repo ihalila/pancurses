@@ -2,7 +2,7 @@
 pub mod constants;
 use self::constants::*;
 
-use ncurses::{box_};
+use ncurses::{box_, getmouse};
 use ncurses::ll::{chtype, MEVENT, WINDOW, wattron, wattroff, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
@@ -24,7 +24,19 @@ pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
 }
 
 pub fn _getmouse() -> Result<MEVENT, i32> {
-    Err(-1)
+    let mut mevent = MEVENT {
+        id: 0,
+        x: 0,
+        y: 0,
+        z: 0,
+        bstate: 0
+    };
+    let error = getmouse(&mut mevent);
+    if error == 0 {
+        Ok(mevent)
+    } else {
+        Err(error)
+    }
 }
 
 pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
