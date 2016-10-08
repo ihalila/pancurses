@@ -3,20 +3,20 @@ pub mod constants;
 use self::constants::*;
 
 use ncurses::{box_, getmouse};
-use ncurses::ll::{chtype, MEVENT, WINDOW, wattron, wattroff, wattrset, ungetch};
+use ncurses::ll::{chtype, MEVENT, NCURSES_ATTR_T, WINDOW, wattron, wattroff, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
 
 pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattron(w, attributes as i32) }
+    unsafe { wattron(w, attributes as NCURSES_ATTR_T) }
 }
 
 pub fn _attroff(w: WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattroff(w, attributes as i32) }
+    unsafe { wattroff(w, attributes as NCURSES_ATTR_T) }
 }
 
 pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattrset(w, attributes as i32) }
+    unsafe { wattrset(w, attributes as NCURSES_ATTR_T) }
 }
 
 pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
