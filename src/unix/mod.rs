@@ -3,7 +3,7 @@ pub mod constants;
 use self::constants::*;
 
 use ncurses::{box_};
-use ncurses::ll::{chtype, WINDOW, wattron, wattroff, wattrset, ungetch};
+use ncurses::ll::{chtype, MEVENT, WINDOW, wattron, wattroff, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
 
@@ -21,6 +21,10 @@ pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
 
 pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
     box_(w, verch, horch)
+}
+
+pub fn _getmouse() -> Result<MEVENT, i32> {
+    Err(-1)
 }
 
 pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {

@@ -38,6 +38,7 @@ pub const KEY_OFFSET: i32 = 0xec00;
 pub const KEY_F15: i32 = (KEY_OFFSET + 0x17);
 pub const KEY_UNDO: i32 = (KEY_OFFSET + 0x96);
 pub const KEY_RESIZE: i32 = (KEY_OFFSET + 0x122);
+pub const KEY_MOUSE: i32 = (KEY_OFFSET + 0x11b);
 
 pub const SPECIAL_KEY_CODES: [Input; 102] = [Input::KeyCodeYes,
 

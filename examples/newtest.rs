@@ -32,9 +32,13 @@ fn main() {
     const COL1: i32 = 2;
     const COL2: i32 = COL1 + 30;
     const COL3: i32 = 72;
+    const N_CURSORS: i32 = 9;
 
     let mut unicode_offset = 0x80;
     let mut blink_state = true;
+
+    let mut cursor_state_1 = 2;
+    let mut cursor_state_2 = 3;
 
     while !quit {
         let (y_max, x_max) = window.get_max_yx();
@@ -42,8 +46,6 @@ fn main() {
         let mut color_block_cols = (x_max - color_block_start) / 2;
         let color_block_lines = 19;
 
-        let mut cursor_state_1 = 2;
-        let mut cursor_state_2 = 3;
         let cursor_state_text = ["Invisible (click to change) ",
                                  "Underscore (click to change)",
                                  "Block (click to change)     ",
@@ -156,7 +158,11 @@ fn main() {
         for i in 0..color_block_cols * color_block_lines {
             let n_color_blocks = 256;
 
-            window.attrset(COLOR_PAIR(if i >= n_color_blocks { 2 } else { i as chtype }));
+            window.attrset(COLOR_PAIR(if i >= n_color_blocks {
+                2
+            } else {
+                i as chtype
+            }));
             if i > 2 && i < n_color_blocks {
                 init_pair(i as i16, i as i16, COLOR_BLACK);
             }
@@ -178,12 +184,29 @@ fn main() {
             Some(Input::KeyF2) => {
                 blink_state = !blink_state;
                 set_blink(blink_state);
-            },
+            }
             Some(x) if x != Input::KeyMouse => {
                 window.mvaddstr(0, COL1, &format!("Key {:?} hit          ", x));
-            },
+            }
             Some(Input::KeyMouse) => {
-                
+                match getmouse() {
+                    Ok(mouse_event) => {
+                        window.mvaddstr(0,
+                                        COL1,
+                                        &format!("Mouse at {} x {}: {}",
+                                                 mouse_event.x,
+                                                 mouse_event.y,
+                                                 mouse_event.bstate));
+                        if mouse_event.x >= color_block_start {
+                            if mouse_event.y == 19 { // blink/non-blink toggle
+                                cursor_state_1 = (cursor_state_1 + 1) % N_CURSORS as usize;
+                            } else if mouse_event.y == 20 { // cycle cursor state
+                                cursor_state_2 = (cursor_state_2 + 1) % N_CURSORS as usize;
+                            }
+                        }
+                    }
+                    Err(_) => (),
+                }
             }
             _ => (),
         }

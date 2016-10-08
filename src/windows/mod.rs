@@ -24,6 +24,22 @@ pub fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
     unsafe { _box(w, verch, horch) }
 }
 
+pub fn _getmouse() -> Result<MEVENT, i32> {
+    let mut mevent = MEVENT {
+        id: 0,
+        x: 0,
+        y: 0,
+        z: 0,
+        bstate: 0
+    };
+    let error = unsafe { nc_getmouse(&mut mevent) };
+    if error == 0 {
+        Ok(mevent)
+    } else {
+        Err(error)
+    }
+}
+
 pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
     unsafe { resize_term(nlines, ncols) }
 }
@@ -44,6 +60,8 @@ pub fn to_special_keycode(i: i32) -> Input {
     // clean of implementation specific keys.
     if i == KEY_RESIZE {
         Input::KeyResize
+    } else if i == KEY_MOUSE {
+        Input::KeyMouse
     } else {
         assert!(i >= KEY_OFFSET, format!("Input value less than expected: {:?}", i));
         if i > KEY_UNDO {
@@ -68,6 +86,8 @@ fn convert_input_to_c_int(input: &Input) -> c_int {
     match *input {
         Input::Character(c) => c as c_int,
         Input::Unknown(i) => i,
+        Input::KeyResize => KEY_RESIZE,
+        Input::KeyMouse => KEY_MOUSE,
         specialKeyCode => {
             for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
                 if *skc == specialKeyCode {
@@ -123,5 +143,12 @@ mod tests {
     fn test_convert_sdl_to_c_int() {
         let i = convert_input_to_c_int(&Input::KeySDL);
         assert_eq!(KEY_OFFSET + 0x7e, i);
+    }
+
+    #[test]
+    fn test_convert_key_mouse() {
+        let i = convert_input_to_c_int(&Input::KeyMouse);
+        let kc = to_special_keycode(i);
+        assert_eq!(i, convert_input_to_c_int(&kc));
     }
 }

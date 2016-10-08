@@ -12,11 +12,11 @@ use std::ffi::CString;
 #[cfg(windows)]
 use pdcurses as curses;
 #[cfg(windows)]
-pub use pdcurses::{chtype, mmask_t};
+pub use pdcurses::{chtype, mmask_t, MEVENT};
 #[cfg(unix)]
 use ncurses::ll as curses;
 #[cfg(unix)]
-pub use ncurses::ll::{chtype, mmask_t};
+pub use ncurses::ll::{chtype, mmask_t, MEVENT};
 
 mod input;
 pub use self::input::*;
@@ -345,6 +345,10 @@ pub fn endwin() -> i32 {
 /// program.
 pub fn flushinp() -> i32 {
     unsafe { curses::flushinp() }
+}
+
+pub fn getmouse() -> Result<MEVENT, i32> {
+    platform_specific::_getmouse()
 }
 
 /// Similar to cbreak(), but allows for a time limit to be specified, in tenths of a second.
