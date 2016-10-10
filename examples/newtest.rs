@@ -207,7 +207,7 @@ fn main() {
                             if mouse_event.y == 11 {
                                 redraw = true;
                                 unicode_offset += 0x80;
-                            } else if (mouse_event.y == 12 && unicode_offset != 0) {
+                            } else if mouse_event.y == 12 && unicode_offset != 0 {
                                 redraw = true;
                                 unicode_offset -= 0x80;
                             }
