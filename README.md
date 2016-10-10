@@ -1,7 +1,7 @@
 # pancurses [![Build Status](https://travis-ci.org/ihalila/pancurses.svg?branch=master)](https://travis-ci.org/ihalila/pancurses) [![Build status](https://ci.appveyor.com/api/projects/status/x4j52ihig9n2e25y?svg=true)](https://ci.appveyor.com/project/ihalila/pancurses) [![Crates.io](https://img.shields.io/crates/v/pancurses.svg)](https://crates.io/crates/pancurses)
 
-pancurses is a curses libary for Rust that supports both Unix and Windows
-platforms by abstracting away the backend that it uses
+pancurses is a curses libary for Rust that supports both Linux and Windows
+by abstracting away the backend that it uses
 ([ncurses-rs](https://github.com/jeaye/ncurses-rs) and
 [pdcurses-sys](https://github.com/ihalila/pdcurses-sys) respectively).
 
@@ -11,7 +11,7 @@ for ease of use while remaining close enough to curses to make porting easy.
 ## [Documentation](http://ihalila.github.io/pancurses/pancurses/)
 
 ## Requirements
-#### Unix platforms
+#### Linux
 ncurses-rs links with the native ncurses library so that needs to be installed
 so that the linker can find it.
 
@@ -28,7 +28,7 @@ Check [pdcurses-sys](https://github.com/ihalila/pdcurses-sys) for more details.
 Cargo.toml
 ```toml
 [dependencies]
-pancurses = "0.3"
+pancurses = "0.4"
 ```
 
 main.rs
@@ -74,10 +74,11 @@ fn main() {
 ## Status
 
 I'm working through implementing the various functions using the PDCurses
-demos as a priority list. Version 0.3 has everything that a simple hello
+demos as a priority list. Version 0.4 has everything that a simple hello
 world program, the firework example, the rain example need and the newdemo
-example needs.
-For 0.4 I'll tackle the 'newtest' example.
+example needs. The 'newtest' demo is done, but not quite all features have
+been implemented as there was a lot of PDCurses-specific stuff there, and
+I'd rather implement the shared functions first.
 
 ## License
 
