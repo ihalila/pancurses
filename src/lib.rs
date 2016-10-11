@@ -179,6 +179,21 @@ impl Window {
         }
     }
 
+    /// Return the current x coordinate of the cursor
+    pub fn get_cur_x(&self) -> i32 {
+        unsafe { curses::getcurx(self._window) }
+    }
+
+    /// Return the current y coordinate of the cursor
+    pub fn get_cur_y(&self) -> i32 {
+        unsafe { curses::getcury(self._window) }
+    }
+
+    /// Return the current y and x coordinates of the cursor
+    pub fn get_cur_yx(&self) -> (i32, i32) {
+        (self.get_cur_y(), self.get_cur_x())
+    }
+
     /// Return the maximum x value of this Window, in other words the number of columns.
     pub fn get_max_x(&self) -> i32 {
         unsafe { curses::getmaxx(self._window) }
