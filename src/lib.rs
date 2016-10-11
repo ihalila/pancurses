@@ -107,6 +107,30 @@ impl Window {
         unsafe { curses::wbkgd(self._window, ch) }
     }
 
+    /// Draw a border around the edges of the window.
+    pub fn border<T: ToChtype>(&self,
+                               left_side: T,
+                               right_side: T,
+                               top_side: T,
+                               bottom_side: T,
+                               top_left_corner: T,
+                               top_right_corner: T,
+                               bottom_left_corner: T,
+                               bottom_right_corner: T)
+                               -> i32 {
+        unsafe {
+            curses::wborder(self._window,
+                            left_side.to_chtype(),
+                            right_side.to_chtype(),
+                            top_side.to_chtype(),
+                            bottom_side.to_chtype(),
+                            top_left_corner.to_chtype(),
+                            top_right_corner.to_chtype(),
+                            bottom_left_corner.to_chtype(),
+                            bottom_right_corner.to_chtype())
+        }
+    }
+
     /// Similar to erase(), but also calls clearok() to ensure that the the window is cleared on
     /// the next refresh().
     pub fn clear(&self) -> i32 {
@@ -118,6 +142,19 @@ impl Window {
     /// entire screen.
     pub fn clearok(&self, bf: bool) -> i32 {
         unsafe { curses::clearok(self._window, bf as u8) }
+    }
+
+    /// Delete the character under the cursor. All characters to the right of the cursor
+    /// on the same line are moved to the left one position and hte last character on the
+    /// line is filled with a blank. The cursor position does not change.
+    pub fn delch(&self) -> i32 {
+        unsafe { curses::wdelch(self._window) }
+    }
+
+    /// Delete the line under the cursor. All lines below are moved up one line, and the
+    /// bottom line is cleared. The cursor position does not change.
+    pub fn deleteln(&self) -> i32 {
+        unsafe { curses::wdeleteln(self._window) }
     }
 
     /// The same as subwin(), except that begy and begx are relative to the origin of the window
@@ -209,6 +246,12 @@ impl Window {
         (self.get_max_y(), self.get_max_x())
     }
 
+    /// Draw a horizontal line using ch from the current cursor position. The line is at most
+    /// n characters long, or as many as fit into the window.
+    pub fn hline<T: ToChtype>(&self, ch: T, n: i32) -> i32 {
+        unsafe { curses::whline(self._window, ch.to_chtype(), n) }
+    }
+
     /// Controls whether getch() returns function/special keys as single key codes (e.g., the left
     /// arrow key as KEY_LEFT).
     ///
@@ -279,18 +322,18 @@ impl Window {
         unsafe { curses::wrefresh(self._window) }
     }
 
-   /// If enabled and a scrolling region is set with setscrreg(), any attempt to move off
-   /// the bottom margin will cause all lines in the scrolling region to scroll up one line.
-   pub fn scrollok(&self, bf: bool) -> i32 {
-       unsafe { curses::scrollok(self._window, bf as u8) }
-   }
+    /// If enabled and a scrolling region is set with setscrreg(), any attempt to move off
+    /// the bottom margin will cause all lines in the scrolling region to scroll up one line.
+    pub fn scrollok(&self, bf: bool) -> i32 {
+        unsafe { curses::scrollok(self._window, bf as u8) }
+    }
 
-   /// Sets a scrolling region in a window.
-   ///
-   /// "top" and "bot" are the line numbers for the top and bottom margins.
-   pub fn setscrreg(&self, top: i32, bot: i32) -> i32 {
-       unsafe { curses::wsetscrreg(self._window, top, bot) }
-   }
+    /// Sets a scrolling region in a window.
+    ///
+    /// "top" and "bot" are the line numbers for the top and bottom margins.
+    pub fn setscrreg(&self, top: i32, bot: i32) -> i32 {
+        unsafe { curses::wsetscrreg(self._window, top, bot) }
+    }
 
     /// Creates a new subwindow within a window.
     ///
@@ -321,6 +364,13 @@ impl Window {
     pub fn ungetch(&self, input: &Input) -> i32 {
         platform_specific::_ungetch(input)
     }
+
+    /// Draw a vertical line using ch from the current cursor position. The line is at most
+    /// n characters long, or as many as fit into the window.
+    pub fn vline<T: ToChtype>(&self, ch: T, n: i32) -> i32 {
+        unsafe { curses::wvline(self._window, ch.to_chtype(), n) }
+    }
+
 }
 
 /// Set cbreak mode.
