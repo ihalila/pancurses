@@ -28,3 +28,6 @@ ncurses = "5.82.0"
 
 [dev-dependencies]
 rand = "0.3"
+
+[features]
+wide = ["ncurses/wide"]
