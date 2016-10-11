@@ -2,10 +2,14 @@
 pub mod constants;
 use self::constants::*;
 
-use ncurses::{box_, getmouse};
+use ncurses::{box_, getmouse, LcCategory, setlocale};
 use ncurses::ll::{chtype, MEVENT, NCURSES_ATTR_T, WINDOW, wattron, wattroff, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
+
+pub fn pre_init() {
+    setlocale(LcCategory::all, "");
+}
 
 pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattron(w, attributes as NCURSES_ATTR_T) }

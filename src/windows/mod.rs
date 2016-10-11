@@ -8,6 +8,10 @@ use self::constants::*;
 
 use input::Input;
 
+pub fn pre_init() {
+    // No need to do anything here
+}
+
 pub fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
     unsafe { wattron(w, attributes) }
 }

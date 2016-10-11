@@ -433,6 +433,7 @@ pub fn has_colors() -> bool {
 ///
 /// Returns a Window struct that is used to access Window specific functions.
 pub fn initscr() -> Window {
+    platform_specific::pre_init();
     let window_pointer = unsafe { curses::initscr() };
     Window { _window: window_pointer }
 }
