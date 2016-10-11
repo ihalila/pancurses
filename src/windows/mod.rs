@@ -64,14 +64,14 @@ pub fn to_special_keycode(i: i32) -> Input {
         Input::KeyMouse
     } else {
         assert!(i >= KEY_OFFSET, format!("Input value less than expected: {:?}", i));
-        if i > KEY_UNDO {
+        let i = if i <= KEY_F15 {
+            i - KEY_OFFSET
+        } else {
+            i - KEY_OFFSET - 48
+        };
+        if i as usize >= SPECIAL_KEY_CODES.len() {
             Input::Unknown(i)
         } else {
-            let i = if i <= KEY_F15 {
-                i - KEY_OFFSET
-            } else {
-                i - KEY_OFFSET - 48
-            };
             SPECIAL_KEY_CODES[i as usize]
         }
     }
