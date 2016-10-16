@@ -468,6 +468,34 @@ pub fn cbreak() -> i32 {
     unsafe { curses::cbreak() }
 }
 
+/// This routine gives programmers a way to find the intensity of the red, green, and blue (RGB)
+/// components in a color. It takes the color number as an argument and returns three values
+/// that tell you the amounts of red, green, and blue components in the given color. The argument
+/// must be a legal color value, i.e., 0 through COLORS-1, inclusive. The values that are returned
+/// are in the range 0 (no component) through 1000 (maximum amount of component), inclusive.
+///
+/// ```rust
+/// use pancurses::{color_content, endwin, init_color, initscr, start_color};
+///
+/// initscr();
+/// start_color();
+/// init_color(1, 35, 502, 1000);
+/// let (r, g, b) = color_content(1);
+/// assert_eq!(35, r);
+/// assert_eq!(502, g);
+/// assert_eq!(1000, b);
+/// endwin();
+/// ```
+pub fn color_content(color_number: i16) -> (i16, i16, i16) {
+    let mut r: i16 = 0;
+    let mut g: i16 = 0;
+    let mut b: i16 = 0;
+    unsafe {
+        curses::color_content(color_number, &mut r, &mut g, &mut b);
+    }
+    (r, g, b)
+}
+
 /// Alters the appearance of the cursor.
 ///
 ///  A visibility of 0 makes it disappear; 1 makes it appear "normal" (usually an underline) and 2
@@ -526,6 +554,15 @@ pub fn initscr() -> Window {
     platform_specific::pre_init();
     let window_pointer = unsafe { curses::initscr() };
     Window { _window: window_pointer }
+}
+
+/// Changes the definition of a color. It takes four arguments: the number of the color to be
+/// changed followed by three RGB values (for the amounts of red, green, and blue components).
+/// The first argument must be a legal color value; default colors are not allowed here.
+/// Each of the last three arguments must be a value in the range 0 through 1000. When init_color
+/// is used, all occurrences of that color on the screen immediately change to the new definition.
+pub fn init_color(color_number: i16, red: i16, green: i16, blue: i16) -> i32 {
+    unsafe { curses::init_color(color_number, red, green, blue) }
 }
 
 /// Changes the definition of a color-pair.
