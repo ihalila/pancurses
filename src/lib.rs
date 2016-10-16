@@ -184,6 +184,16 @@ impl Window {
         unsafe { curses::clearok(self._window, bf as u8) }
     }
 
+    /// Clear the window from the current cursor position to the end of the window.
+    pub fn clrtobot(&self) -> i32 {
+        unsafe { curses::wclrtobot(self._window) }
+    }
+
+    /// Clear the window from the current cursor position to the end of the current line.
+    pub fn clrtoeol(&self) -> i32 {
+        unsafe { curses::wclrtoeol(self._window) }
+    }
+
     /// Delete the character under the cursor. All characters to the right of the cursor
     /// on the same line are moved to the left one position and hte last character on the
     /// line is filled with a blank. The cursor position does not change.
