@@ -8,6 +8,7 @@ extern crate pdcurses;
 extern crate ncurses;
 
 use std::ffi::CString;
+use std::ptr;
 
 #[cfg(windows)]
 use pdcurses as curses;
@@ -87,14 +88,33 @@ impl Window {
         unsafe { curses::waddnstr(self._window, s.as_ptr(), length as i32) }
     }
 
-    /// Turns on the named attributes without affecting any other attributes.
-    pub fn attron(&self, attributes: chtype) -> i32 {
-        platform_specific::_attron(self._window, attributes)
+    /// Retrieve attributes for the given window.
+    ///
+    /// ```rust
+    /// use pancurses::{A_BOLD, initscr, endwin};
+    /// let window = initscr();
+    /// window.attron(A_BOLD);
+    /// let (active_attributes, color_pair) = window.attrget();
+    /// assert_eq!(A_BOLD, active_attributes);
+    /// endwin();
+    /// ```
+    pub fn attrget(&self) -> (chtype, i16) {
+        let mut attributes: chtype = 0;
+        let mut color_pair: i16 = 0;
+        unsafe {
+            curses::wattr_get(self._window, &mut attributes, &mut color_pair, ptr::null_mut());
+        }
+        (attributes, color_pair)
     }
 
     /// Turns off the named attributes without affecting any other attributes.
     pub fn attroff(&self, attributes: chtype) -> i32 {
         platform_specific::_attroff(self._window, attributes)
+    }
+
+    /// Turns on the named attributes without affecting any other attributes.
+    pub fn attron(&self, attributes: chtype) -> i32 {
+        platform_specific::_attron(self._window, attributes)
     }
 
     /// Sets the current attributes of the given window to attributes.
