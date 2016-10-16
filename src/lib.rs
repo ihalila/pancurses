@@ -393,6 +393,16 @@ impl Window {
 
 }
 
+/// Return the output speed of the terminal. On Windows it simply returns INT_MAX
+pub fn baudrate() -> i32 {
+    unsafe { curses::baudrate() }
+}
+
+/// Sounds the audible bell on the terminal, if possible; if not, it calls flash().
+pub fn beep() -> i32 {
+    unsafe { curses::beep() }
+}
+
 /// Set cbreak mode.
 ///
 /// In cbreak mode, characters typed by the user are made available immediately, and erase/kill
@@ -424,6 +434,11 @@ pub fn delwin(window: Window) -> i32 {
 /// refresh() or doupdate().
 pub fn endwin() -> i32 {
     unsafe { curses::endwin() }
+}
+
+/// Flashes the screen, if possible; if not, it calls beep().
+pub fn flash() -> i32 {
+    unsafe { curses::flash() }
 }
 
 /// Throws away any type-ahead that has been typed by the user and has not yet been read by the
