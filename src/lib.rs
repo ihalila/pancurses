@@ -163,6 +163,14 @@ impl Window {
         }
     }
 
+    /// Changes the attributes of a given number of characters starting at the current cursor
+    /// location. It does not update the cursor and does not perform wrapping. A character count
+    /// of -1 or greater than the remaining window width means to change attributes all the way
+    /// to the end of the current line.
+    pub fn chgat(&self, n: i32, attributes: chtype, color_pair: i16) -> i32 {
+        unsafe { curses::wchgat(self._window, n, attributes, color_pair, ptr::null_mut()) }
+    }
+
     /// Similar to erase(), but also calls clearok() to ensure that the the window is cleared on
     /// the next refresh().
     pub fn clear(&self) -> i32 {
@@ -324,6 +332,14 @@ impl Window {
         unsafe { curses::mvwaddnstr(self._window, y, x, s.as_ptr(), n) }
     }
 
+    /// Moves the cursor and changes the attributes of a given number of characters starting at the
+    /// cursor location. It does not update the cursor and does not perform wrapping. A character count
+    /// of -1 or greater than the remaining window width means to change attributes all the way
+    /// to the end of the current line.
+    pub fn mvchgat(&self, y: i32, x: i32, n: i32, attributes: chtype, color_pair: i16) -> i32 {
+        unsafe { curses::mvwchgat(self._window, y, x, n, attributes, color_pair, ptr::null_mut()) }
+    }    
+
     /// Retrieves the character and attribute from the specified window position, in the form of a
     /// chtype.
     pub fn mvinch(&self, y: i32, x: i32) -> chtype {
@@ -417,6 +433,11 @@ pub fn baudrate() -> i32 {
 /// Sounds the audible bell on the terminal, if possible; if not, it calls flash().
 pub fn beep() -> i32 {
     unsafe { curses::beep() }
+}
+
+/// Indicates if the terminal has the capability to change the definition of its colors.
+pub fn can_change_color() -> bool {
+    unsafe { curses::can_change_color() != 0 }
 }
 
 /// Set cbreak mode.
