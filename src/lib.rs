@@ -475,15 +475,17 @@ pub fn cbreak() -> i32 {
 /// are in the range 0 (no component) through 1000 (maximum amount of component), inclusive.
 ///
 /// ```rust
-/// use pancurses::{color_content, endwin, init_color, initscr, start_color};
+/// use pancurses::{can_change_color, color_content, endwin, init_color, initscr, start_color};
 ///
 /// initscr();
 /// start_color();
-/// init_color(1, 35, 502, 1000);
-/// let (r, g, b) = color_content(1);
-/// assert_eq!(35, r);
-/// assert_eq!(502, g);
-/// assert_eq!(1000, b);
+/// if can_change_color() {
+///     init_color(8, 35, 502, 1000);
+///     let (r, g, b) = color_content(8);
+///     assert_eq!(35, r);
+///     assert_eq!(502, g);
+///     assert_eq!(1000, b);
+/// }
 /// endwin();
 /// ```
 pub fn color_content(color_number: i16) -> (i16, i16, i16) {
