@@ -337,8 +337,16 @@ impl Window {
     /// of -1 or greater than the remaining window width means to change attributes all the way
     /// to the end of the current line.
     pub fn mvchgat(&self, y: i32, x: i32, n: i32, attributes: chtype, color_pair: i16) -> i32 {
-        unsafe { curses::mvwchgat(self._window, y, x, n, attributes, color_pair, ptr::null_mut()) }
-    }    
+        unsafe {
+            curses::mvwchgat(self._window,
+                             y,
+                             x,
+                             n,
+                             attributes,
+                             color_pair,
+                             ptr::null_mut())
+        }
+    }
 
     /// Retrieves the character and attribute from the specified window position, in the form of a
     /// chtype.
