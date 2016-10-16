@@ -102,7 +102,10 @@ impl Window {
         let mut attributes: chtype = 0;
         let mut color_pair: i16 = 0;
         unsafe {
-            curses::wattr_get(self._window, &mut attributes, &mut color_pair, ptr::null_mut());
+            curses::wattr_get(self._window,
+                              &mut attributes,
+                              &mut color_pair,
+                              ptr::null_mut());
         }
         (attributes, color_pair)
     }
@@ -125,6 +128,15 @@ impl Window {
     /// Not only change the background, but apply it immediately to every cell in the window.
     pub fn bkgd(&self, ch: chtype) -> i32 {
         unsafe { curses::wbkgd(self._window, ch) }
+    }
+
+    /// Manipulate the background of a window. The background is a chtype consisting of any
+    /// combination of attributes and a character; it is combined with each chtype added or
+    /// inserted to the window by addch() or insch(). Only the attribute part is used to set
+    /// the background of non-blank characters, while both character and attributes are used
+    /// for blank positions.
+    pub fn bgkdset(&self, ch: chtype) {
+        unsafe { curses::wbkgdset(self._window, ch) }
     }
 
     /// Draw a border around the edges of the window.
@@ -212,6 +224,11 @@ impl Window {
     /// Get the upper-left y and x coordinates of this window
     pub fn get_beg_yx(&self) -> (i32, i32) {
         (self.get_beg_y(), self.get_beg_x())
+    }
+
+    /// Returns the given window's current background character and attributes.
+    pub fn getbkgd(&self) -> chtype {
+        unsafe { curses::getbkgd(self._window) }
     }
 
     /// Read a character from the terminal associated with the window.
@@ -390,7 +407,6 @@ impl Window {
     pub fn vline<T: ToChtype>(&self, ch: T, n: i32) -> i32 {
         unsafe { curses::wvline(self._window, ch.to_chtype(), n) }
     }
-
 }
 
 /// Return the output speed of the terminal. On Windows it simply returns INT_MAX
