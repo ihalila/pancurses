@@ -194,6 +194,41 @@ impl Window {
         unsafe { curses::wclrtoeol(self._window) }
     }
 
+    /// Sets the current color of the given window to the foreground/background combination
+    /// described by the color pair parameter.
+    pub fn color_set(&self, color_pair: i16) -> i32 {
+        unsafe { curses::wcolor_set(self._window, color_pair, ptr::null_mut()) }
+    }
+
+    /// Copy all text from this window to the destination window. The arguments src_tc and
+    /// src_tr specify the top left corner of the region to be copied. dst_tc, dst_tr, dst_br,
+    /// and dst_bc specify the region within the destination window to copy to. The argument
+    /// "overlay", if TRUE, indicates that the copy is done non-destructively (as in overlay());
+    /// blanks in the source window are not copied to the destination window. When overlay is
+    /// FALSE, blanks are copied.
+    pub fn copywin(&self,
+                   destination_window: &Window,
+                   src_tr: i32,
+                   src_tc: i32,
+                   dst_tr: i32,
+                   dst_tc: i32,
+                   dst_br: i32,
+                   dst_bc: i32,
+                   overlay: bool)
+                   -> i32 {
+        unsafe {
+            curses::copywin(self._window,
+                            destination_window._window,
+                            src_tr,
+                            src_tc,
+                            dst_tr,
+                            dst_tc,
+                            dst_br,
+                            dst_bc,
+                            overlay as i32)
+        }
+    }
+
     /// Delete the character under the cursor. All characters to the right of the cursor
     /// on the same line are moved to the left one position and hte last character on the
     /// line is filled with a blank. The cursor position does not change.
@@ -375,6 +410,20 @@ impl Window {
     /// ready.
     pub fn nodelay(&self, enabled: bool) -> i32 {
         unsafe { curses::nodelay(self._window, enabled as u8) as i32 }
+    }
+
+    /// Overlays this window on top of destination_window. This window and destination_window are
+    /// not required to be the same size; only text where the two windows overlap is copied.
+    /// overlay() is non-destructive.
+    pub fn overlay(&self, destination_window: &Window) -> i32 {
+        unsafe { curses::overlay(self._window, destination_window._window) }
+    }
+
+    /// Overlays this window on top of destination_window. This window and destination_window are
+    /// not required to be the same size; only text where the two windows overlap is copied.
+    /// overwrite() is destructive.
+    pub fn overwrite(&self, destination_window: &Window) -> i32 {
+        unsafe { curses::overwrite(self._window, destination_window._window) }
     }
 
     /// Add a string to the window at the current cursor position.
