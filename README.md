@@ -73,12 +73,10 @@ fn main() {
 
 ## Status
 
-I'm working through implementing the various functions using the PDCurses
-demos as a priority list. Version 0.4 has everything that a simple hello
-world program, the firework example, the rain example need and the newdemo
-example needs. The 'newtest' demo is done, but not quite all features have
-been implemented as there was a lot of PDCurses-specific stuff there, and
-I'd rather implement the shared functions first.
+Most of the often used curses functions are added, I've ported a handful of the PDCurses demos
+to demonstrate how to use this library. Once all the functions are added I'll begin revising
+the API to be more Rust-like (less using integer return values for errors and instead using
+Result, for example)
 
 ## License
 
