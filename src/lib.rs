@@ -555,10 +555,22 @@ pub fn color_content(color_number: i16) -> (i16, i16, i16) {
 
 /// Alters the appearance of the cursor.
 ///
-///  A visibility of 0 makes it disappear; 1 makes it appear "normal" (usually an underline) and 2
+/// A visibility of 0 makes it disappear; 1 makes it appear "normal" (usually an underline) and 2
 /// makes it "highly visible" (usually a block).
 pub fn curs_set(visibility: i32) -> i32 {
     unsafe { curses::curs_set(visibility) }
+}
+
+/// Save the current terminal modes as the "program" (in curses) state for use by the
+/// reset_prog_mode() and reset_shell_mode() functions.  This is done automatically by initscr().
+pub fn def_prog_mode() -> i32 {
+    unsafe { curses::def_prog_mode() }
+}
+
+/// Save the current terminal modes as the "shell" (not in curses) state for use by the
+/// reset_prog_mode() and reset_shell_mode() functions.  This is done automatically by initscr().
+pub fn def_shell_mode() -> i32 {
+    unsafe { curses::def_shell_mode() }
 }
 
 /// Should be called before exiting or escaping from curses mode temporarily.
@@ -676,6 +688,19 @@ pub fn nocbreak() -> i32 {
 /// type-ahead.
 pub fn noecho() -> i32 {
     unsafe { curses::noecho() }
+}
+
+/// Restore the terminal to "program" (in curses) state. This is done
+/// automatically by endwin() and doupdate() after an endwin(), so this would normally not be
+/// called before.
+pub fn reset_prog_mode() -> i32 {
+    unsafe { curses::reset_prog_mode() }
+}
+
+/// Restore the terminal to "shell" (not in curses) state. This is done automatically by
+/// endwin() and doupdate() after an endwin(), so this would normally not be called before.
+pub fn reset_shell_mode() -> i32 {
+    unsafe { curses::reset_shell_mode() }
 }
 
 /// Attempts to resize the screen to the given size.
