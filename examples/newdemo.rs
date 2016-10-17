@@ -266,9 +266,9 @@ fn sub_win_test(main_window: &Window, win: &Window) -> Result<(), i32> {
     swin3.mvaddstr(0, 3, "Sub-window 3");
     swin3.refresh();
 
-    delwin(swin1);
-    delwin(swin2);
-    delwin(swin3);
+    swin1.delwin();
+    swin2.delwin();
+    swin3.delwin();
 
     wait_for_user(main_window);
 

@@ -242,6 +242,12 @@ impl Window {
         unsafe { curses::wdeleteln(self._window) }
     }
 
+    /// Deletes the window, freeing all associated memory. In the case of overlapping windows,
+    /// subwindows should be deleted before the main window.
+    pub fn delwin(self) -> i32 {
+        unsafe { curses::delwin(self._window) }
+    }
+
     /// The same as subwin(), except that begy and begx are relative to the origin of the window
     /// rather than the screen.
     ///
@@ -553,12 +559,6 @@ pub fn color_content(color_number: i16) -> (i16, i16, i16) {
 /// makes it "highly visible" (usually a block).
 pub fn curs_set(visibility: i32) -> i32 {
     unsafe { curses::curs_set(visibility) }
-}
-
-/// Deletes the window, freeing all associated memory. In the case of overlapping windows,
-/// subwindows should be deleted before the main window.
-pub fn delwin(window: Window) -> i32 {
-    unsafe { curses::delwin(window._window) }
 }
 
 /// Should be called before exiting or escaping from curses mode temporarily.
