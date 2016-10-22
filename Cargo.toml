@@ -11,7 +11,7 @@ repository = "https://github.com/ihalila/pancurses"
 readme = "README.md"
 license = "MIT"
 keywords = ["pancurses", "curses", "ncurses", "pdcurses"]
-version = "0.6.0"
+version = "0.7.0"
 authors = ["Ilkka Halila <ilkka@hali.la>"]
 
 [lib]
