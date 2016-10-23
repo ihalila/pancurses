@@ -418,6 +418,11 @@ impl Window {
         unsafe { curses::nodelay(self._window, enabled as u8) as i32 }
     }
 
+    /// Copies the window to the virtual screen.
+    pub fn noutrefresh(&self) -> i32 {
+        unsafe { curses::wnoutrefresh(self._window) }
+    }
+
     /// Overlays this window on top of destination_window. This window and destination_window are
     /// not required to be the same size; only text where the two windows overlap is copied.
     /// overlay() is non-destructive.
