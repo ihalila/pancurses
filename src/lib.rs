@@ -573,6 +573,12 @@ pub fn def_shell_mode() -> i32 {
     unsafe { curses::def_shell_mode() }
 }
 
+/// Compares the virtual screen to the physical screen and performs an update of the physical
+/// screen.
+pub fn doupdate() -> i32 {
+    unsafe { curses::doupdate() }
+}
+
 /// Should be called before exiting or escaping from curses mode temporarily.
 ///
 /// It will restore tty modes, move the cursor to the lower left corner of the screen and reset the
