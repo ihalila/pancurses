@@ -578,6 +578,13 @@ pub fn def_shell_mode() -> i32 {
     unsafe { curses::def_shell_mode() }
 }
 
+/// Inserts an 'milliseconds' millisecond pause in output. This routine should not be used extensively
+/// because padding characters are used rather than a CPU pause. If no padding character is
+/// specified, this uses napms to perform the delay.
+pub fn delay_output(milliseconds: i32) -> i32 {
+    unsafe { curses::delay_output(milliseconds) }
+}
+
 /// Compares the virtual screen to the physical screen and performs an update of the physical
 /// screen.
 pub fn doupdate() -> i32 {
