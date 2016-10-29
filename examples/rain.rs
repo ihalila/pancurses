@@ -50,7 +50,7 @@ fn next_j<T: Rng>(mut j: usize, rng: &mut T, window: &Window) -> usize {
         window.attrset(color);
     }
 
-    return j;
+    j
 }
 
 fn main() {

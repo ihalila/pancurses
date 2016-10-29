@@ -503,7 +503,7 @@ impl Window {
     }
 }
 
-/// Return the output speed of the terminal. On Windows it simply returns INT_MAX
+/// Return the output speed of the terminal. On Windows it simply returns `INT_MAX`
 pub fn baudrate() -> i32 {
     unsafe { curses::baudrate() }
 }
@@ -567,13 +567,13 @@ pub fn curs_set(visibility: i32) -> i32 {
 }
 
 /// Save the current terminal modes as the "program" (in curses) state for use by the
-/// reset_prog_mode() and reset_shell_mode() functions.  This is done automatically by initscr().
+/// `reset_prog_mode()` and `reset_shell_mode()` functions.  This is done automatically by initscr().
 pub fn def_prog_mode() -> i32 {
     unsafe { curses::def_prog_mode() }
 }
 
 /// Save the current terminal modes as the "shell" (not in curses) state for use by the
-/// reset_prog_mode() and reset_shell_mode() functions.  This is done automatically by initscr().
+/// `reset_prog_mode()` and `reset_shell_mode()` functions.  This is done automatically by initscr().
 pub fn def_shell_mode() -> i32 {
     unsafe { curses::def_shell_mode() }
 }
@@ -640,7 +640,7 @@ pub fn initscr() -> Window {
 /// Changes the definition of a color. It takes four arguments: the number of the color to be
 /// changed followed by three RGB values (for the amounts of red, green, and blue components).
 /// The first argument must be a legal color value; default colors are not allowed here.
-/// Each of the last three arguments must be a value in the range 0 through 1000. When init_color
+/// Each of the last three arguments must be a value in the range 0 through 1000. When `init_color`
 /// is used, all occurrences of that color on the screen immediately change to the new definition.
 pub fn init_color(color_number: i16, red: i16, green: i16, blue: i16) -> i32 {
     unsafe { curses::init_color(color_number, red, green, blue) }
@@ -649,21 +649,21 @@ pub fn init_color(color_number: i16, red: i16, green: i16, blue: i16) -> i32 {
 /// Changes the definition of a color-pair.
 ///
 /// It takes three arguments: the number of the color-pair to be redefined, and the new values of
-/// the foreground and background colors. The pair number must be between 0 and COLOR_PAIRS - 1,
-/// inclusive. The foreground and background must be between 0 and COLORS - 1, inclusive. If the
+/// the foreground and background colors. The pair number must be between 0 and `COLOR_PAIRS` - 1,
+/// inclusive. The foreground and background must be between 0 and `COLORS` - 1, inclusive. If the
 /// color pair was previously initialized, the screen is refreshed, and all occurrences of that
 /// color-pair are changed to the new definition.
 pub fn init_pair(pair_index: i16, foreground_color: i16, background_color: i16) -> i32 {
     unsafe { curses::init_pair(pair_index, foreground_color, background_color) as i32 }
 }
 
-/// Nearly equivalent to mouse_set(), but instead of OK/ERR, it returns the value of the mask after
+/// Nearly equivalent to `mouse_set()`, but instead of OK/ERR, it returns the value of the mask after
 /// setting it.
 ///
 /// (This isn't necessarily the same value passed in, since the mask could be altered on some
-/// platforms.) And if the second parameter is a non-null pointer, mousemask() stores the previous
-/// mask value there. Also, since the ncurses interface doesn't work with PDCurses' BUTTON_MOVED
-/// events, mousemask() filters them out.
+/// platforms.) And if the second parameter is a non-null pointer, `mousemask()` stores the previous
+/// mask value there. Also, since the ncurses interface doesn't work with PDCurses' `BUTTON_MOVED`
+/// events, `mousemask()` filters them out.
 pub fn mousemask(arg1: mmask_t, arg2: *mut mmask_t) -> mmask_t {
     unsafe { curses::mousemask(arg1, arg2) }
 }
@@ -723,18 +723,18 @@ pub fn reset_shell_mode() -> i32 {
 
 /// Attempts to resize the screen to the given size.
 ///
-/// resize_term() is effectively two functions: When called with nonzero values for nlines and
+/// `resize_term()` is effectively two functions: When called with nonzero values for nlines and
 /// ncols, it attempts to resize the screen to the given size. When called with (0, 0), it merely
 /// adjusts the internal structures to match the current size after the screen is resized by the
-/// user. If you want to support user resizing, you should check for getch() returning KEY_RESIZE,
-/// and/or call is_termresized() at appropriate times; if either condition occurs, call
-/// resize_term(0, 0). Then, with either user or programmatic resizing, you'll have to resize any
+/// user. If you want to support user resizing, you should check for getch() returning `KEY_RESIZE`,
+/// and/or call `is_termresized()` at appropriate times; if either condition occurs, call
+/// `resize_term(0, 0)`. Then, with either user or programmatic resizing, you'll have to resize any
 /// windows you've created.
 pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
     platform_specific::_resize_term(nlines, ncols)
 }
 
-/// Toggles whether the A_BLINK attribute sets an actual blink mode (TRUE), or sets the background
+/// Toggles whether the `A_BLINK` attribute sets an actual blink mode (TRUE), or sets the background
 /// color to hig intensity (FALSE).
 ///
 /// The default is platform-dependent (FALSE in most cases). It returns OK if it could set the
@@ -752,15 +752,15 @@ pub fn set_title(title: &str) {
 }
 
 /// Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,
-/// and white), and two global variables; COLORS and COLOR_PAIRS (respectively defining the
+/// and white), and two global variables; `COLORS` and `COLOR_PAIRS` (respectively defining the
 /// maximum number of colors and color-pairs the terminal is capable of displaying).
 pub fn start_color() -> i32 {
     unsafe { curses::start_color() as i32 }
 }
 
-/// Allows the use of -1 as a foreground or background color with init_pair().
+/// Allows the use of -1 as a foreground or background color with `init_pair()`.
 ///
-/// Calls assume_default_colors(-1, -1); -1 represents the foreground or background color that
+/// Calls `assume_default_colors(-1, -1);` -1 represents the foreground or background color that
 /// the terminal had at startup.
 pub fn use_default_colors() -> i32 {
     unsafe { curses::use_default_colors() }

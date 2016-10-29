@@ -189,31 +189,28 @@ fn main() {
                 window.mvaddstr(0, COL1, &format!("Key {:?} hit          ", x));
             }
             Some(Input::KeyMouse) => {
-                match getmouse() {
-                    Ok(mouse_event) => {
-                        window.mvaddstr(0,
-                                        COL1,
-                                        &format!("Mouse at {} x {}: {}",
-                                                 mouse_event.x,
-                                                 mouse_event.y,
-                                                 mouse_event.bstate));
-                        if mouse_event.x >= color_block_start {
-                            if mouse_event.y == 19 { // blink/non-blink toggle
-                                cursor_state_1 = (cursor_state_1 + 1) % N_CURSORS as usize;
-                            } else if mouse_event.y == 20 { // cycle cursor state
-                                cursor_state_2 = (cursor_state_2 + 1) % N_CURSORS as usize;
-                            }
-                        } else if mouse_event.x >= 40 && mouse_event.x < 40 + 10 {
-                            if mouse_event.y == 11 {
-                                redraw = true;
-                                unicode_offset += 0x80;
-                            } else if mouse_event.y == 12 && unicode_offset != 0 {
-                                redraw = true;
-                                unicode_offset -= 0x80;
-                            }
+                if let Ok(mouse_event) = getmouse() {
+                    window.mvaddstr(0,
+                                    COL1,
+                                    &format!("Mouse at {} x {}: {}",
+                                                mouse_event.x,
+                                                mouse_event.y,
+                                                mouse_event.bstate));
+                    if mouse_event.x >= color_block_start {
+                        if mouse_event.y == 19 { // blink/non-blink toggle
+                            cursor_state_1 = (cursor_state_1 + 1) % N_CURSORS as usize;
+                        } else if mouse_event.y == 20 { // cycle cursor state
+                            cursor_state_2 = (cursor_state_2 + 1) % N_CURSORS as usize;
+                        }
+                    } else if mouse_event.x >= 40 && mouse_event.x < 40 + 10 {
+                        if mouse_event.y == 11 {
+                            redraw = true;
+                            unicode_offset += 0x80;
+                        } else if mouse_event.y == 12 && unicode_offset != 0 {
+                            redraw = true;
+                            unicode_offset -= 0x80;
                         }
                     }
-                    Err(_) => (),
                 }
             }
             _ => (),

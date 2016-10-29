@@ -132,7 +132,7 @@ fn main() {
 
         // jbuhler's re-hacked scrolling messages
 
-        for message in MESSAGES.into_iter() {
+        for message in &MESSAGES {
             let msg_len = message.len() as i32;
             let mut visbuf = String::with_capacity(w as usize);
             let mut stop = false;
