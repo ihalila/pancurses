@@ -22,6 +22,9 @@ pub use ncurses::ll::{chtype, mmask_t, MEVENT};
 mod input;
 pub use self::input::*;
 
+mod attributes;
+pub use self::attributes::*;
+
 #[cfg(windows)]
 mod windows;
 #[cfg(windows)]
@@ -111,18 +114,18 @@ impl Window {
     }
 
     /// Turns off the named attributes without affecting any other attributes.
-    pub fn attroff(&self, attributes: chtype) -> i32 {
-        platform_specific::_attroff(self._window, attributes)
+    pub fn attroff<T: Into<chtype>>(&self, attributes: T) -> i32 {
+        platform_specific::_attroff(self._window, attributes.into())
     }
 
     /// Turns on the named attributes without affecting any other attributes.
-    pub fn attron(&self, attributes: chtype) -> i32 {
-        platform_specific::_attron(self._window, attributes)
+    pub fn attron<T: Into<chtype>>(&self, attributes: T) -> i32 {
+        platform_specific::_attron(self._window, attributes.into())
     }
 
     /// Sets the current attributes of the given window to attributes.
-    pub fn attrset(&self, attributes: chtype) -> i32 {
-        platform_specific::_attrset(self._window, attributes)
+    pub fn attrset<T: Into<chtype>>(&self, attributes: T) -> i32 {
+        platform_specific::_attrset(self._window, attributes.into())
     }
 
     /// Not only change the background, but apply it immediately to every cell in the window.

@@ -63,36 +63,36 @@ fn main() {
         if redraw {
             window.mvaddstr(1, COL1, "'Normal' white-on-black");
 
-            window.attron(A_DIM);
+            window.attron(Attribute::Dim);
             window.mvaddstr(2, COL1, "Dimmed text");
-            window.attroff(A_DIM);
+            window.attroff(Attribute::Dim);
 
-            window.attron(A_BLINK);
+            window.attron(Attribute::Blink);
             window.mvaddstr(6, 40, "Blinking");
-            window.attron(A_BOLD);
+            window.attron(Attribute::Bold);
             window.mvaddstr(8, 40, "BlinkBold");
-            window.attron(A_ITALIC);
+            window.attron(Attribute::Italic);
             window.mvaddstr(0, COL2, "BlinkBoldItalic");
-            window.attrset(COLOR_PAIR(3));
-            window.attron(A_UNDERLINE);
+            window.attrset(Attribute::ColorPair(3));
+            window.attron(Attribute::Underline);
 
             window.mvaddstr(1, COL2, "Underlined");
 
-            window.attrset(COLOR_PAIR(1));
-            window.attron(A_UNDERLINE | A_ITALIC);
+            window.attrset(Attribute::ColorPair(1));
+            window.attron(Attribute::Underline | Attribute::Italic);
             window.mvaddstr(2, COL2, "UnderlinedItalic");
-            window.attrset(COLOR_PAIR(2));
-            window.attron(A_BLINK);
+            window.attrset(Attribute::ColorPair(2));
+            window.attron(Attribute::Blink);
             window.mvaddstr(4, COL1, "Black-on-yellow blinking");
 
-            window.attrset(COLOR_PAIR(1));
+            window.attrset(Attribute::ColorPair(1));
             window.mv(4, COL2);
             text_in_a_box("Text in a box", &window);
 
-            window.attrset(COLOR_PAIR(6));
-            window.attron(A_STRIKEOUT);
+            window.attrset(Attribute::ColorPair(6));
+            window.attron(Attribute::Strikeout);
             window.mvaddstr(10, 40, "Strikeout");
-            window.attrset(COLOR_PAIR(1));
+            window.attrset(Attribute::ColorPair(1));
 
             window.mv(11, 40);
             text_in_a_box("Next Ucode pg", &window);

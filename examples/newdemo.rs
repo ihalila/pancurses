@@ -56,11 +56,11 @@ fn main() {
         win.erase();
 
         init_pair(2, COLOR_RED, COLOR_RED);
-        win.attrset(COLOR_PAIR(2));
+        win.attrset(Attribute::ColorPair(2));
         win.draw_box(' ', ' ');
         win.refresh();
 
-        win.attrset(0);
+        win.attrset(Attribute::Normal);
 
         // Do random output of a character
 
@@ -86,7 +86,7 @@ fn main() {
             if i == 2000 {
                 ch = 'b';
                 init_pair(3, COLOR_CYAN, COLOR_YELLOW);
-                win.attrset(COLOR_PAIR(3));
+                win.attrset(Attribute::ColorPair(3));
             }
         }
 
@@ -98,19 +98,19 @@ fn main() {
 
         init_pair(4, COLOR_YELLOW, COLOR_GREEN);
         win.bkgd(COLOR_PAIR(4));
-        win.attrset(A_BOLD);
+        win.attrset(Attribute::Bold);
         win.erase();
         win.refresh();
 
         // Draw RED bounding box
 
-        win.attrset(COLOR_PAIR(2));
+        win.attrset(Attribute::ColorPair(2));
         win.draw_box(' ', ' ');
         win.refresh();
 
         // Display Australia map
 
-        win.attrset(A_BOLD);
+        win.attrset(Attribute::Bold);
 
         for (i, s) in AUS_MAP.into_iter().enumerate() {
             win.mvaddstr(i as i32 + 1, 8, s);
@@ -119,14 +119,14 @@ fn main() {
         }
 
         init_pair(5, COLOR_BLUE, COLOR_WHITE);
-        win.attrset(COLOR_PAIR(5) | A_BLINK);
+        win.attrset(Attribute::ColorPair(5) | Attribute::Blink);
         win.mvaddstr(height - 2, 3, " pancurses - Linux, Win32");
         win.refresh();
 
         // Draw running messages
 
         init_pair(6, COLOR_BLACK, COLOR_WHITE);
-        win.attrset(COLOR_PAIR(6));
+        win.attrset(Attribute::ColorPair(6));
         let w = width - 2;
         win.nodelay(true);
 
@@ -174,7 +174,7 @@ fn main() {
         // Draw running 'A's across in RED
 
         init_pair(7, COLOR_RED, COLOR_GREEN);
-        win.attron(COLOR_PAIR(7));
+        win.attron(Attribute::ColorPair(7));
 
         let mut save: [chtype; 80] = [0; 80];
 
@@ -190,7 +190,7 @@ fn main() {
         // Put a message up; wait for a key
 
         let i = height - 2;
-        win.attrset(COLOR_PAIR(5));
+        win.attrset(Attribute::ColorPair(5));
         win.mvaddstr(i, 3, "   Type a key to continue or ESC to quit  ");
         win.refresh();
 
@@ -200,7 +200,7 @@ fn main() {
 
         // Restore the old line
 
-        win.attrset(0);
+        win.attrset(Attribute::Normal);
 
         for (index, pos) in (2..width - 4).enumerate() {
             win.mvaddch(5, pos, save[index]);
@@ -237,7 +237,7 @@ fn wait_for_user(main_window: &Window) -> bool {
 }
 
 fn sub_win_test(main_window: &Window, win: &Window) -> Result<(), i32> {
-    win.attrset(0);
+    win.attrset(Attribute::Normal);
     let (h, w) = win.get_max_yx();
     let (by, bx) = win.get_beg_yx();
 
@@ -280,7 +280,7 @@ fn bouncing_balls<T: Rng>(main_window: &Window, win: &Window, rng: &mut T) {
 
     win.bkgd(COLOR_PAIR(1));
     win.refresh();
-    win.attrset(0);
+    win.attrset(Attribute::Normal);
 
     init_pair(11, COLOR_RED, COLOR_GREEN);
     init_pair(12, COLOR_BLUE, COLOR_RED);
