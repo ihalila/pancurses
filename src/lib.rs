@@ -25,6 +25,9 @@ pub use self::input::*;
 mod attributes;
 pub use self::attributes::*;
 
+mod colorpair;
+pub use self::colorpair::*;
+
 #[cfg(windows)]
 mod windows;
 #[cfg(windows)]
