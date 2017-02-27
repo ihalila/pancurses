@@ -9,7 +9,8 @@ pub struct ColorPair(pub chtype);
 /// # Example
 ///
 /// ```
-/// use pancurses::{Attribute, Attributes, ColorPair};
+/// use pancurses::{Attribute, Attributes};
+/// use pancurses::colorpair::ColorPair;
 ///
 /// let mut attributes = Attributes::new();
 /// assert!(attributes.color_pair() == 0);
@@ -30,7 +31,8 @@ impl BitOr<ColorPair> for Attributes {
 /// # Example
 ///
 /// ```
-/// use pancurses::{Attribute, Attributes, ColorPair};
+/// use pancurses::{Attribute, Attributes};
+/// use pancurses::colorpair::ColorPair;
 ///
 /// let attributes = ColorPair(2) | Attribute::Blink;
 /// assert!(attributes.color_pair() == 2);
@@ -50,7 +52,8 @@ impl BitOr<Attribute> for ColorPair {
 /// # Example
 ///
 /// ```
-/// use pancurses::{Attribute, Attributes, ColorPair};
+/// use pancurses::{Attribute, Attributes};
+/// use pancurses::colorpair::ColorPair;
 ///
 /// let attributes = Attribute::Blink | ColorPair(2);
 /// assert!(attributes.color_pair() == 2);

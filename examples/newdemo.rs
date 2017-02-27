@@ -2,6 +2,8 @@ extern crate pancurses;
 extern crate rand;
 
 use pancurses::*;
+use pancurses::colorpair::ColorPair;
+
 use rand::Rng;
 
 const AUS_MAP: [&'static str; 13] = ["                       A ",
