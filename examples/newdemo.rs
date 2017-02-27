@@ -56,7 +56,7 @@ fn main() {
         win.erase();
 
         init_pair(2, COLOR_RED, COLOR_RED);
-        win.attrset(Attribute::ColorPair(2));
+        win.attrset(ColorPair(2));
         win.draw_box(' ', ' ');
         win.refresh();
 
@@ -86,7 +86,7 @@ fn main() {
             if i == 2000 {
                 ch = 'b';
                 init_pair(3, COLOR_CYAN, COLOR_YELLOW);
-                win.attrset(Attribute::ColorPair(3));
+                win.attrset(ColorPair(3));
             }
         }
 
@@ -104,7 +104,7 @@ fn main() {
 
         // Draw RED bounding box
 
-        win.attrset(Attribute::ColorPair(2));
+        win.attrset(ColorPair(2));
         win.draw_box(' ', ' ');
         win.refresh();
 
@@ -119,14 +119,14 @@ fn main() {
         }
 
         init_pair(5, COLOR_BLUE, COLOR_WHITE);
-        win.attrset(Attribute::ColorPair(5) | Attribute::Blink);
+        win.attrset(ColorPair(5) | Attribute::Blink);
         win.mvaddstr(height - 2, 3, " pancurses - Linux, Win32");
         win.refresh();
 
         // Draw running messages
 
         init_pair(6, COLOR_BLACK, COLOR_WHITE);
-        win.attrset(Attribute::ColorPair(6));
+        win.attrset(ColorPair(6));
         let w = width - 2;
         win.nodelay(true);
 
@@ -174,7 +174,7 @@ fn main() {
         // Draw running 'A's across in RED
 
         init_pair(7, COLOR_RED, COLOR_GREEN);
-        win.attron(Attribute::ColorPair(7));
+        win.attron(ColorPair(7));
 
         let mut save: [chtype; 80] = [0; 80];
 
@@ -190,7 +190,7 @@ fn main() {
         // Put a message up; wait for a key
 
         let i = height - 2;
-        win.attrset(Attribute::ColorPair(5));
+        win.attrset(ColorPair(5));
         win.mvaddstr(i, 3, "   Type a key to continue or ESC to quit  ");
         win.refresh();
 

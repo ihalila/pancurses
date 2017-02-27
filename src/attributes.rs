@@ -1,4 +1,4 @@
-use std::ops::BitOr;
+use std::ops::{BitOr, BitXor};
 use super::{chtype, A_ALTCHARSET, A_BOLD, A_BLINK, A_CHARTEXT, A_DIM, A_LEFTLINE, A_INVIS};
 use super::{A_ITALIC, A_OVERLINE, A_REVERSE, A_RIGHTLINE, A_STRIKEOUT, A_UNDERLINE};
 use super::{COLOR_PAIR};
@@ -18,9 +18,10 @@ pub enum Attribute {
    Reverse,
    Rightline,
    Strikeout,
-   Underline,
-   ColorPair(chtype)
+   Underline
 }
+
+pub struct ColorPair(pub chtype);
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Attributes {
@@ -127,8 +128,64 @@ impl BitOr<Attribute> for Attributes {
             Attribute::Reverse => self.set_reverse(true),
             Attribute::Rightline => self.set_rightline(true),
             Attribute::Strikeout => self.set_strikeout(true),
-            Attribute::Underline => self.set_underline(true),
-            Attribute::ColorPair(num) => self.set_color_pair(num)
+            Attribute::Underline => self.set_underline(true)
+        }
+        self
+    }
+}
+
+/// Implement the | operator for setting a color pair on an Attributes object
+///
+/// # Example
+///
+/// ```
+/// use pancurses::{Attribute, Attributes, ColorPair};
+///
+/// let mut attributes = Attributes::new();
+/// assert!(attributes.color_pair() == 0);
+/// attributes = attributes | ColorPair(1);
+/// assert!(attributes.color_pair() == 1);
+/// ```
+impl BitOr<ColorPair> for Attributes {
+    type Output = Attributes;
+
+    fn bitor(mut self, rhs: ColorPair) -> Attributes {
+        self.set_color_pair(rhs.0);
+        self
+    }
+}
+
+/// Implement the ^ operator for disabling an Attribute from Attributes
+///
+/// # Example
+///
+/// ```
+/// use pancurses::{Attribute, Attributes};
+///
+/// let mut attributes = Attributes::from(Attribute::Bold);
+/// assert!(attributes.is_bold());
+/// attributes = attributes ^ Attribute::Bold;
+/// assert!(!attributes.is_bold());
+/// ```
+impl BitXor<Attribute> for Attributes {
+    type Output = Attributes;
+
+    fn bitxor(mut self, rhs: Attribute) -> Attributes {
+        match rhs {
+            Attribute::AlternativeCharSet => self.set_alternative_char_set(false),
+            Attribute::Bold => self.set_bold(false),
+            Attribute::Blink => self.set_blink(false),
+            Attribute::CharText => self.set_char_text(false),
+            Attribute::Dim => self.set_dim(false),
+            Attribute::Leftline => self.set_leftline(false),
+            Attribute::Invisible => self.set_invisible(false),
+            Attribute::Italic => self.set_italic(false),
+            Attribute::Normal => (),
+            Attribute::Overline => self.set_overline(false),
+            Attribute::Reverse => self.set_reverse(false),
+            Attribute::Rightline => self.set_rightline(false),
+            Attribute::Strikeout => self.set_strikeout(false),
+            Attribute::Underline => self.set_underline(false)
         }
         self
     }
@@ -159,6 +216,31 @@ impl BitOr for Attributes {
     }
 }
 
+/// Implement the ^ operator for removing Attributes from Attributes
+///
+/// # Example
+///
+/// ```
+/// use pancurses::{Attribute, Attributes};
+///
+/// let mut attributes = Attributes::new() | Attribute::Blink | Attribute::Bold;
+/// let other = Attributes::new() | Attribute::Reverse | Attribute::Bold;
+/// attributes = attributes ^ other;
+/// assert!(!attributes.is_bold());
+/// assert!(attributes.is_reverse());
+/// assert!(attributes.is_blink());
+/// ```
+impl BitXor for Attributes {
+    type Output = Attributes;
+
+    fn bitxor(self, rhs: Attributes) -> Attributes {
+        Attributes{
+            raw: self.raw ^ rhs.raw,
+            color_pair: self.color_pair ^ rhs.color_pair
+        }
+    }
+}
+
 /// Implement the | operator for combining two 'Attribute's into Attributes
 ///
 /// # Example
@@ -179,6 +261,46 @@ impl BitOr for Attribute {
     }
 }
 
+/// Implement the | operator for combining a ColorPair and an Attribute to produce Attributes
+///
+/// # Example
+///
+/// ```
+/// use pancurses::{Attribute, Attributes, ColorPair};
+///
+/// let attributes = ColorPair(2) | Attribute::Blink;
+/// assert!(attributes.color_pair() == 2);
+/// assert!(!attributes.is_bold());
+/// assert!(attributes.is_blink());
+/// ```
+impl BitOr<Attribute> for ColorPair {
+    type Output = Attributes;
+
+    fn bitor(self, rhs: Attribute) -> Attributes {
+        Attributes::new() | self | rhs
+    }
+}
+
+/// Implement the | operator for combining an Attribute and a  ColorPair to produce Attributes
+///
+/// # Example
+///
+/// ```
+/// use pancurses::{Attribute, Attributes, ColorPair};
+///
+/// let attributes = Attribute::Blink | ColorPair(2);
+/// assert!(attributes.color_pair() == 2);
+/// assert!(!attributes.is_bold());
+/// assert!(attributes.is_blink());
+/// ```
+impl BitOr<ColorPair> for Attribute {
+    type Output = Attributes;
+
+    fn bitor(self, rhs: ColorPair) -> Attributes {
+        Attributes::new() | self | rhs
+    }
+}
+
 impl From<Attribute> for Attributes {
     fn from(attribute: Attribute) -> Attributes {
         Attributes::new() | attribute
@@ -194,5 +316,11 @@ impl From<Attribute> for chtype {
 impl From<Attributes> for chtype {
     fn from(attributes: Attributes) -> chtype {
         attributes.raw
+    }
+}
+
+impl From<ColorPair> for chtype {
+    fn from(color_pair: ColorPair) -> chtype {
+        color_pair.0
     }
 }

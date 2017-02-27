@@ -73,26 +73,26 @@ fn main() {
             window.mvaddstr(8, 40, "BlinkBold");
             window.attron(Attribute::Italic);
             window.mvaddstr(0, COL2, "BlinkBoldItalic");
-            window.attrset(Attribute::ColorPair(3));
+            window.attrset(ColorPair(3));
             window.attron(Attribute::Underline);
 
             window.mvaddstr(1, COL2, "Underlined");
 
-            window.attrset(Attribute::ColorPair(1));
+            window.attrset(ColorPair(1));
             window.attron(Attribute::Underline | Attribute::Italic);
             window.mvaddstr(2, COL2, "UnderlinedItalic");
-            window.attrset(Attribute::ColorPair(2));
+            window.attrset(ColorPair(2));
             window.attron(Attribute::Blink);
             window.mvaddstr(4, COL1, "Black-on-yellow blinking");
 
-            window.attrset(Attribute::ColorPair(1));
+            window.attrset(ColorPair(1));
             window.mv(4, COL2);
             text_in_a_box("Text in a box", &window);
 
-            window.attrset(Attribute::ColorPair(6));
+            window.attrset(ColorPair(6));
             window.attron(Attribute::Strikeout);
             window.mvaddstr(10, 40, "Strikeout");
-            window.attrset(Attribute::ColorPair(1));
+            window.attrset(ColorPair(1));
 
             window.mv(11, 40);
             text_in_a_box("Next Ucode pg", &window);

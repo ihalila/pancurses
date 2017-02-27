@@ -112,7 +112,6 @@ fn convert_input_to_c_int(input: &Input) -> c_int {
 mod tests {
     use super::*;
     use super::convert_input_to_c_int;
-    use super::constants::*;
     use input::Input;
     use libc::c_int;
 
