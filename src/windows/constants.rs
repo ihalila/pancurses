@@ -7,12 +7,12 @@ pub fn COLOR_PAIR(n: chtype) -> chtype {
 }
 
 pub const COLOR_BLACK: i16 = 0;
-pub const COLOR_BLUE: i16 = 1;
+pub const COLOR_RED: i16 = 1;
 pub const COLOR_GREEN: i16 = 2;
-pub const COLOR_RED: i16 = 4;
-pub const COLOR_CYAN: i16 = (COLOR_BLUE | COLOR_GREEN);
-pub const COLOR_MAGENTA: i16 = (COLOR_RED | COLOR_BLUE);
-pub const COLOR_YELLOW: i16 = (COLOR_RED | COLOR_GREEN);
+pub const COLOR_YELLOW: i16 = 3;
+pub const COLOR_BLUE: i16 = 4;
+pub const COLOR_MAGENTA: i16 = 5;
+pub const COLOR_CYAN: i16 = 6;
 pub const COLOR_WHITE: i16 = 7;
 
 pub const PDC_CHARTEXT_BITS: chtype = 21;
