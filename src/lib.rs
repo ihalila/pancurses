@@ -26,6 +26,7 @@ mod attributes;
 pub use self::attributes::*;
 
 pub mod colorpair;
+pub use colorpair::ColorPair;
 
 #[cfg(windows)]
 mod windows;
