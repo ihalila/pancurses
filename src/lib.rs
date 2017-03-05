@@ -131,8 +131,8 @@ impl Window {
     }
 
     /// Not only change the background, but apply it immediately to every cell in the window.
-    pub fn bkgd(&self, ch: chtype) -> i32 {
-        unsafe { curses::wbkgd(self._window, ch) }
+    pub fn bkgd<T: Into<chtype>>(&self, ch: T) -> i32 {
+        unsafe { curses::wbkgd(self._window, ch.into()) }
     }
 
     /// Manipulate the background of a window. The background is a chtype consisting of any
@@ -140,8 +140,8 @@ impl Window {
     /// inserted to the window by addch() or insch(). Only the attribute part is used to set
     /// the background of non-blank characters, while both character and attributes are used
     /// for blank positions.
-    pub fn bgkdset(&self, ch: chtype) {
-        unsafe { curses::wbkgdset(self._window, ch) }
+    pub fn bgkdset<T: Into<chtype>>(&self, ch: T) {
+        unsafe { curses::wbkgdset(self._window, ch.into()) }
     }
 
     /// Draw a border around the edges of the window.
