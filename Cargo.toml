@@ -22,7 +22,7 @@ log = "0.3"
 libc = "0.2"
 
 [target.'cfg(windows)'.dependencies]
-pdcurses-sys = "0.3"
+pdcurses-sys = "0.4"
 [target.'cfg(unix)'.dependencies]
 ncurses = "5.82.0"
 
