@@ -71,13 +71,6 @@ fn main() {
 }
 ```
 
-## Status
-
-Most of the often used curses functions are added, I've ported a handful of the PDCurses demos
-to demonstrate how to use this library. Once all the functions are added I'll begin revising
-the API to be more Rust-like (less using integer return values for errors and instead using
-Result, for example)
-
 ## License
 
 Licensed under the MIT license, see [LICENSE.md](LICENSE.md)
