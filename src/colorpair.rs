@@ -1,8 +1,15 @@
 use std::ops::BitOr;
-use super::chtype;
+use super::{chtype, COLOR_PAIR};
 use attributes::{Attribute, Attributes};
 
-pub struct ColorPair(pub chtype);
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+pub struct ColorPair(pub u8);
+
+impl From<ColorPair> for chtype {
+    fn from(color_pair: ColorPair) -> chtype {
+        COLOR_PAIR(color_pair.0 as chtype)
+    }
+}
 
 /// Implement the | operator for setting a color pair on an Attributes object
 ///
@@ -13,15 +20,15 @@ pub struct ColorPair(pub chtype);
 /// use pancurses::colorpair::ColorPair;
 ///
 /// let mut attributes = Attributes::new();
-/// assert!(attributes.color_pair() == 0);
+/// assert!(attributes.color_pair().0 == 0);
 /// attributes = attributes | ColorPair(1);
-/// assert!(attributes.color_pair() == 1);
+/// assert!(attributes.color_pair().0 == 1);
 /// ```
 impl BitOr<ColorPair> for Attributes {
     type Output = Attributes;
 
     fn bitor(mut self, rhs: ColorPair) -> Attributes {
-        self.set_color_pair(rhs.0);
+        self.set_color_pair(rhs);
         self
     }
 }
@@ -31,11 +38,11 @@ impl BitOr<ColorPair> for Attributes {
 /// # Example
 ///
 /// ```
-/// use pancurses::{Attribute, Attributes};
+/// use pancurses::Attribute;
 /// use pancurses::colorpair::ColorPair;
 ///
-/// let attributes = ColorPair(2) | Attribute::Blink;
-/// assert!(attributes.color_pair() == 2);
+/// let attributes = ColorPair(5) | Attribute::Blink;
+/// assert!(attributes.color_pair().0 == 5);
 /// assert!(!attributes.is_bold());
 /// assert!(attributes.is_blink());
 /// ```
@@ -52,11 +59,11 @@ impl BitOr<Attribute> for ColorPair {
 /// # Example
 ///
 /// ```
-/// use pancurses::{Attribute, Attributes};
+/// use pancurses::Attribute;
 /// use pancurses::colorpair::ColorPair;
 ///
 /// let attributes = Attribute::Blink | ColorPair(2);
-/// assert!(attributes.color_pair() == 2);
+/// assert!(attributes.color_pair().0 == 2);
 /// assert!(!attributes.is_bold());
 /// assert!(attributes.is_blink());
 /// ```
@@ -65,11 +72,5 @@ impl BitOr<ColorPair> for Attribute {
 
     fn bitor(self, rhs: ColorPair) -> Attributes {
         Attributes::new() | self | rhs
-    }
-}
-
-impl From<ColorPair> for chtype {
-    fn from(color_pair: ColorPair) -> chtype {
-        color_pair.0
     }
 }

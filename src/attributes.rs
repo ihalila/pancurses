@@ -2,6 +2,7 @@ use std::ops::{BitOr, BitXor};
 use super::{chtype, A_ALTCHARSET, A_BOLD, A_BLINK, A_CHARTEXT, A_DIM, A_LEFTLINE, A_INVIS};
 use super::{A_ITALIC, A_OVERLINE, A_REVERSE, A_RIGHTLINE, A_STRIKEOUT, A_UNDERLINE};
 use super::{COLOR_PAIR};
+use super::colorpair::ColorPair;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 pub enum Attribute {
@@ -24,7 +25,7 @@ pub enum Attribute {
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Attributes {
    raw: chtype,
-   color_pair: chtype
+   color_pair: ColorPair
 }
 
 macro_rules! attribute_setter {
@@ -43,7 +44,7 @@ impl Attributes {
     pub fn new() -> Attributes {
         Attributes {
             raw: 0,
-            color_pair: 0
+            color_pair: ColorPair(0)
         }
     }
 
@@ -89,9 +90,10 @@ impl Attributes {
     pub fn is_underline(&self) -> bool { (self.raw & A_UNDERLINE) > 0 }
     attribute_setter!(set_underline, A_UNDERLINE);
 
-    pub fn color_pair(&self) -> chtype { self.color_pair }
-    pub fn set_color_pair(&mut self, color_pair: chtype) { 
-        self.raw = self.raw | COLOR_PAIR(color_pair);
+    pub fn color_pair(&self) -> ColorPair { self.color_pair }
+    pub fn set_color_pair(&mut self, color_pair: ColorPair) { 
+        let color_chtype: chtype = color_pair.into();
+        self.raw = self.raw | color_chtype;
         self.color_pair = color_pair;
     }
 }
@@ -188,7 +190,7 @@ impl BitOr for Attributes {
     fn bitor(self, rhs: Attributes) -> Attributes {
         Attributes{
             raw: self.raw | rhs.raw,
-            color_pair: self.color_pair | rhs.color_pair
+            color_pair: ColorPair(self.color_pair.0 | rhs.color_pair.0)
         }
     }
 }
@@ -213,7 +215,7 @@ impl BitXor for Attributes {
     fn bitxor(self, rhs: Attributes) -> Attributes {
         Attributes{
             raw: self.raw ^ rhs.raw,
-            color_pair: self.color_pair ^ rhs.color_pair
+            color_pair: ColorPair(self.color_pair.0 ^ rhs.color_pair.0)
         }
     }
 }
