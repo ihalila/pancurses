@@ -1,7 +1,6 @@
 use std::ops::{BitOr, BitXor};
 use super::{chtype, A_ALTCHARSET, A_BOLD, A_BLINK, A_CHARTEXT, A_DIM, A_LEFTLINE, A_INVIS};
 use super::{A_ITALIC, A_OVERLINE, A_REVERSE, A_RIGHTLINE, A_STRIKEOUT, A_UNDERLINE};
-use super::{COLOR_PAIR};
 use super::colorpair::ColorPair;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
