@@ -13,11 +13,15 @@ use std::ptr;
 #[cfg(windows)]
 use pdcurses as curses;
 #[cfg(windows)]
-pub use pdcurses::{chtype, mmask_t, MEVENT};
+pub use pdcurses::{chtype, mmask_t, MEVENT, SCREEN};
+#[cfg(windows)]
+type ScrPtr = *mut SCREEN;
 #[cfg(unix)]
 use ncurses::ll as curses;
 #[cfg(unix)]
-pub use ncurses::ll::{chtype, mmask_t, MEVENT};
+pub use ncurses::ll::{chtype, mmask_t, MEVENT, SCREEN};
+#[cfg(unix)]
+type ScrPtr = SCREEN;
 
 mod input;
 pub use self::input::*;
@@ -601,6 +605,16 @@ pub fn delay_output(milliseconds: i32) -> i32 {
     unsafe { curses::delay_output(milliseconds) }
 }
 
+/// Frees storage associated with the SCREEN data structure.
+///
+/// The endwin routine does not do this, so delscreen should be called after endwin if a particular 
+/// SCREEN is no longer needed.
+///
+/// In PDCurses, the parameter must be the value of SP, and delscreen() sets SP to NULL.
+pub fn delscreen(screen: ScrPtr) {
+    unsafe { curses::delscreen(screen) }
+}
+
 /// Compares the virtual screen to the physical screen and performs an update of the physical
 /// screen.
 pub fn doupdate() -> i32 {
@@ -697,6 +711,22 @@ pub fn napms(ms: i32) -> i32 {
     unsafe { curses::napms(ms) }
 }
 
+/// A program that outputs to more than one terminal should use the newterm routine for each
+/// terminal instead of initscr.
+///
+/// A program that needs to inspect capabilities, so it can continue to
+/// run in a line-oriented mode if the terminal cannot support a screen-oriented program, would also
+/// use newterm. The routine newterm should be called once for each terminal. It returns a variable
+/// of type ScrPtr which should be saved as a reference to that terminal.
+///
+/// (For the PDCurses backend it's just an alternative interface for initscr(). It always returns 
+/// SP, or NULL.)
+pub fn newterm(t: Option<&str>, output: *mut curses::FILE, input: *mut curses::FILE) -> ScrPtr {
+  unsafe {
+    curses::newterm(t.map(|x| CString::new(x).unwrap().as_ptr()).unwrap_or(std::ptr::null()), output, input)
+  }
+}
+
 /// Creates a new window with the given number of lines, nlines and columns, ncols.
 ///
 /// The upper left corner of the window is at line begy, column begx. If nlines is zero, it
@@ -767,6 +797,20 @@ pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
 /// (Only supported on Windows)
 pub fn set_blink(enabled: bool) -> i32 {
     platform_specific::_set_blink(enabled)
+}
+
+/// Switches between different terminals.
+///
+/// The screen reference new becomes the new current terminal. The previous terminal is returned by
+/// the routine. This is the only routine which manipulates ScrPtr's; all other routines  affect
+/// only the current terminal.
+///
+/// (Does nothing meaningful in PDCurses, but is included for compatibility with other curses
+/// implementations.)
+pub fn set_term(new: ScrPtr) -> ScrPtr {
+    unsafe {
+        curses::set_term(new)
+    }
 }
 
 /// Sets the title of the window in which the curses program is running. This function may not do
