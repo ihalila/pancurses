@@ -1,7 +1,6 @@
 extern crate pancurses;
 
 use pancurses::*;
-use pancurses::colorpair::ColorPair;
 
 fn main() {
     let window = initscr();

@@ -2,7 +2,6 @@ extern crate pancurses;
 extern crate rand;
 
 use pancurses::*;
-use pancurses::colorpair::ColorPair;
 
 use rand::Rng;
 
