@@ -2,7 +2,7 @@
 pub mod constants;
 use self::constants::*;
 
-use ncurses::{box_, getmouse, LcCategory, setlocale};
+use ncurses::{box_, COLORS, COLOR_PAIRS, getmouse, LcCategory, setlocale};
 use ncurses::ll::{chtype, MEVENT, NCURSES_ATTR_T, WINDOW, wattron, wattroff, wattrset, ungetch};
 use libc::c_int;
 use input::Input;
@@ -21,6 +21,14 @@ pub fn _attroff(w: WINDOW, attributes: chtype) -> i32 {
 
 pub fn _attrset(w: WINDOW, attributes: chtype) -> i32 {
     unsafe { wattrset(w, attributes as NCURSES_ATTR_T) }
+}
+
+pub fn _COLORS() -> i32 {
+    COLORS()
+}
+
+pub fn _COLOR_PAIRS() -> i32 {
+    COLOR_PAIRS()
 }
 
 pub fn _draw_box(w: WINDOW, verch: chtype, horch: chtype) -> i32 {
@@ -44,7 +52,7 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
 }
 
 pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
-    error!("resize_term is not implemented in ncurses-rs");
+    panic!("resize_term is not implemented in ncurses-rs");
     -1
 }
 

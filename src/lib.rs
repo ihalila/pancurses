@@ -1,4 +1,4 @@
-#[macro_use]
+#![allow(non_camel_case_types, non_snake_case)]
 extern crate log;
 extern crate libc;
 
@@ -534,10 +534,20 @@ pub fn cbreak() -> i32 {
     unsafe { curses::cbreak() }
 }
 
+/// Maximum number of colors the terminal is capable of displaying.
+pub fn COLORS() -> i32 {
+    platform_specific::_COLORS()
+}
+
+/// Maximum number of color-pairs the terminal is capable of displaying.
+pub fn COLOR_PAIRS() -> i32 {
+    platform_specific::_COLOR_PAIRS()
+}
+
 /// This routine gives programmers a way to find the intensity of the red, green, and blue (RGB)
 /// components in a color. It takes the color number as an argument and returns three values
 /// that tell you the amounts of red, green, and blue components in the given color. The argument
-/// must be a legal color value, i.e., 0 through COLORS-1, inclusive. The values that are returned
+/// must be a legal color value, i.e., 0 through COLORS()-1, inclusive. The values that are returned
 /// are in the range 0 (no component) through 1000 (maximum amount of component), inclusive.
 ///
 /// ```rust
@@ -656,7 +666,7 @@ pub fn init_color(color_number: i16, red: i16, green: i16, blue: i16) -> i32 {
 ///
 /// It takes three arguments: the number of the color-pair to be redefined, and the new values of
 /// the foreground and background colors. The pair number must be between 0 and `COLOR_PAIRS` - 1,
-/// inclusive. The foreground and background must be between 0 and `COLORS` - 1, inclusive. If the
+/// inclusive. The foreground and background must be between 0 and `COLORS()` - 1, inclusive. If the
 /// color pair was previously initialized, the screen is refreshed, and all occurrences of that
 /// color-pair are changed to the new definition.
 pub fn init_pair(pair_index: i16, foreground_color: i16, background_color: i16) -> i32 {
@@ -745,7 +755,7 @@ pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
 ///
 /// The default is platform-dependent (FALSE in most cases). It returns OK if it could set the
 /// state to match the given parameter, ERR otherwise. Current platforms also adjust the value
-/// of COLORS according to this function -- 16 for FALSE, and 8 for TRUE.
+/// of COLORS() according to this function -- 16 for FALSE, and 8 for TRUE.
 /// (Only supported on Windows)
 pub fn set_blink(enabled: bool) -> i32 {
     platform_specific::_set_blink(enabled)
@@ -758,7 +768,7 @@ pub fn set_title(title: &str) {
 }
 
 /// Initializes eight basic colors (black, red, green, yellow, blue, magenta, cyan,
-/// and white), and two global variables; `COLORS` and `COLOR_PAIRS` (respectively defining the
+/// and white), and two global variables accessed through `COLORS()` and `COLOR_PAIRS()` (respectively defining the
 /// maximum number of colors and color-pairs the terminal is capable of displaying).
 pub fn start_color() -> i32 {
     unsafe { curses::start_color() as i32 }
