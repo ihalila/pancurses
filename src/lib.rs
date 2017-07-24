@@ -607,6 +607,14 @@ pub fn doupdate() -> i32 {
     unsafe { curses::doupdate() }
 }
 
+/// Enabled echoing typed characters.
+///
+/// Initially, input characters are echoed. Subsequent calls to echo() and noecho() do not flush
+/// type-ahead.
+pub fn echo() -> i32 {
+    unsafe { curses::echo() }
+}
+
 /// Should be called before exiting or escaping from curses mode temporarily.
 ///
 /// It will restore tty modes, move the cursor to the lower left corner of the screen and reset the
