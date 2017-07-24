@@ -16,12 +16,17 @@ use pdcurses as curses;
 pub use pdcurses::{chtype, mmask_t, MEVENT, SCREEN};
 #[cfg(windows)]
 type ScrPtr = *mut SCREEN;
+#[cfg(windows)]
+type FILE = *mut curses::FILE;
+
 #[cfg(unix)]
 use ncurses::ll as curses;
 #[cfg(unix)]
 pub use ncurses::ll::{chtype, mmask_t, MEVENT, SCREEN};
 #[cfg(unix)]
 type ScrPtr = SCREEN;
+#[cfg(unix)]
+type FILE = curses::FILE_p;
 
 mod input;
 pub use self::input::*;
@@ -721,7 +726,7 @@ pub fn napms(ms: i32) -> i32 {
 ///
 /// (For the PDCurses backend it's just an alternative interface for initscr(). It always returns 
 /// SP, or NULL.)
-pub fn newterm(t: Option<&str>, output: *mut curses::FILE, input: *mut curses::FILE) -> ScrPtr {
+pub fn newterm(t: Option<&str>, output: FILE, input: FILE) -> ScrPtr {
   unsafe {
     curses::newterm(t.map(|x| CString::new(x).unwrap().as_ptr()).unwrap_or(std::ptr::null()), output, input)
   }
