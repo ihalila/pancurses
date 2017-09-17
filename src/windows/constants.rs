@@ -176,7 +176,6 @@ pub fn ACS_RARROW() -> chtype { ' ' as chtype | A_ALTCHARSET }
 pub fn ACS_DARROW() -> chtype { '#' as chtype | A_ALTCHARSET }
 pub fn ACS_UARROW() -> chtype { '"' as chtype | A_ALTCHARSET }
 pub fn ACS_BOARD() -> chtype { '+' as chtype | A_ALTCHARSET }
-pub fn ACS_LTBOARD() -> chtype { 'y' as chtype | A_ALTCHARSET }
 pub fn ACS_LANTERN() -> chtype { 'z' as chtype | A_ALTCHARSET }
 pub fn ACS_BLOCK() -> chtype { 't' as chtype | A_ALTCHARSET }
 
