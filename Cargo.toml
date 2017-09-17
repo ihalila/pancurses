@@ -24,7 +24,7 @@ libc = "0.2"
 [target.'cfg(windows)'.dependencies]
 pdcurses-sys = "0.4"
 [target.'cfg(unix)'.dependencies]
-ncurses = "5.82.0"
+ncurses = "5.86.0"
 
 [dev-dependencies]
 rand = "0.3"
