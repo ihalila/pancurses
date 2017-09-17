@@ -372,6 +372,15 @@ impl Window {
         unsafe { curses::keypad(self._window, use_keypad as u8) }
     }
 
+    /// Insert the character ch before the character under the cursor.
+    ///
+    /// All characters to the right of the cursor are moved one space to the right, with the
+    /// possibility of the rightmost character on the line being lost. The insertion operation does
+    /// not change the cursor position.
+    pub fn insch<T: ToChtype>(&self, ch: T) -> i32 {
+        unsafe { curses::winsch(self._window, ch.to_chtype()) }
+    }
+
     /// The cursor associated with the window is moved to the given location.
     ///
     /// This does not move the physical cursor of the terminal until refresh() is called.  The
@@ -419,6 +428,17 @@ impl Window {
     pub fn mvinch(&self, y: i32, x: i32) -> chtype {
         unsafe { curses::mvwinch(self._window, y, x) }
     }
+
+    /// Move the cursor and then insert the character ch before the character under the cursor.
+    ///
+    /// First performs a cursor movement using wmove, and returns an error if the position is
+    /// outside the window. All characters to the right of the cursor are moved one space to the
+    /// right, with the possibility of the rightmost character on the line being lost. The insertion
+    /// operation does not change the cursor position.
+    pub fn mvinsch<T: ToChtype>(&self, y: i32, x: i32, ch: T) -> i32 {
+        unsafe { curses::mvwinsch(self._window, y, x, ch.to_chtype()) }
+    }
+
 
     /// Add a string to the window at the specified cursor position.
     pub fn mvprintw(&self, y: i32, x: i32, string: &str) -> i32 {
