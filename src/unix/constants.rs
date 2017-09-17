@@ -3,6 +3,12 @@ use ncurses;
 use ncurses::ll::{attr_t, chtype, mmask_t};
 use ncurses::NCURSES_ATTR_SHIFT;
 
+pub use ncurses::{ACS_LRCORNER, ACS_URCORNER, ACS_ULCORNER, ACS_LLCORNER};
+pub use ncurses::{ACS_PLUS, ACS_LTEE, ACS_RTEE, ACS_BTEE, ACS_TTEE, ACS_HLINE, ACS_VLINE};
+pub use ncurses::{ACS_S1, ACS_S9, ACS_DIAMOND, ACS_CKBOARD, ACS_DEGREE, ACS_PLMINUS, ACS_BULLET};
+pub use ncurses::{ACS_LARROW, ACS_RARROW, ACS_DARROW, ACS_UARROW, ACS_BOARD, ACS_LTBOARD, ACS_LANTERN, ACS_BLOCK};
+pub use ncurses::{ACS_S3, ACS_S7, ACS_LEQUAL, ACS_GEQUAL, ACS_PI, ACS_NEQUAL, ACS_STERLING};
+
 fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
     mask << (shift + NCURSES_ATTR_SHIFT) as usize
 }

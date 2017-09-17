@@ -150,3 +150,40 @@ pub const SPECIAL_KEY_CODES: [Input; 102] = [Input::KeyCodeYes,
                                              Input::KeyUndo];
 
 pub const ALL_MOUSE_EVENTS: mmask_t = 0x1fffffff;
+
+pub fn ACS_LRCORNER() -> chtype { 'V' as chtype | A_ALTCHARSET }
+pub fn ACS_URCORNER() -> chtype { 'W' as chtype | A_ALTCHARSET }
+pub fn ACS_ULCORNER() -> chtype { 'X' as chtype | A_ALTCHARSET }
+pub fn ACS_LLCORNER() -> chtype { 'Y' as chtype | A_ALTCHARSET }
+pub fn ACS_PLUS() -> chtype { 'Z' as chtype | A_ALTCHARSET }
+pub fn ACS_LTEE() -> chtype { '[' as chtype | A_ALTCHARSET }
+pub fn ACS_RTEE() -> chtype { '\\' as chtype | A_ALTCHARSET }
+pub fn ACS_BTEE() -> chtype { ']' as chtype | A_ALTCHARSET }
+pub fn ACS_TTEE() -> chtype { '^' as chtype | A_ALTCHARSET }
+pub fn ACS_HLINE() -> chtype { '_' as chtype | A_ALTCHARSET }
+pub fn ACS_VLINE() -> chtype { '`' as chtype | A_ALTCHARSET }
+
+pub fn ACS_S1() -> chtype { 'l' as chtype | A_ALTCHARSET }
+pub fn ACS_S9() -> chtype { 'o' as chtype | A_ALTCHARSET }
+pub fn ACS_DIAMOND() -> chtype { 'j' as chtype | A_ALTCHARSET }
+pub fn ACS_CKBOARD() -> chtype { 'k' as chtype | A_ALTCHARSET }
+pub fn ACS_DEGREE() -> chtype { 'w' as chtype | A_ALTCHARSET }
+pub fn ACS_PLMINUS() -> chtype { 'x' as chtype | A_ALTCHARSET }
+pub fn ACS_BULLET() -> chtype { 'h' as chtype | A_ALTCHARSET }
+
+pub fn ACS_LARROW() -> chtype { '!' as chtype | A_ALTCHARSET }
+pub fn ACS_RARROW() -> chtype { ' ' as chtype | A_ALTCHARSET }
+pub fn ACS_DARROW() -> chtype { '#' as chtype | A_ALTCHARSET }
+pub fn ACS_UARROW() -> chtype { '"' as chtype | A_ALTCHARSET }
+pub fn ACS_BOARD() -> chtype { '+' as chtype | A_ALTCHARSET }
+pub fn ACS_LTBOARD() -> chtype { 'y' as chtype | A_ALTCHARSET }
+pub fn ACS_LANTERN() -> chtype { 'z' as chtype | A_ALTCHARSET }
+pub fn ACS_BLOCK() -> chtype { 't' as chtype | A_ALTCHARSET }
+
+pub fn ACS_S3() -> chtype { 'm' as chtype | A_ALTCHARSET }
+pub fn ACS_S7() -> chtype { 'n' as chtype | A_ALTCHARSET }
+pub fn ACS_LEQUAL() -> chtype { 'u' as chtype | A_ALTCHARSET }
+pub fn ACS_GEQUAL() -> chtype { 'v' as chtype | A_ALTCHARSET }
+pub fn ACS_PI() -> chtype { '$' as chtype | A_ALTCHARSET }
+pub fn ACS_NEQUAL() -> chtype { '%' as chtype | A_ALTCHARSET }
+pub fn ACS_STERLING() -> chtype { '~' as chtype | A_ALTCHARSET }
