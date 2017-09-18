@@ -186,3 +186,15 @@ pub fn ACS_GEQUAL() -> chtype { 'v' as chtype | A_ALTCHARSET }
 pub fn ACS_PI() -> chtype { '$' as chtype | A_ALTCHARSET }
 pub fn ACS_NEQUAL() -> chtype { '%' as chtype | A_ALTCHARSET }
 pub fn ACS_STERLING() -> chtype { '~' as chtype | A_ALTCHARSET }
+
+pub fn ACS_BSSB() -> chtype { ACS_ULCORNER() }
+pub fn ACS_SSBB() -> chtype { ACS_LLCORNER() }
+pub fn ACS_BBSS() -> chtype { ACS_URCORNER() }
+pub fn ACS_SBBS() -> chtype { ACS_LRCORNER() }
+pub fn ACS_SBSS() -> chtype { ACS_RTEE() }
+pub fn ACS_SSSB() -> chtype { ACS_LTEE() }
+pub fn ACS_SSBS() -> chtype { ACS_BTEE() }
+pub fn ACS_BSSS() -> chtype { ACS_TTEE() }
+pub fn ACS_BSBS() -> chtype { ACS_HLINE() }
+pub fn ACS_SBSB() -> chtype { ACS_VLINE() }
+pub fn ACS_SSSS() -> chtype { ACS_PLUS() }
