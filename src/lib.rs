@@ -538,6 +538,15 @@ impl Window {
     }
 }
 
+/// Automatically clean up window resources when dropped
+impl Drop for Window {
+    fn drop(&mut self) {
+        unsafe {
+            curses::delwin(self._window);
+        }
+    }
+}
+
 /// Return the output speed of the terminal. On Windows it simply returns `INT_MAX`
 pub fn baudrate() -> i32 {
     unsafe { curses::baudrate() }
