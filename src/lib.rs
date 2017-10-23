@@ -283,6 +283,16 @@ impl Window {
         platform_specific::_draw_box(self._window, verch.to_chtype(), horch.to_chtype())
     }
 
+    /// Creates an exact duplicate of the window.
+    pub fn dupwin(&self) -> Window {
+        let dup_win = unsafe { curses::dupwin(self._window) };
+        Window { 
+                _window: dup_win,
+                _stdscr: false,
+                _deleted: false
+                }
+    }
+
     /// Copies blanks (i.e. the background chtype) to every cell of the window.
     pub fn erase(&self) -> i32 {
         unsafe { curses::werase(self._window) }
@@ -426,6 +436,14 @@ impl Window {
         }
     }
 
+    /// Moves a derived window (or subwindow) inside its parent window.
+    ///
+    /// The screen-relative parameters of the window are not changed. This routine is used to
+    /// display different parts of the parent window at the same physical position on the screen.
+    pub fn mvderwin(&self, pary: i32, parx: i32) -> i32 {
+        unsafe { curses::mvderwin(self._window, pary, parx) }
+    }
+
     /// Retrieves the character and attribute from the specified window position, in the form of a
     /// chtype.
     pub fn mvinch(&self, y: i32, x: i32) -> chtype {
@@ -447,6 +465,14 @@ impl Window {
     pub fn mvprintw(&self, y: i32, x: i32, string: &str) -> i32 {
         let s = CString::new(string).unwrap();
         unsafe { curses::mvwprintw(self._window, y, x, s.as_ptr()) }
+    }
+
+    /// Moves the window so that the upper left-hand corner is at position (y,x).
+    ///
+    /// If the move would cause the window to be off the screen, it is an error and the window is
+    /// not moved. Moving subwindows is allowed.
+    pub fn mvwin(&self, y: i32, x: i32) -> i32 {
+        unsafe { curses::mvwin(self._window, y, x) }
     }
 
     /// Controls whether wgetch() is a non-blocking call. If the option is enabled, and
