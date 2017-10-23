@@ -376,6 +376,17 @@ impl Window {
         unsafe { curses::whline(self._window, ch.to_chtype(), n) }
     }
 
+    /// Returns true if the specified line in the specified window has been changed since the last
+    /// call to refresh().
+    pub fn is_linetouched(&self, line: i32) -> bool {
+        unsafe { curses::is_linetouched(self._window, line) > 0 }
+    }
+
+    /// Returns true if the specified window has been changed since the last call to refresh().
+    pub fn is_touched(&self) -> bool {
+        unsafe { curses::is_wintouched(self._window) > 0 }
+    }
+
     /// Controls whether getch() returns function/special keys as single key codes (e.g., the left
     /// arrow key as KEY_LEFT).
     ///
@@ -535,7 +546,7 @@ impl Window {
     /// The dimensions of the subwindow are nlines lines and ncols columns. The subwindow is at
     /// position (begy, begx) on the screen. This position is relative to the screen, and not to
     /// the window orig. Changes made to either window will affect both. When using this routine,
-    /// you will often need to call touchwin() before calling wrefresh().
+    /// you will often need to call touchwin() before calling refresh().
     pub fn subwin(&self, nlines: i32, ncols: i32, begy: i32, begx: i32) -> Result<Window, i32> {
         let new_window = unsafe { curses::subwin(self._window, nlines, ncols, begy, begx) };
         if new_window.is_null() {
@@ -558,9 +569,40 @@ impl Window {
         unsafe { curses::wtimeout(self._window, milliseconds) }
     }
 
+    /// Throws away all information about which parts of the window have been touched, pretending
+    /// that the entire window has been drawn on.
+    ///
+    ///  This is sometimes necessary when using overlapping windows, since a change to one window
+    /// will affect the other window, but the records of which lines have been changed in the other
+    /// window will not reflect the change.
+    pub fn touch(&self) -> i32 {
+        unsafe { curses::touchwin(self._window) }
+    }
+
+    /// Throws away all information about which parts of the window have been touched, pretending
+    /// that the entire window has been drawn on.
+    ///
+    ///  This is sometimes necessary when using overlapping windows, since a change to one window
+    /// will affect the other window, but the records of which lines have been changed in the other
+    /// window will not reflect the change.
+    pub fn touchline(&self, start: i32, count: i32) -> i32 {
+        unsafe { curses::touchline(self._window, start, count) }
+    }
+
+    /// Makes n lines in the window, starting at line y, look as if they have or have not been
+    /// changed since the last call to refresh().
+    pub fn touchln(&self, y: i32, n: i32, changed: bool) -> i32 {
+        unsafe { curses::wtouchln(self._window, y, n, if changed { 1 } else { 0 }) }
+    }
+
     /// Places ch back onto the input queue to be returned by the next call to getch().
     pub fn ungetch(&self, input: &Input) -> i32 {
         platform_specific::_ungetch(input)
+    }
+
+    /// Marks all lines in the window as unchanged since the last call to refresh().
+    pub fn untouch(&self) -> i32 {
+        unsafe { curses::untouchwin(self._window) }
     }
 
     /// Draw a vertical line using ch from the current cursor position. The line is at most
