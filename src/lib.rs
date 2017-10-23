@@ -76,6 +76,8 @@ pub struct Window {
     _window: *mut curses::WINDOW,
     #[cfg(unix)]
     _window: curses::WINDOW,
+    _stdscr: bool,
+    _deleted: bool,
 }
 
 impl Window {
@@ -259,7 +261,8 @@ impl Window {
 
     /// Deletes the window, freeing all associated memory. In the case of overlapping windows,
     /// subwindows should be deleted before the main window.
-    pub fn delwin(self) -> i32 {
+    pub fn delwin(mut self) -> i32 {
+        self._deleted = true;
         unsafe { curses::delwin(self._window) }
     }
 
@@ -512,7 +515,10 @@ impl Window {
         if new_window.is_null() {
             Err(ERR)
         } else {
-            Ok(Window { _window: new_window })
+            Ok(Window { 
+                _window: new_window,
+                _stdscr: false,
+                _deleted: false, })
         }
     }
 
@@ -535,6 +541,17 @@ impl Window {
     /// n characters long, or as many as fit into the window.
     pub fn vline<T: ToChtype>(&self, ch: T, n: i32) -> i32 {
         unsafe { curses::wvline(self._window, ch.to_chtype(), n) }
+    }
+}
+
+/// Automatically clean up window resources when dropped
+impl Drop for Window {
+    fn drop(&mut self) {
+        if !self._stdscr && !self._deleted{
+            unsafe {
+                curses::delwin(self._window);
+            }
+        }
     }
 }
 
@@ -697,7 +714,11 @@ pub fn has_colors() -> bool {
 pub fn initscr() -> Window {
     platform_specific::pre_init();
     let window_pointer = unsafe { curses::initscr() };
-    Window { _window: window_pointer }
+    Window { 
+        _window: window_pointer,
+        _stdscr: true,
+        _deleted: false,
+    }
 }
 
 /// Changes the definition of a color. It takes four arguments: the number of the color to be
@@ -759,7 +780,11 @@ pub fn newterm(t: Option<&str>, output: FILE, input: FILE) -> ScrPtr {
 /// newwin(0, 0, 0, 0).
 pub fn newwin(nlines: i32, ncols: i32, begy: i32, begx: i32) -> Window {
     let window_pointer = unsafe { curses::newwin(nlines, ncols, begy, begx) };
-    Window { _window: window_pointer }
+    Window { 
+        _window: window_pointer,
+        _stdscr: false,
+        _deleted: false,
+    }
 }
 
 /// Enables the translation of a carriage return into a newline on input.
