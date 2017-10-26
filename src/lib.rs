@@ -907,7 +907,7 @@ pub fn resize_term(nlines: i32, ncols: i32) -> i32 {
 }
 
 /// Toggles whether the `A_BLINK` attribute sets an actual blink mode (TRUE), or sets the background
-/// color to hig intensity (FALSE).
+/// color to high intensity (FALSE).
 ///
 /// The default is platform-dependent (FALSE in most cases). It returns OK if it could set the
 /// state to match the given parameter, ERR otherwise. Current platforms also adjust the value
