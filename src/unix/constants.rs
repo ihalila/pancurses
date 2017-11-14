@@ -12,16 +12,38 @@ pub use ncurses::{ACS_S3, ACS_S7, ACS_GEQUAL, ACS_LEQUAL, ACS_NEQUAL, ACS_PI, AC
 pub use ncurses::{ACS_BBSS, ACS_BSSB, ACS_SBBS, ACS_SBSS, ACS_SSBB, ACS_SSBS, ACS_SSSB};
 pub use ncurses::{ACS_BSBS, ACS_BSSS, ACS_SBSB, ACS_SSSS};
 
-pub use ncurses::{BUTTON1_CLICKED, BUTTON1_DOUBLE_CLICKED, BUTTON1_PRESSED, BUTTON1_RELEASED,
-                  BUTTON1_TRIPLE_CLICKED};
-pub use ncurses::{BUTTON2_CLICKED, BUTTON2_DOUBLE_CLICKED, BUTTON2_PRESSED, BUTTON2_RELEASED,
-                  BUTTON2_TRIPLE_CLICKED};
-pub use ncurses::{BUTTON3_CLICKED, BUTTON3_DOUBLE_CLICKED, BUTTON3_PRESSED, BUTTON3_RELEASED,
-                  BUTTON3_TRIPLE_CLICKED};
-pub use ncurses::{BUTTON4_CLICKED, BUTTON4_DOUBLE_CLICKED, BUTTON4_PRESSED, BUTTON4_RELEASED,
-                  BUTTON4_TRIPLE_CLICKED};
-pub use ncurses::{BUTTON5_CLICKED, BUTTON5_DOUBLE_CLICKED, BUTTON5_PRESSED, BUTTON5_RELEASED,
-                  BUTTON5_TRIPLE_CLICKED};
+// We need to re-export the BUTTONX_Y constants as 'mmask_t's, otherwise you can't compare them
+// to a MEVENT's bstate without casting
+pub const BUTTON1_PRESSED: mmask_t = ncurses::BUTTON1_PRESSED as mmask_t;
+pub const BUTTON1_RELEASED: mmask_t = ncurses::BUTTON1_RELEASED as mmask_t;
+pub const BUTTON1_CLICKED: mmask_t = ncurses::BUTTON1_CLICKED as mmask_t;
+pub const BUTTON1_DOUBLE_CLICKED: mmask_t = ncurses::BUTTON1_DOUBLE_CLICKED as mmask_t;
+pub const BUTTON1_TRIPLE_CLICKED: mmask_t = ncurses::BUTTON1_TRIPLE_CLICKED as mmask_t;
+
+pub const BUTTON2_PRESSED: mmask_t = ncurses::BUTTON2_PRESSED as mmask_t;
+pub const BUTTON2_RELEASED: mmask_t = ncurses::BUTTON2_RELEASED as mmask_t;
+pub const BUTTON2_CLICKED: mmask_t = ncurses::BUTTON2_CLICKED as mmask_t;
+pub const BUTTON2_DOUBLE_CLICKED: mmask_t = ncurses::BUTTON2_DOUBLE_CLICKED as mmask_t;
+pub const BUTTON2_TRIPLE_CLICKED: mmask_t = ncurses::BUTTON2_TRIPLE_CLICKED as mmask_t;
+
+pub const BUTTON3_PRESSED: mmask_t = ncurses::BUTTON3_PRESSED as mmask_t;
+pub const BUTTON3_RELEASED: mmask_t = ncurses::BUTTON3_RELEASED as mmask_t;
+pub const BUTTON3_CLICKED: mmask_t = ncurses::BUTTON3_CLICKED as mmask_t;
+pub const BUTTON3_DOUBLE_CLICKED: mmask_t = ncurses::BUTTON3_DOUBLE_CLICKED as mmask_t;
+pub const BUTTON3_TRIPLE_CLICKED: mmask_t = ncurses::BUTTON3_TRIPLE_CLICKED as mmask_t;
+
+pub const BUTTON4_PRESSED: mmask_t = ncurses::BUTTON4_PRESSED as mmask_t;
+pub const BUTTON4_RELEASED: mmask_t = ncurses::BUTTON4_RELEASED as mmask_t;
+pub const BUTTON4_CLICKED: mmask_t = ncurses::BUTTON4_CLICKED as mmask_t;
+pub const BUTTON4_DOUBLE_CLICKED: mmask_t = ncurses::BUTTON4_DOUBLE_CLICKED as mmask_t;
+pub const BUTTON4_TRIPLE_CLICKED: mmask_t = ncurses::BUTTON4_TRIPLE_CLICKED as mmask_t;
+
+pub const BUTTON5_PRESSED: mmask_t = ncurses::BUTTON5_PRESSED as mmask_t;
+pub const BUTTON5_RELEASED: mmask_t = ncurses::BUTTON5_RELEASED as mmask_t;
+pub const BUTTON5_CLICKED: mmask_t = ncurses::BUTTON5_CLICKED as mmask_t;
+pub const BUTTON5_DOUBLE_CLICKED: mmask_t = ncurses::BUTTON5_DOUBLE_CLICKED as mmask_t;
+pub const BUTTON5_TRIPLE_CLICKED: mmask_t = ncurses::BUTTON5_TRIPLE_CLICKED as mmask_t;
+
 pub use ncurses::REPORT_MOUSE_POSITION;
 
 fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
