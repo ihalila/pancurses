@@ -233,7 +233,7 @@ pub fn has_colors() -> bool {
 pub fn initscr() -> Window {
     platform_specific::pre_init();
     let window_pointer = unsafe { curses::initscr() };
-    Window::new(window_pointer, true)
+    window::new_window(window_pointer, true)
 }
 
 /// Changes the definition of a color. It takes four arguments: the number of the color to be
@@ -313,7 +313,7 @@ pub fn newterm(t: Option<&str>, output: FILE, input: FILE) -> ScrPtr {
 /// newwin(0, 0, 0, 0).
 pub fn newwin(nlines: i32, ncols: i32, begy: i32, begx: i32) -> Window {
     let window_pointer = unsafe { curses::newwin(nlines, ncols, begy, begx) };
-    Window::new(window_pointer, false)
+    window::new_window(window_pointer, false)
 }
 
 /// Enables the translation of a carriage return into a newline on input.

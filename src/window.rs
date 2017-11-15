@@ -449,14 +449,6 @@ impl Window {
         unsafe { curses::mvwin(self._window, y, x) }
     }
 
-    pub(super) fn new(window_pointer: WindowPointer, is_stdscr: bool) -> Window {
-        Window {
-            _window: window_pointer,
-            _stdscr: is_stdscr,
-            _deleted: false,
-        }
-    }
-
     /// Controls whether wgetch() is a non-blocking call. If the option is enabled, and
     /// no input is ready, wgetch() will return ERR. If disabled, wgetch() will hang until input is
     /// ready.
@@ -581,6 +573,14 @@ impl Window {
     /// n characters long, or as many as fit into the window.
     pub fn vline<T: ToChtype>(&self, ch: T, n: i32) -> i32 {
         unsafe { curses::wvline(self._window, ch.to_chtype(), n) }
+    }
+}
+
+pub fn new_window(window_pointer: WindowPointer, is_stdscr: bool) -> Window {
+    Window {
+        _window: window_pointer,
+        _stdscr: is_stdscr,
+        _deleted: false,
     }
 }
 
