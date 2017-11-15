@@ -46,15 +46,17 @@ fn main() {
         let mut color_block_cols = (x_max - color_block_start) / 2;
         let color_block_lines = 19;
 
-        let cursor_state_text = ["Invisible (click to change) ",
-                                 "Underscore (click to change)",
-                                 "Block (click to change)     ",
-                                 "Outline (click to change)   ",
-                                 "Caret (click to change)     ",
-                                 "Half-block (click to change)",
-                                 "Central (click to change)   ",
-                                 "Cross (click to change)     ",
-                                 "Heavy box (click to change) "];
+        let cursor_state_text = [
+            "Invisible (click to change) ",
+            "Underscore (click to change)",
+            "Block (click to change)     ",
+            "Outline (click to change)   ",
+            "Caret (click to change)     ",
+            "Half-block (click to change)",
+            "Central (click to change)   ",
+            "Cross (click to change)     ",
+            "Heavy box (click to change) ",
+        ];
 
         if color_block_cols < 0 {
             color_block_cols = 0;
@@ -104,9 +106,11 @@ fn main() {
 
             for i in 0..128 {
                 // Show extended characters
-                window.mvaddstr(5 + i % 16,
-                                (i / 16) * 5,
-                                &format!("{:02X} ", i + unicode_offset));
+                window.mvaddstr(
+                    5 + i % 16,
+                    (i / 16) * 5,
+                    &format!("{:02X} ", i + unicode_offset),
+                );
                 if i + unicode_offset > ' ' as i32 {
                     window.addch((i + unicode_offset) as chtype);
                 } else {
@@ -131,7 +135,14 @@ fn main() {
                 let fullwidth = " Ｆｕｌｌｗｉｄｔｈ";
                 let combining_marks = "Cmin 	r";
 
-                let texts = [spanish, russian, greek, georgian, fullwidth, combining_marks];
+                let texts = [
+                    spanish,
+                    russian,
+                    greek,
+                    georgian,
+                    fullwidth,
+                    combining_marks,
+                ];
 
                 if line < y_max && col < x_max {
                     window.mvaddnstr(line, 5 + 25 * (i % 3), texts[i as usize], x_max - col);
@@ -146,23 +157,25 @@ fn main() {
             window.mvaddstr(6, COL3, "'real' blinking vs. 'highlit' blink");
         }
 
-        window.mvaddnstr(19,
-                         color_block_start,
-                         cursor_state_text[cursor_state_1],
-                         x_max - color_block_start);
-        window.mvaddnstr(20,
-                         color_block_start,
-                         cursor_state_text[cursor_state_2],
-                         x_max - color_block_start);
+        window.mvaddnstr(
+            19,
+            color_block_start,
+            cursor_state_text[cursor_state_1],
+            x_max - color_block_start,
+        );
+        window.mvaddnstr(
+            20,
+            color_block_start,
+            cursor_state_text[cursor_state_2],
+            x_max - color_block_start,
+        );
 
         for i in 0..color_block_cols * color_block_lines {
             let n_color_blocks = 256;
 
-            window.attrset(COLOR_PAIR(if i >= n_color_blocks {
-                2
-            } else {
-                i as chtype
-            }));
+            window.attrset(COLOR_PAIR(
+                if i >= n_color_blocks { 2 } else { i as chtype },
+            ));
             if i > 2 && i < n_color_blocks {
                 init_pair(i as i16, i as i16, COLOR_BLACK);
             }
@@ -190,16 +203,22 @@ fn main() {
             }
             Some(Input::KeyMouse) => {
                 if let Ok(mouse_event) = getmouse() {
-                    window.mvaddstr(0,
-                                    COL1,
-                                    &format!("Mouse at {} x {}: {}",
-                                                mouse_event.x,
-                                                mouse_event.y,
-                                                mouse_event.bstate));
+                    window.mvaddstr(
+                        0,
+                        COL1,
+                        &format!(
+                            "Mouse at {} x {}: {}",
+                            mouse_event.x,
+                            mouse_event.y,
+                            mouse_event.bstate
+                        ),
+                    );
                     if mouse_event.x >= color_block_start {
-                        if mouse_event.y == 19 { // blink/non-blink toggle
+                        if mouse_event.y == 19 {
+                            // blink/non-blink toggle
                             cursor_state_1 = (cursor_state_1 + 1) % N_CURSORS as usize;
-                        } else if mouse_event.y == 20 { // cycle cursor state
+                        } else if mouse_event.y == 20 {
+                            // cycle cursor state
                             cursor_state_2 = (cursor_state_2 + 1) % N_CURSORS as usize;
                         }
                     } else if mouse_event.x >= 40 && mouse_event.x < 40 + 10 {

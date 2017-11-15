@@ -6,14 +6,16 @@ use rand::Rng;
 
 const DELAYSIZE: i32 = 200;
 
-const COLOR_TABLE: [i16; 8] = [COLOR_RED,
-                               COLOR_BLUE,
-                               COLOR_GREEN,
-                               COLOR_CYAN,
-                               COLOR_RED,
-                               COLOR_MAGENTA,
-                               COLOR_YELLOW,
-                               COLOR_WHITE];
+const COLOR_TABLE: [i16; 8] = [
+    COLOR_RED,
+    COLOR_BLUE,
+    COLOR_GREEN,
+    COLOR_CYAN,
+    COLOR_RED,
+    COLOR_MAGENTA,
+    COLOR_YELLOW,
+    COLOR_WHITE,
+];
 
 fn main() {
     let window = initscr();
@@ -43,34 +45,20 @@ fn main() {
         while diff < 2 || diff >= lines - 2 {
             start = rng.gen::<i32>() % (cols - 3);
             let mut end = rng.gen::<i32>() % (cols - 3);
-            start = if start < 2 {
-                2
-            } else {
-                start
-            };
-            end = if end < 2 {
-                2
-            } else {
-                end
-            };
-            direction = if start > end {
-                -1
-            } else {
-                1
-            };
+            start = if start < 2 { 2 } else { start };
+            end = if end < 2 { 2 } else { end };
+            direction = if start > end { -1 } else { 1 };
             diff = (start - end).abs();
         }
 
         window.attrset(A_NORMAL);
 
         for row in 0..diff {
-            window.mvaddstr(lines - row,
-                            row * direction + start,
-                            if direction < 0 {
-                                "\\"
-                            } else {
-                                "/"
-                            });
+            window.mvaddstr(
+                lines - row,
+                row * direction + start,
+                if direction < 0 { "\\" } else { "/" },
+            );
 
             if flag != 0 {
                 myrefresh(&window);
@@ -106,7 +94,7 @@ fn explode<T: Rng>(row: i32, mut col: i32, window: &Window, rng: &mut T) {
 
     get_color(rng, window);
     window.mvaddstr(row - 1, col, " - ");
-    window.mvaddstr(row,     col, "-+-");
+    window.mvaddstr(row, col, "-+-");
     window.mvaddstr(row + 1, col, " - ");
     myrefresh(window);
 
@@ -115,7 +103,7 @@ fn explode<T: Rng>(row: i32, mut col: i32, window: &Window, rng: &mut T) {
     get_color(rng, window);
     window.mvaddstr(row - 2, col, " --- ");
     window.mvaddstr(row - 1, col, "-+++-");
-    window.mvaddstr(row,     col, "-+#+-");
+    window.mvaddstr(row, col, "-+#+-");
     window.mvaddstr(row + 1, col, "-+++-");
     window.mvaddstr(row + 2, col, " --- ");
     myrefresh(window);
@@ -123,7 +111,7 @@ fn explode<T: Rng>(row: i32, mut col: i32, window: &Window, rng: &mut T) {
     get_color(rng, window);
     window.mvaddstr(row - 2, col, " +++ ");
     window.mvaddstr(row - 1, col, "++#++");
-    window.mvaddstr(row,     col, "+# #+");
+    window.mvaddstr(row, col, "+# #+");
     window.mvaddstr(row + 1, col, "++#++");
     window.mvaddstr(row + 2, col, " +++ ");
     myrefresh(window);
@@ -131,7 +119,7 @@ fn explode<T: Rng>(row: i32, mut col: i32, window: &Window, rng: &mut T) {
     get_color(rng, window);
     window.mvaddstr(row - 2, col, "  #  ");
     window.mvaddstr(row - 1, col, "## ##");
-    window.mvaddstr(row,     col, "#   #");
+    window.mvaddstr(row, col, "#   #");
     window.mvaddstr(row + 1, col, "## ##");
     window.mvaddstr(row + 2, col, "  #  ");
     myrefresh(window);
@@ -139,7 +127,7 @@ fn explode<T: Rng>(row: i32, mut col: i32, window: &Window, rng: &mut T) {
     get_color(rng, window);
     window.mvaddstr(row - 2, col, " # # ");
     window.mvaddstr(row - 1, col, "#   #");
-    window.mvaddstr(row,     col, "     ");
+    window.mvaddstr(row, col, "     ");
     window.mvaddstr(row + 1, col, "#   #");
     window.mvaddstr(row + 2, col, " # # ");
     myrefresh(window);
@@ -152,10 +140,6 @@ fn myrefresh(window: &Window) {
 }
 
 fn get_color<T: Rng>(rng: &mut T, window: &Window) {
-    let bold = if rng.gen::<bool>() {
-        A_BOLD
-    } else {
-        A_NORMAL
-    } as chtype;
+    let bold = if rng.gen::<bool>() { A_BOLD } else { A_NORMAL } as chtype;
     window.attrset(COLOR_PAIR(rng.gen::<chtype>() % 8) | bold);
 }

@@ -5,26 +5,30 @@ use pancurses::*;
 
 use rand::Rng;
 
-const AUS_MAP: [&'static str; 13] = ["                       A ",
-                                     "           AA         AA ",
-                                     "    N.T. AAAAA       AAAA ",
-                                     "     AAAAAAAAAAA  AAAAAAAA ",
-                                     "   AAAAAAAAAAAAAAAAAAAAAAAAA Qld.",
-                                     " AAAAAAAAAAAAAAAAAAAAAAAAAAAA ",
-                                     " AAAAAAAAAAAAAAAAAAAAAAAAAAAAA ",
-                                     " AAAAAAAAAAAAAAAAAAAAAAAAAAAA ",
-                                     "   AAAAAAAAAAAAAAAAAAAAAAAAA N.S.W.",
-                                     "W.A. AAAAAAAAA      AAAAAA Vic.",
-                                     "       AAA   S.A.     AA",
-                                     "                       A  Tas.",
-                                     ""];
+const AUS_MAP: [&'static str; 13] = [
+    "                       A ",
+    "           AA         AA ",
+    "    N.T. AAAAA       AAAA ",
+    "     AAAAAAAAAAA  AAAAAAAA ",
+    "   AAAAAAAAAAAAAAAAAAAAAAAAA Qld.",
+    " AAAAAAAAAAAAAAAAAAAAAAAAAAAA ",
+    " AAAAAAAAAAAAAAAAAAAAAAAAAAAAA ",
+    " AAAAAAAAAAAAAAAAAAAAAAAAAAAA ",
+    "   AAAAAAAAAAAAAAAAAAAAAAAAA N.S.W.",
+    "W.A. AAAAAAAAA      AAAAAA Vic.",
+    "       AAA   S.A.     AA",
+    "                       A  Tas.",
+    "",
+];
 
-const MESSAGES: [&'static str; 6] = ["Hello from the Land Down Under",
-                                     "The Land of crocs, and a big Red Rock",
-                                     "Where the sunflower runs along the highways",
-                                     "The dusty red roads lead one to loneliness",
-                                     "Blue sky in the morning and",
-                                     "Freezing nights and twinkling stars"];
+const MESSAGES: [&'static str; 6] = [
+    "Hello from the Land Down Under",
+    "The Land of crocs, and a big Red Rock",
+    "Where the sunflower runs along the highways",
+    "The dusty red roads lead one to loneliness",
+    "Blue sky in the morning and",
+    "Freezing nights and twinkling stars",
+];
 
 fn main() {
     let main_window = initscr();
@@ -46,10 +50,12 @@ fn main() {
     let width = 48;
     let height = 15;
 
-    let win = newwin(height,
-                     width,
-                     (main_window.get_max_y() - height) / 2,
-                     (main_window.get_max_x() - width) / 2);
+    let win = newwin(
+        height,
+        width,
+        (main_window.get_max_y() - height) / 2,
+        (main_window.get_max_x() - width) / 2,
+    );
 
     loop {
         init_pair(1, COLOR_WHITE, COLOR_BLUE);
@@ -311,7 +317,6 @@ fn bouncing_balls<T: Rng>(main_window: &Window, win: &Window, rng: &mut T) {
 
     let mut c = main_window.getch();
     while c.is_none() {
-
         x1 += xd1;
         if x1 <= 1 || x1 >= w - 2 {
             xd1 *= -1;
