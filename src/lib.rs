@@ -759,6 +759,7 @@ pub fn flushinp() -> i32 {
     unsafe { curses::flushinp() }
 }
 
+/// Returns the current mouse status in an MEVENT struct.
 pub fn getmouse() -> Result<MEVENT, i32> {
     platform_specific::_getmouse()
 }
