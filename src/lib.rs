@@ -256,15 +256,17 @@ pub fn init_pair(pair_index: i16, foreground_color: i16, background_color: i16) 
     unsafe { curses::init_pair(pair_index, foreground_color, background_color) as i32 }
 }
 
-/// Nearly equivalent to `mouse_set()`, but instead of OK/ERR, it returns the value of the mask after
-/// setting it.
-///
-/// (This isn't necessarily the same value passed in, since the mask could be altered on some
-/// platforms.) And if the second parameter is a non-null pointer, `mousemask()` stores the previous
-/// mask value there. Also, since the ncurses interface doesn't work with PDCurses' `BUTTON_MOVED`
-/// events, `mousemask()` filters them out.
-pub fn mousemask(arg1: mmask_t, arg2: *mut mmask_t) -> mmask_t {
-    unsafe { curses::mousemask(arg1, arg2) }
+/// Set the mouse events to be reported.
+/// 
+/// By default, no mouse events are reported. The function will return a mask to indicate which of
+/// the specified mouse events can be reported; on complete failure it returns 0. If oldmask is 
+/// non-NULL, this function fills the indicated location with the previous value of the given
+/// window's mouse event mask.
+/// 
+/// As a side effect, setting a zero mousemask may turn off the mouse pointer; setting a nonzero 
+/// mask may turn it on. Whether this happens is device-dependent.
+pub fn mousemask(newmask: mmask_t, oldmask: *mut mmask_t) -> mmask_t {
+    unsafe { curses::mousemask(newmask, oldmask) }
 }
 
 /// Suspends the program for the specified number of milliseconds.
