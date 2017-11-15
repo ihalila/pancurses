@@ -41,14 +41,10 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
         x: 0,
         y: 0,
         z: 0,
-        bstate: 0
+        bstate: 0,
     };
     let error = getmouse(&mut mevent);
-    if error == 0 {
-        Ok(mevent)
-    } else {
-        Err(error)
-    }
+    if error == 0 { Ok(mevent) } else { Err(error) }
 }
 
 pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
@@ -66,7 +62,10 @@ pub fn _set_title(_: &str) {
 
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Input {
-    assert!(i >= KEY_OFFSET, format!("Input value less than expected: {:?}", i));
+    assert!(
+        i >= KEY_OFFSET,
+        format!("Input value less than expected: {:?}", i)
+    );
     let i = if i <= KEY_F15 {
         i - KEY_OFFSET
     } else {
