@@ -44,7 +44,10 @@ pub const BUTTON5_CLICKED: mmask_t = ncurses::BUTTON5_CLICKED as mmask_t;
 pub const BUTTON5_DOUBLE_CLICKED: mmask_t = ncurses::BUTTON5_DOUBLE_CLICKED as mmask_t;
 pub const BUTTON5_TRIPLE_CLICKED: mmask_t = ncurses::BUTTON5_TRIPLE_CLICKED as mmask_t;
 
-pub use ncurses::REPORT_MOUSE_POSITION;
+pub const REPORT_MOUSE_POSITION: mmask_t = ncurses::REPORT_MOUSE_POSITION as mmask_t;
+pub const BUTTON_SHIFT: mmask_t = ncurses::BUTTON_SHIFT as mmask_t;
+pub const BUTTON_CTRL: mmask_t = ncurses::BUTTON_CTRL as mmask_t;
+pub const BUTTON_ALT: mmask_t = ncurses::BUTTON_ALT as mmask_t;
 
 fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
     mask << (shift + NCURSES_ATTR_SHIFT) as usize

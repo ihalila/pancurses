@@ -181,6 +181,9 @@ pub const BUTTON5_DOUBLE_CLICKED: mmask_t = 0x00800000;
 pub const BUTTON5_TRIPLE_CLICKED: mmask_t = 0x01000000;
 
 pub const REPORT_MOUSE_POSITION: mmask_t = 0x20000000;
+pub const BUTTON_SHIFT: mmask_t = 0x04000000;
+pub const BUTTON_CTRL: mmask_t = 0x08000000;
+pub const BUTTON_ALT: mmask_t = 0x10000000;
 
 pub fn ACS_LRCORNER() -> chtype {
     'V' as chtype | A_ALTCHARSET
