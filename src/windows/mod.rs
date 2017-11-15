@@ -45,7 +45,17 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
         bstate: 0,
     };
     let error = unsafe { nc_getmouse(&mut mevent) };
-    if error == 0 { Ok(mevent) } else { Err(error) }
+    if error == 0 {
+        Ok(mevent)
+    } else {
+        Err(error)
+    }
+}
+
+pub fn _mouse_trafo(w: &mut *mut WINDOW, y: &mut i32, x: &mut i32, to_screen: bool) {
+    unsafe {
+        wmouse_trafo(*w, y, x, to_screen as u8);
+    }
 }
 
 pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {

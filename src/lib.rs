@@ -256,6 +256,16 @@ pub fn init_pair(pair_index: i16, foreground_color: i16, background_color: i16) 
     unsafe { curses::init_pair(pair_index, foreground_color, background_color) as i32 }
 }
 
+/// Sets the timeout for a mouse click.
+/// 
+/// Sets the maximum time (in thousands of a second) that can elapse between press and release
+/// events for them to be recognized as aclick. Use mouseinterval(0) to disable click resolution.
+/// This function returns the previous interval value. Use mouseinterval(-1) to obtain the interval
+/// without altering it. The default is one sixth of a second.
+pub fn mouseinterval(interval: i32) -> i32 {
+    unsafe { curses::mouseinterval(interval) }
+}
+
 /// Set the mouse events to be reported.
 /// 
 /// By default, no mouse events are reported. The function will return a mask to indicate which of

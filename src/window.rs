@@ -239,6 +239,11 @@ impl Window {
         }
     }
 
+    /// Reports whether the given screen-relative y, x coordinates fall within the window.
+    pub fn enclose(&self, y: i32, x: i32) -> bool {
+        unsafe { curses::wenclose(self._window, y, x) > 0 }
+    }
+
     /// Copies blanks (i.e. the background chtype) to every cell of the window.
     pub fn erase(&self) -> i32 {
         unsafe { curses::werase(self._window) }
@@ -349,6 +354,17 @@ impl Window {
     /// not change the cursor position.
     pub fn insch<T: ToChtype>(&self, ch: T) -> i32 {
         unsafe { curses::winsch(self._window, ch.to_chtype()) }
+    }
+
+    /// Converts between screen-relative and window-relative coordinates.
+    /// 
+    /// A to_screen parameter of true means to convert from window to screen;
+    /// otherwise the reverse.
+    pub fn mouse_trafo(&mut self, y: i32, x: i32, to_screen: bool) -> (i32, i32) {
+        let mut mut_y = y;
+        let mut mut_x = x;
+        platform_specific::_mouse_trafo(&mut self._window, &mut mut_y, &mut mut_x, to_screen);
+        (mut_y, mut_x)
     }
 
     /// The cursor associated with the window is moved to the given location.

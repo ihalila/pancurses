@@ -2,8 +2,10 @@
 pub mod constants;
 use self::constants::*;
 
-use ncurses::{box_, COLORS, COLOR_PAIRS, getmouse, LcCategory, setlocale};
-use ncurses::ll::{chtype, MEVENT, NCURSES_ATTR_T, WINDOW, wattron, wattroff, wattrset, ungetch};
+use ncurses::{box_, getmouse, setlocale, LcCategory, COLORS, COLOR_PAIRS};
+use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_ATTR_T, WINDOW};
+use ncurses::ll::wmouse_trafo;
+
 use libc::c_int;
 use input::Input;
 
@@ -44,7 +46,17 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
         bstate: 0,
     };
     let error = getmouse(&mut mevent);
-    if error == 0 { Ok(mevent) } else { Err(error) }
+    if error == 0 {
+        Ok(mevent)
+    } else {
+        Err(error)
+    }
+}
+
+pub fn _mouse_trafo(w: &mut WINDOW, y: &mut i32, x: &mut i32, to_screen: bool) {
+    unsafe {
+        wmouse_trafo(w, y, x, to_screen as u8);
+    }
 }
 
 pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
