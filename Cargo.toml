@@ -22,7 +22,7 @@ log = "0.3"
 libc = "0.2"
 
 [target.'cfg(windows)'.dependencies]
-pdcurses-sys = "0.6"
+pdcurses-sys = "0.7"
 [target.'cfg(unix)'.dependencies]
 ncurses = "5.86.0"
 
@@ -31,3 +31,5 @@ rand = "0.3"
 
 [features]
 wide = ["ncurses/wide"]
+win32 = ["pdcurses-sys/win32"]
+win32a = ["pdcurses-sys/win32a"]
