@@ -2,6 +2,7 @@
 use pdcurses::*;
 use libc::c_int;
 use std::ffi::CString;
+use std::i32;
 
 pub mod constants;
 use self::constants::*;
@@ -9,7 +10,10 @@ use self::constants::*;
 use input::Input;
 
 pub fn pre_init() {
-    // No need to do anything here
+    // Always allow resizing windows
+    unsafe {
+        PDC_set_resize_limits(1, i32::MAX, 1, i32::MAX);
+    }
 }
 
 pub fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
