@@ -192,6 +192,10 @@ fn main() {
         window.attrset(COLOR_PAIR(1));
 
         match c {
+            Some(Input::KeyResize) => {
+                redraw = true;
+                resize_term(0, 0);
+            }
             Some(Input::KeyF1) => quit = true,
             Some(Input::Character(x)) if x == 27 as char => quit = true,
             Some(Input::KeyF2) => {
