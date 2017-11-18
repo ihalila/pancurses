@@ -31,7 +31,12 @@ fn win32a_pre_init() {
         .map(Path::new)
         .and_then(Path::file_name)
         .and_then(OsStr::to_str)
-        .map(String::from);
+        .map(String::from)
+        .map(|mut x| {
+            let last_dot = x.rfind('.').unwrap_or(0);
+            x.truncate(last_dot);
+            x
+        });
 
     if exe_name.is_none() {
         warn!("Could not determine name of exe");
