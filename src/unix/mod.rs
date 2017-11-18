@@ -57,7 +57,6 @@ pub fn _mouse_trafo(w: &mut WINDOW, y: &mut i32, x: &mut i32, to_screen: bool) {
 
 pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
     panic!("resize_term is not implemented in ncurses-rs");
-    -1
 }
 
 pub fn _set_blink(_: bool) -> i32 {
