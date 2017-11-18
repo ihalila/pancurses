@@ -46,7 +46,7 @@ fn main() {
 }
 ```
 
-## Example: Pattern matching with getch()
+## Pattern matching with getch()
 
 ```rust
 extern crate pancurses;
@@ -70,6 +70,88 @@ fn main() {
   endwin();
 }
 ```
+
+## Handling mouse input
+
+To receive mouse events you need to both enable keypad mode and set a mouse mask that corresponds
+to the events you are interested in. Mouse events are received in the same way as keyboard events,
+ie. by calling getch().
+
+```rust
+extern crate pancurses;
+
+use pancurses::{ALL_MOUSE_EVENTS, endwin, getmouse, initscr, mousemask, Input};
+
+fn main() {
+    let window = initscr();
+
+    window.keypad(true); // Set keypad mode
+    mousemask(ALL_MOUSE_EVENTS, std::ptr::null_mut()); // Listen to all mouse events
+
+    window.printw("Click in the terminal, press q to exit\n");
+    window.refresh();
+
+    loop {
+        match window.getch() {
+            Some(Input::KeyMouse) => {
+                if let Ok(mouse_event) = getmouse() {
+                    window.mvprintw(1, 0,
+                                    &format!("Mouse at {},{}", mouse_event.x, mouse_event.y),
+                    );
+                };
+            }
+            Some(Input::Character(x)) if x == 'q' => break,
+            _ => (),
+        }
+    }
+    endwin();
+}
+```
+
+You can also receive events for the mouse simply moving (as long as the terminal you're running on
+supports it) by also specifying the REPORT_MOUSE_POSITION flag:
+```rust
+mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION, std::ptr::null_mut());
+```
+
+## Terminal resizing
+
+Whenever the terminal is resized by the user a Input::KeyResize event is raised. You should handle
+this by calling ```resize_term(0, 0)``` to have curses adjust it's internal structures to match the
+new size.
+
+## PDCurses (Windows) details
+
+pdcurses-sys supports two flavors of PDCurses, win32a and win32. win32a is the GDI mode while win32
+runs in the Windows console. win32a has better support for colors and text effects.
+
+By default the win32a flavor is used, but you can specify which one you want to use by using Cargo
+flags. Simply specify the feature in Cargo.toml like so:
+
+```rust
+[dependencies.pancurses]
+version = "0.13"
+features = ["win32a"]
+```
+or
+
+```rust
+[dependencies.pancurses]
+version = "0.13"
+features = ["win32"]
+```
+
+### (Font, Paste) menu
+
+PDCurses win32a has a menu that allows you to change the font and paste text into the window.
+pancurses disables the window by default, though the user can still right-click the title bar to 
+access it. If you want to retain the PDCurses default behaviour of having the menu there set the 
+feature ```"show_menu"```.
+
+### Resizing
+
+On win32a the default is to allow the user to freely resize the window. If you wish to disable
+resizing set the feature ```"disable_resize"```
 
 ## License
 
