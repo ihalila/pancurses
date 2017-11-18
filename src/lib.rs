@@ -1,6 +1,4 @@
 #![allow(non_camel_case_types, non_snake_case)]
-#[macro_use]
-extern crate log;
 extern crate libc;
 
 #[cfg(windows)]
