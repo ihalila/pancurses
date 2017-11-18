@@ -28,7 +28,7 @@ Check [pdcurses-sys](https://github.com/ihalila/pdcurses-sys) for more details.
 Cargo.toml
 ```toml
 [dependencies]
-pancurses = "0.12"
+pancurses = "0.13"
 ```
 
 main.rs
