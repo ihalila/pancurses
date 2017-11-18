@@ -342,6 +342,13 @@ pub fn noecho() -> i32 {
     unsafe { curses::noecho() }
 }
 
+/// Disables the translation of a carriage return into a newline on input.
+/// 
+/// nl() enables this. Initially, the translation does occur.
+pub fn nonl() -> i32 {
+    unsafe { curses::nonl() }
+}
+
 /// Restore the terminal to "program" (in curses) state. This is done
 /// automatically by endwin() and doupdate() after an endwin(), so this would normally not be
 /// called before.
