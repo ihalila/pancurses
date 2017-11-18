@@ -3,14 +3,14 @@ extern crate winreg;
 
 use pdcurses::*;
 use libc::c_int;
-use std::ffi::CString;
-use std::i32;
-use self::winreg::RegKey;
-use windows::winreg::enums::HKEY_CURRENT_USER;
 
 use std::env;
+use std::ffi::{CString, OsStr};
+use std::i32;
 use std::path::Path;
-use std::ffi::OsStr;
+
+use self::winreg::RegKey;
+use windows::winreg::enums::HKEY_CURRENT_USER;
 
 pub mod constants;
 use self::constants::*;
