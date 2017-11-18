@@ -20,9 +20,11 @@ name = "pancurses"
 [dependencies]
 log = "0.3"
 libc = "0.2"
+winreg = "0.4"
 
 [target.'cfg(windows)'.dependencies]
 pdcurses-sys = "0.7"
+winreg = "0.4"
 [target.'cfg(unix)'.dependencies]
 ncurses = "5.86.0"
 
@@ -33,3 +35,5 @@ rand = "0.3"
 wide = ["ncurses/wide"]
 win32 = ["pdcurses-sys/win32"]
 win32a = ["pdcurses-sys/win32a"]
+show_menu = []
+disable_resize = []

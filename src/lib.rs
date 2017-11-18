@@ -1,4 +1,5 @@
 #![allow(non_camel_case_types, non_snake_case)]
+#[macro_use]
 extern crate log;
 extern crate libc;
 
@@ -257,7 +258,7 @@ pub fn init_pair(pair_index: i16, foreground_color: i16, background_color: i16) 
 }
 
 /// Sets the timeout for a mouse click.
-/// 
+///
 /// Sets the maximum time (in thousands of a second) that can elapse between press and release
 /// events for them to be recognized as aclick. Use mouseinterval(0) to disable click resolution.
 /// This function returns the previous interval value. Use mouseinterval(-1) to obtain the interval
@@ -267,13 +268,13 @@ pub fn mouseinterval(interval: i32) -> i32 {
 }
 
 /// Set the mouse events to be reported.
-/// 
+///
 /// By default, no mouse events are reported. The function will return a mask to indicate which of
-/// the specified mouse events can be reported; on complete failure it returns 0. If oldmask is 
+/// the specified mouse events can be reported; on complete failure it returns 0. If oldmask is
 /// non-NULL, this function fills the indicated location with the previous value of the given
 /// window's mouse event mask.
-/// 
-/// As a side effect, setting a zero mousemask may turn off the mouse pointer; setting a nonzero 
+///
+/// As a side effect, setting a zero mousemask may turn off the mouse pointer; setting a nonzero
 /// mask may turn it on. Whether this happens is device-dependent.
 pub fn mousemask(newmask: mmask_t, oldmask: *mut mmask_t) -> mmask_t {
     unsafe { curses::mousemask(newmask, oldmask) }

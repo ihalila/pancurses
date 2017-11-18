@@ -357,7 +357,7 @@ impl Window {
     }
 
     /// Converts between screen-relative and window-relative coordinates.
-    /// 
+    ///
     /// A to_screen parameter of true means to convert from window to screen;
     /// otherwise the reverse.
     pub fn mouse_trafo(&mut self, y: i32, x: i32, to_screen: bool) -> (i32, i32) {
