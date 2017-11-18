@@ -65,9 +65,9 @@ fn win32a_pre_init() {
         menu_split[0] = "0";
     }
 
+    // Set the resize limits to 2 - i32::MAX to allow unlimited resizing
     #[cfg(not(feature = "disable_resize"))]
     {
-        // Set the resize limits to 2 - i32::MAX to allow unlimited resizing
         menu_split[1] = "2";
         split[5] = &maxi32;
         split[6] = "2";
