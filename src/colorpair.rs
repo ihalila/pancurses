@@ -33,7 +33,7 @@ impl BitOr<ColorPair> for Attributes {
     }
 }
 
-/// Implement the | operator for combining a ColorPair and an Attribute to produce Attributes
+/// Implement the | operator for combining a `ColorPair` and an `Attribute` to produce `Attributes`
 ///
 /// # Example
 ///
