@@ -5,7 +5,7 @@ use pancurses::*;
 
 use rand::Rng;
 
-const AUS_MAP: [&'static str; 13] = [
+const AUS_MAP: [&str; 13] = [
     "                       A ",
     "           AA         AA ",
     "    N.T. AAAAA       AAAA ",
@@ -21,7 +21,7 @@ const AUS_MAP: [&'static str; 13] = [
     "",
 ];
 
-const MESSAGES: [&'static str; 6] = [
+const MESSAGES: [&str; 6] = [
     "Hello from the Land Down Under",
     "The Land of crocs, and a big Red Rock",
     "Where the sunflower runs along the highways",
