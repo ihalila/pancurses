@@ -312,7 +312,7 @@ pub fn napms(ms: i32) -> i32 {
 /// A program that needs to inspect capabilities, so it can continue to
 /// run in a line-oriented mode if the terminal cannot support a screen-oriented program, would also
 /// use newterm. The routine newterm should be called once for each terminal. It returns a variable
-/// of type ScrPtr which should be saved as a reference to that terminal.
+/// of type `ScrPtr` which should be saved as a reference to that terminal.
 ///
 /// (For the PDCurses backend it's just an alternative interface for initscr(). It always returns
 /// SP, or NULL.)
