@@ -1,5 +1,5 @@
 use std::ops::{BitOr, BitXor};
-use super::{chtype, A_ALTCHARSET, A_BOLD, A_BLINK, A_CHARTEXT, A_DIM, A_LEFTLINE, A_INVIS};
+use super::{chtype, A_ALTCHARSET, A_BLINK, A_BOLD, A_CHARTEXT, A_DIM, A_INVIS, A_LEFTLINE};
 use super::{A_ITALIC, A_OVERLINE, A_REVERSE, A_RIGHTLINE, A_STRIKEOUT, A_UNDERLINE};
 use super::colorpair::ColorPair;
 
@@ -268,6 +268,21 @@ impl BitOr for Attribute {
 
     fn bitor(self, rhs: Attribute) -> Attributes {
         Attributes::new() | self | rhs
+    }
+}
+
+/// Implement Default for Attributes
+///
+/// # Example
+///
+/// ```
+/// use pancurses::Attributes;
+/// let attributes: Attributes = Default::default();
+/// assert_eq!(attributes, Attributes::new());
+/// ```
+impl Default for Attributes {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
