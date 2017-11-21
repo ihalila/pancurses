@@ -364,7 +364,7 @@ pub fn noecho() -> i32 {
 }
 
 /// Disables the translation of a carriage return into a newline on input.
-/// 
+///
 /// nl() enables this. Initially, the translation does occur.
 pub fn nonl() -> i32 {
     unsafe { curses::nonl() }

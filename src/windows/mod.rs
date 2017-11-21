@@ -2,7 +2,7 @@
 use pdcurses::*;
 use libc::c_int;
 
-use std::ffi::{CStr,CString};
+use std::ffi::{CStr, CString};
 
 pub mod constants;
 use self::constants::*;

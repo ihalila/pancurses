@@ -1,2 +1,1 @@
-pub fn pre_init() {
-}
+pub fn pre_init() {}
