@@ -148,42 +148,42 @@ pub const SPECIAL_KEY_CODES: [Input; 102] = [
     Input::KeyUndo,
 ];
 
-pub const ALL_MOUSE_EVENTS: mmask_t = 0x1fffffff;
+pub const ALL_MOUSE_EVENTS: mmask_t = 0x1fff_ffff;
 
-pub const BUTTON1_RELEASED: mmask_t = 0x00000001;
-pub const BUTTON1_PRESSED: mmask_t = 0x00000002;
-pub const BUTTON1_CLICKED: mmask_t = 0x00000004;
-pub const BUTTON1_DOUBLE_CLICKED: mmask_t = 0x00000008;
-pub const BUTTON1_TRIPLE_CLICKED: mmask_t = 0x00000010;
+pub const BUTTON1_RELEASED: mmask_t = 0x0000_0001;
+pub const BUTTON1_PRESSED: mmask_t = 0x0000_0002;
+pub const BUTTON1_CLICKED: mmask_t = 0x0000_0004;
+pub const BUTTON1_DOUBLE_CLICKED: mmask_t = 0x0000_0008;
+pub const BUTTON1_TRIPLE_CLICKED: mmask_t = 0x0000_0010;
 
-pub const BUTTON2_RELEASED: mmask_t = 0x00000020;
-pub const BUTTON2_PRESSED: mmask_t = 0x00000040;
-pub const BUTTON2_CLICKED: mmask_t = 0x00000080;
-pub const BUTTON2_DOUBLE_CLICKED: mmask_t = 0x00000100;
-pub const BUTTON2_TRIPLE_CLICKED: mmask_t = 0x00000200;
+pub const BUTTON2_RELEASED: mmask_t = 0x0000_0020;
+pub const BUTTON2_PRESSED: mmask_t = 0x0000_0040;
+pub const BUTTON2_CLICKED: mmask_t = 0x0000_0080;
+pub const BUTTON2_DOUBLE_CLICKED: mmask_t = 0x0000_0100;
+pub const BUTTON2_TRIPLE_CLICKED: mmask_t = 0x0000_0200;
 
-pub const BUTTON3_RELEASED: mmask_t = 0x00000400;
-pub const BUTTON3_PRESSED: mmask_t = 0x00000800;
-pub const BUTTON3_CLICKED: mmask_t = 0x00001000;
-pub const BUTTON3_DOUBLE_CLICKED: mmask_t = 0x00002000;
-pub const BUTTON3_TRIPLE_CLICKED: mmask_t = 0x00004000;
+pub const BUTTON3_RELEASED: mmask_t = 0x0000_0400;
+pub const BUTTON3_PRESSED: mmask_t = 0x0000_0800;
+pub const BUTTON3_CLICKED: mmask_t = 0x0000_1000;
+pub const BUTTON3_DOUBLE_CLICKED: mmask_t = 0x0000_2000;
+pub const BUTTON3_TRIPLE_CLICKED: mmask_t = 0x0000_4000;
 
-pub const BUTTON4_RELEASED: mmask_t = 0x00008000;
-pub const BUTTON4_PRESSED: mmask_t = 0x00010000;
-pub const BUTTON4_CLICKED: mmask_t = 0x00020000;
-pub const BUTTON4_DOUBLE_CLICKED: mmask_t = 0x00040000;
-pub const BUTTON4_TRIPLE_CLICKED: mmask_t = 0x00080000;
+pub const BUTTON4_RELEASED: mmask_t = 0x0000_8000;
+pub const BUTTON4_PRESSED: mmask_t = 0x0001_0000;
+pub const BUTTON4_CLICKED: mmask_t = 0x0002_0000;
+pub const BUTTON4_DOUBLE_CLICKED: mmask_t = 0x0004_0000;
+pub const BUTTON4_TRIPLE_CLICKED: mmask_t = 0x0008_0000;
 
-pub const BUTTON5_RELEASED: mmask_t = 0x00100000;
-pub const BUTTON5_PRESSED: mmask_t = 0x00200000;
-pub const BUTTON5_CLICKED: mmask_t = 0x00400000;
-pub const BUTTON5_DOUBLE_CLICKED: mmask_t = 0x00800000;
-pub const BUTTON5_TRIPLE_CLICKED: mmask_t = 0x01000000;
+pub const BUTTON5_RELEASED: mmask_t = 0x0010_0000;
+pub const BUTTON5_PRESSED: mmask_t = 0x0020_0000;
+pub const BUTTON5_CLICKED: mmask_t = 0x0040_0000;
+pub const BUTTON5_DOUBLE_CLICKED: mmask_t = 0x0080_0000;
+pub const BUTTON5_TRIPLE_CLICKED: mmask_t = 0x0100_0000;
 
-pub const REPORT_MOUSE_POSITION: mmask_t = 0x20000000;
-pub const BUTTON_SHIFT: mmask_t = 0x04000000;
-pub const BUTTON_CTRL: mmask_t = 0x08000000;
-pub const BUTTON_ALT: mmask_t = 0x10000000;
+pub const REPORT_MOUSE_POSITION: mmask_t = 0x2000_0000;
+pub const BUTTON_SHIFT: mmask_t = 0x0400_0000;
+pub const BUTTON_CTRL: mmask_t = 0x0800_0000;
+pub const BUTTON_ALT: mmask_t = 0x1000_0000;
 
 pub fn ACS_LRCORNER() -> chtype {
     'V' as chtype | A_ALTCHARSET
