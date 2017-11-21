@@ -11,7 +11,7 @@ impl From<ColorPair> for chtype {
     }
 }
 
-/// Implement the | operator for setting a color pair on an Attributes object
+/// Implement the | operator for setting a color pair on an `Attributes` object
 ///
 /// # Example
 ///
@@ -54,7 +54,7 @@ impl BitOr<Attribute> for ColorPair {
     }
 }
 
-/// Implement the | operator for combining an Attribute and a  ColorPair to produce Attributes
+/// Implement the | operator for combining an `Attribute` and a `ColorPair` to produce `Attributes`
 ///
 /// # Example
 ///
