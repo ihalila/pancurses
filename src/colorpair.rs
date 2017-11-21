@@ -7,7 +7,7 @@ pub struct ColorPair(pub u8);
 
 impl From<ColorPair> for chtype {
     fn from(color_pair: ColorPair) -> chtype {
-        COLOR_PAIR(color_pair.0 as chtype)
+        COLOR_PAIR(chtype::from(color_pair.0))
     }
 }
 
