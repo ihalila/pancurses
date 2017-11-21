@@ -31,9 +31,9 @@ macro_rules! attribute_setter {
     ($name:ident, $attr:ident) => {
         pub fn $name(&mut self, enabled: bool) {
             if enabled {
-                self.raw = self.raw | $attr;
+                self.raw |= $attr;
             } else {
-                self.raw = self.raw ^ $attr;
+                self.raw ^= $attr;
             }
         }
     };
