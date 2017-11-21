@@ -32,9 +32,10 @@ pub fn pre_init() {
     // <cols>x<rows>,<font_size>,<x_loc>,<y_loc>,<menu_shown>;<min_lines>,<max_lines>,<min_cols>,<max_cols>:<font_name>
     // Example: 80x25,12,312,312,1;2,2147483647,2,2147483647:Courier New
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-    let existing_value = hkcu.open_subkey("Software\\PDCurses")
-        .and_then(|reg_key| reg_key.get_value::<String, &str>(&exe_name))
-        .unwrap_or("80x25,12,0,0,1;25,25,80,80:Courier New".to_string());
+    let existing_value =
+        hkcu.open_subkey("Software\\PDCurses")
+            .and_then(|reg_key| reg_key.get_value::<String, &str>(&exe_name))
+            .unwrap_or_else(|_| "80x25,12,0,0,1;25,25,80,80:Courier New".to_string());
 
     let rejoined_menu: String;
     let maxi32 = format!("{}", i32::MAX);
@@ -63,10 +64,10 @@ pub fn pre_init() {
     split[4] = &rejoined_menu;
 
     // Write the modified values back into the registry
-    match hkcu.open_subkey("Software\\PDCurses").and_then(|reg_key| {
+    if let Err(e) = hkcu.open_subkey("Software\\PDCurses").and_then(|reg_key| {
         reg_key.set_value::<String, &str>(&exe_name, &split.join(","))
-    }) {
-        Err(e) => warn!("Failed to set registry value: {}", e),
-        _ => (),
+    })
+    {
+        warn!("Failed to set registry value: {}", e);
     }
 }
