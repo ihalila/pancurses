@@ -2,7 +2,7 @@
 use pdcurses::*;
 use libc::c_int;
 
-use std::ffi::CString;
+use std::ffi::{CStr,CString};
 
 pub mod constants;
 use self::constants::*;
@@ -55,6 +55,20 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
     };
     let error = unsafe { nc_getmouse(&mut mevent) };
     if error == 0 { Ok(mevent) } else { Err(error) }
+}
+
+pub fn _keyname(code: i32) -> Option<String> {
+    let ptr = unsafe { keyname(code) };
+    if ptr.is_null() {
+        None
+    } else {
+        unsafe {
+            // First, get a byte slice of the returned name
+            let bytes = CStr::from_ptr(ptr).to_bytes();
+            // Then assume it's proper UF8 and allocate a String for it.
+            Some(String::from_utf8_unchecked(bytes.to_vec()))
+        }
+    }
 }
 
 pub fn _mouse_trafo(w: &mut *mut WINDOW, y: &mut i32, x: &mut i32, to_screen: bool) {
