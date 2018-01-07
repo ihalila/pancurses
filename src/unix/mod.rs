@@ -4,7 +4,7 @@ use self::constants::*;
 
 use ncurses::{box_, getmouse, setlocale, LcCategory, COLORS, COLOR_PAIRS, keyname};
 use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_ATTR_T, WINDOW};
-use ncurses::ll::wmouse_trafo;
+use ncurses::ll::{resize_term, wmouse_trafo};
 
 use libc::c_int;
 use input::Input;
@@ -59,8 +59,8 @@ pub fn _mouse_trafo(w: &mut WINDOW, y: &mut i32, x: &mut i32, to_screen: bool) {
     }
 }
 
-pub fn _resize_term(_nlines: i32, _ncols: i32) -> i32 {
-    panic!("resize_term is not implemented in ncurses-rs");
+pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
+    unsafe { resize_term(nlines, ncols) }
 }
 
 pub fn _set_blink(_: bool) -> i32 {
