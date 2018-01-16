@@ -23,7 +23,7 @@ libc = "0.2"
 
 [target.'cfg(windows)'.dependencies]
 pdcurses-sys = "0.7"
-winreg = "0.4"
+winreg = "0.5"
 [target.'cfg(unix)'.dependencies]
 ncurses = "5.89.0"
 
