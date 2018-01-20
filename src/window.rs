@@ -3,8 +3,10 @@ use std::ffi::CString;
 
 #[derive(Debug)]
 pub struct Window {
-    #[cfg(windows)] _window: *mut curses::WINDOW,
-    #[cfg(unix)] _window: curses::WINDOW,
+    #[cfg(windows)]
+    _window: *mut curses::WINDOW,
+    #[cfg(unix)]
+    _window: curses::WINDOW,
     _stdscr: bool,
     _deleted: bool,
 }
@@ -420,16 +422,6 @@ impl Window {
                 ptr::null_mut(),
             )
         }
-    }
-
-    /// Move the cursor and delete a line (see deleteln())
-    pub fn mvdeleteln(&self, y: i32, x: i32) -> i32 {
-        unsafe { curses::mvwdeleteln(self._window, y, x) }
-    }
-
-    /// Move the cursor and insert a line (see insertln())
-    pub fn mvinsertln(&self, y: i32, x: i32) -> i32 {
-        unsafe { curses::mvwinsertln(self._window, y, x) }
     }
 
     /// Moves a derived window (or subwindow) inside its parent window.
