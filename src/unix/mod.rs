@@ -2,7 +2,7 @@
 pub mod constants;
 use self::constants::*;
 
-use ncurses::{box_, getmouse, setlocale, LcCategory, COLORS, COLOR_PAIRS, keyname};
+use ncurses::{box_, getmouse, keyname, setlocale, LcCategory, COLORS, COLOR_PAIRS};
 use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_ATTR_T, WINDOW};
 use ncurses::ll::{resize_term, wmouse_trafo};
 
@@ -46,7 +46,11 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
         bstate: 0,
     };
     let error = getmouse(&mut mevent);
-    if error == 0 { Ok(mevent) } else { Err(error) }
+    if error == 0 {
+        Ok(mevent)
+    } else {
+        Err(error)
+    }
 }
 
 pub fn _keyname(code: i32) -> Option<String> {
