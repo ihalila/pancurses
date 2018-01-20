@@ -1,12 +1,10 @@
-use {chtype, curses, ERR, Input, platform_specific, ptr, ToChtype};
+use {chtype, curses, platform_specific, ptr, Input, ToChtype, ERR};
 use std::ffi::CString;
 
 #[derive(Debug)]
 pub struct Window {
-    #[cfg(windows)]
-    _window: *mut curses::WINDOW,
-    #[cfg(unix)]
-    _window: curses::WINDOW,
+    #[cfg(windows)] _window: *mut curses::WINDOW,
+    #[cfg(unix)] _window: curses::WINDOW,
     _stdscr: bool,
     _deleted: bool,
 }
