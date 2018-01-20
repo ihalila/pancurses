@@ -325,6 +325,19 @@ impl Window {
         unsafe { curses::whline(self._window, ch.to_chtype(), n) }
     }
 
+    /// For positive n, insert n lines into the specified window above the current line.
+    /// The n bottom lines are lost. For negative n, delete n lines (starting with the one under
+    /// the cursor), and move the remaining lines up. The bottom n lines are cleared.
+    /// The current cursor position remains the same.
+    pub fn insdelln(&self, n: i32) -> i32 {
+        unsafe { curses::winsdelln(self._window, n) }
+    }
+
+    /// A blank line is inserted above the current line and the bottom line is lost.
+    pub fn insertln(&self) -> i32 {
+        unsafe { curses::winsertln(self._window) }
+    }
+
     /// Returns true if the specified line in the specified window has been changed since the last
     /// call to refresh().
     pub fn is_linetouched(&self, line: i32) -> bool {
@@ -407,6 +420,16 @@ impl Window {
                 ptr::null_mut(),
             )
         }
+    }
+
+    /// Move the cursor and delete a line (see deleteln())
+    pub fn mvdeleteln(&self, y: i32, x: i32) -> i32 {
+        unsafe { curses::mvwdeleteln(self._window, y, x) }
+    }
+
+    /// Move the cursor and insert a line (see insertln())
+    pub fn mvinsertln(&self, y: i32, x: i32) -> i32 {
+        unsafe { curses::mvwinsertln(self._window, y, x) }
     }
 
     /// Moves a derived window (or subwindow) inside its parent window.
