@@ -54,7 +54,11 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
         bstate: 0,
     };
     let error = unsafe { nc_getmouse(&mut mevent) };
-    if error == 0 { Ok(mevent) } else { Err(error) }
+    if error == 0 {
+        Ok(mevent)
+    } else {
+        Err(error)
+    }
 }
 
 pub fn _keyname(code: i32) -> Option<String> {
@@ -100,19 +104,20 @@ pub fn to_special_keycode(i: i32) -> Input {
     } else if i == KEY_MOUSE {
         Input::KeyMouse
     } else {
-        assert!(
-            i >= KEY_OFFSET,
-            format!("Input value less than expected: {:?}", i)
-        );
-        let i = if i <= KEY_F15 {
-            i - KEY_OFFSET
+        // Since not all special key codes have been added to the SPECIAL_KEY_CODES array,
+        // we need to do some basic math if this input lands into it.
+        let index = if i <= KEY_F15 {
+            i - KEY_OFFSET // Input that is less than KEY_F15 can be converted directly into an
+                           // an index of the SPECIAL_KEY_CODES array.
         } else {
-            i - KEY_OFFSET - 48
+            i - KEY_OFFSET - 48 // Input past KEY_F15 has to be offset down a bit, since PDCurses
+                                // has values for 64 function keys
         };
-        if i as usize >= SPECIAL_KEY_CODES.len() {
+        if index as usize >= SPECIAL_KEY_CODES.len() {
+            // Input is something else. This may require more processing to convert properly into utf8
             Input::Unknown(i)
         } else {
-            SPECIAL_KEY_CODES[i as usize]
+            SPECIAL_KEY_CODES[index as usize]
         }
     }
 }

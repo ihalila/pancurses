@@ -77,19 +77,15 @@ pub fn _set_title(_: &str) {
 
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Input {
-    assert!(
-        i >= KEY_OFFSET,
-        format!("Input value less than expected: {:?}", i)
-    );
-    let i = if i <= KEY_F15 {
+    let index = if i <= KEY_F15 {
         i - KEY_OFFSET
     } else {
         i - KEY_OFFSET - 48
     };
-    if i as usize >= SPECIAL_KEY_CODES.len() {
+    if index as usize >= SPECIAL_KEY_CODES.len() {
         Input::Unknown(i)
     } else {
-        SPECIAL_KEY_CODES[i as usize]
+        SPECIAL_KEY_CODES[index as usize]
     }
 }
 
