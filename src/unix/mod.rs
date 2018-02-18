@@ -4,10 +4,12 @@ use self::constants::*;
 
 use ncurses::{box_, getmouse, keyname, setlocale, LcCategory, COLORS, COLOR_PAIRS};
 use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_ATTR_T, WINDOW};
-use ncurses::ll::{resize_term, wmouse_trafo};
+use ncurses::ll::{resize_term, wgetch, wmouse_trafo};
 
 use libc::c_int;
 use input::Input;
+
+use std::string::FromUtf8Error;
 
 pub fn pre_init() {
     setlocale(LcCategory::all, "");
@@ -76,36 +78,40 @@ pub fn _set_title(_: &str) {
 }
 
 /// Converts an integer returned by getch() to a Input value
-pub fn to_special_keycode(i: i32) -> Input {
+pub fn to_special_keycode(i: i32) -> Option<Input> {
     let index = if i <= KEY_F15 {
         i - KEY_OFFSET
     } else {
         i - KEY_OFFSET - 48
     };
-    if index as usize >= SPECIAL_KEY_CODES.len() {
-        Input::Unknown(i)
+    if index < 0 || index as usize >= SPECIAL_KEY_CODES.len() {
+        None
     } else {
-        SPECIAL_KEY_CODES[index as usize]
+        Some(SPECIAL_KEY_CODES[index as usize])
     }
 }
 
 pub fn _ungetch(input: &Input) -> i32 {
-    let i = convert_input_to_c_int(input);
-    unsafe { ungetch(i) }
-}
-
-fn convert_input_to_c_int(input: &Input) -> c_int {
     match *input {
-        Input::Character(c) => c as c_int,
-        Input::Unknown(i) => i,
+        Input::Character(c) => {
+            // Need to convert to UTF-8 bytes, it's how we get them from getch()
+            let mut utf8_buffer = [0; 4];
+            c.encode_utf8(&mut utf8_buffer)
+                .as_bytes()
+                .into_iter()
+                .rev()
+                .map(|x| unsafe { ungetch(*x as c_int) })
+                .fold(0, |res, x| i32::min(res, x))
+        }
+        Input::Unknown(i) => unsafe { ungetch(i) },
         specialKeyCode => {
             for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
                 if *skc == specialKeyCode {
                     let result = i as c_int + KEY_OFFSET;
                     if result <= KEY_F15 {
-                        return result;
+                        return unsafe { ungetch(result) };
                     } else {
-                        return result + 48;
+                        return unsafe { ungetch(result + 48) };
                     }
                 }
             }
@@ -114,47 +120,101 @@ fn convert_input_to_c_int(input: &Input) -> c_int {
     }
 }
 
+pub fn _wgetch(w: WINDOW) -> Option<Input> {
+    let i = unsafe { wgetch(w) };
+    if i < 0 {
+        None
+    } else {
+        Some(to_special_keycode(i).unwrap_or_else(|| {
+            // Assume that on Linux input is UTF-8
+            fn try_decode(mut v: Vec<u8>, w: WINDOW) -> Result<String, FromUtf8Error> {
+                let res = String::from_utf8(v.clone());
+                if res.is_err() && v.len() < 4 {
+                    let next_byte = unsafe { wgetch(w) };
+                    v.push(next_byte as u8);
+                    try_decode(v, w)
+                } else {
+                    res
+                }
+            }
+
+            let v = vec![i as u8];
+            try_decode(v, w)
+            .map(|s| Input::Character(s.chars().next().unwrap()))
+            .unwrap_or_else(|error| {
+                warn!("Decoding input as UTF-8 failed: {:?}", error);
+                Input::Unknown(i)
+            })
+        }))
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::convert_input_to_c_int;
     use super::*;
     use input::Input;
-    use libc::c_int;
+    use ncurses::{endwin, initscr};
 
     #[test]
     fn test_key_dl_to_special_keycode() {
         let keyDl = 0o510;
-        assert_eq!(Input::KeyDL, to_special_keycode(keyDl));
+        assert_eq!(Input::KeyDL, to_special_keycode(keyDl).unwrap());
     }
 
     #[test]
     fn test_key_f15_to_input() {
         let keyF15 = 0o410 + 15;
-        assert_eq!(Input::KeyF15, to_special_keycode(keyF15));
+        assert_eq!(Input::KeyF15, to_special_keycode(keyF15).unwrap());
     }
 
     #[test]
     fn test_key_up_to_input() {
         let keyUp = 0o403;
-        assert_eq!(Input::KeyUp, to_special_keycode(keyUp));
+        assert_eq!(Input::KeyUp, to_special_keycode(keyUp).unwrap());
     }
 
     #[test]
-    fn test_convert_input_to_c_int() {
-        let i = convert_input_to_c_int(&Input::Character('a'));
-        assert_eq!('a' as c_int, i);
-    }
+    fn test_ungetch() {
+        let w = initscr();
 
-    #[test]
-    fn test_convert_backspace_to_c_int() {
-        let i = convert_input_to_c_int(&Input::KeyBackspace);
-        assert_eq!(0o407, i);
-    }
+        let chars = [
+            'a', 'b', 'c', 'ä', 'ö', 'å', 'A', 'B', 'C', 'Ä', 'Ö', 'Å', '𤭢', '𐍈',
+            '€', 'ᚠ', 'ᛇ', 'ᚻ', 'þ', 'ð', 'γ', 'λ', 'ώ', 'б', 'е', 'р', 'ვ',
+            'ე', 'პ', 'ხ', 'இ', 'ங', 'க', 'ಬ', 'ಇ', 'ಲ', 'ಸ',
+        ];
 
-    #[test]
-    fn test_convert_sdl_to_c_int() {
-        let i = convert_input_to_c_int(&Input::KeySDL);
-        assert_eq!(0o600, i);
+        chars.into_iter().for_each(|c| {
+            _ungetch(&Input::Character(*c));
+            assert_eq!(_wgetch(w).unwrap(), Input::Character(*c));
+        });
+
+        let specials = [
+            Input::KeyResize,
+            Input::KeyMouse,
+            Input::KeyF1,
+            Input::KeyF15,
+            Input::KeyCodeYes,
+            Input::KeyBreak,
+            Input::KeyDown,
+            Input::KeyUp,
+            Input::KeyLeft,
+            Input::KeyRight,
+            Input::KeyHome,
+            Input::KeyBackspace,
+            Input::KeyNPage,
+            Input::KeyPPage,
+            Input::KeySTab,
+            Input::KeyCTab,
+            Input::KeyCATab,
+            Input::KeyEnter,
+        ];
+
+        specials.into_iter().for_each(|i| {
+            _ungetch(i);
+            assert_eq!(_wgetch(w).unwrap(), *i);
+        });
+
+        endwin();
     }
 
 }

@@ -281,14 +281,7 @@ impl Window {
     /// If nodelay(win, TRUE) has been called on the window and no input is waiting, None is
     /// returned.
     pub fn getch(&self) -> Option<Input> {
-        let i = unsafe { curses::wgetch(self._window) };
-        if i < 0 {
-            None
-        } else if i <= i32::from(u8::max_value()) {
-            Some(Input::Character(i as u8 as char))
-        } else {
-            Some(platform_specific::to_special_keycode(i))
-        }
+        platform_specific::_wgetch(self._window)
     }
 
     /// Return the current x coordinate of the cursor

@@ -3,6 +3,8 @@ use pdcurses::*;
 use libc::c_int;
 
 use std::ffi::{CStr, CString};
+use std::char::decode_utf16;
+use std::iter;
 
 pub mod constants;
 use self::constants::*;
@@ -95,14 +97,14 @@ pub fn _set_title(title: &str) {
 }
 
 /// Converts an integer returned by getch() to a Input value
-pub fn to_special_keycode(i: i32) -> Input {
+pub fn to_special_keycode(i: i32) -> Option<Input> {
     // Not the best, but until I add _all_ the keys between UNDO and RESIZE this will have to do
     // Most of them are PDCurses specific anyway and would not map to Input if I want to keep it
     // clean of implementation specific keys.
     if i == KEY_RESIZE {
-        Input::KeyResize
+        Some(Input::KeyResize)
     } else if i == KEY_MOUSE {
-        Input::KeyMouse
+        Some(Input::KeyMouse)
     } else {
         // Since not all special key codes have been added to the SPECIAL_KEY_CODES array,
         // we need to do some basic math if this input lands into it.
@@ -113,34 +115,73 @@ pub fn to_special_keycode(i: i32) -> Input {
             i - KEY_OFFSET - 48 // Input past KEY_F15 has to be offset down a bit, since PDCurses
                                 // has values for 64 function keys
         };
-        if index as usize >= SPECIAL_KEY_CODES.len() {
+        if index < 0 || index as usize >= SPECIAL_KEY_CODES.len() {
             // Input is something else. This may require more processing to convert properly into utf8
-            Input::Unknown(i)
+            None
         } else {
-            SPECIAL_KEY_CODES[index as usize]
+            Some(SPECIAL_KEY_CODES[index as usize])
         }
     }
 }
 
-pub fn _ungetch(input: &Input) -> i32 {
-    let i = convert_input_to_c_int(input);
-    unsafe { PDC_ungetch(i) }
+pub fn _wgetch(w: *mut WINDOW) -> Option<Input> {
+    let i = unsafe { wgetch(w) };
+    if i < 0 {
+        None
+    } else {
+        Some(to_special_keycode(i).unwrap_or_else(|| {
+            // Assume that on Windows input is UTF-16
+            // If decoding the single input value fails, it should mean that it is the leading part of a
+            // surrogate pair so calling getch() again should return the trailing part
+
+            decode_utf16(iter::once(i as u16))
+                .map(|result| {
+                    result
+                        .map(|c| Input::Character(c))
+                        .unwrap_or_else(|first_error| {
+                            let trailing = unsafe { wgetch(w) };
+                            let data = [i as u16, trailing as u16];
+                            decode_utf16(data.into_iter().cloned())
+                                .map(|result| {
+                                    result.map(|c| Input::Character(c)).unwrap_or_else(
+                                        |second_error| {
+                                            warn!("Decoding input as UTF-16 failed. The two values that could not be decoded were {} and {}.", first_error.unpaired_surrogate(), second_error.unpaired_surrogate());
+                                            Input::Unknown(second_error.unpaired_surrogate() as i32)
+                                        },
+                                    )
+                                })
+                                .next()
+                                .unwrap()
+                        })
+                })
+                .next()
+                .unwrap()
+        }))
+    }
 }
 
-fn convert_input_to_c_int(input: &Input) -> c_int {
+pub fn _ungetch(input: &Input) -> i32 {
     match *input {
-        Input::Character(c) => c as c_int,
-        Input::Unknown(i) => i,
-        Input::KeyResize => KEY_RESIZE,
-        Input::KeyMouse => KEY_MOUSE,
+        Input::Character(c) => {
+            // Need to convert to UTF-16 since Rust chars are UTF-8 while PDCurses deals with UTF-16
+            let mut utf16_buffer = [0; 2];
+            c.encode_utf16(&mut utf16_buffer)
+                .into_iter()
+                .rev()
+                .map(|x| unsafe { PDC_ungetch(*x as c_int) })
+                .fold(0, |res, x| i32::min(res, x))
+        }
+        Input::Unknown(i) => unsafe { PDC_ungetch(i) },
+        Input::KeyResize => unsafe { PDC_ungetch(KEY_RESIZE) },
+        Input::KeyMouse => unsafe { PDC_ungetch(KEY_MOUSE) },
         specialKeyCode => {
             for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
                 if *skc == specialKeyCode {
                     let result = i as c_int + KEY_OFFSET;
                     if result <= KEY_F15 {
-                        return result;
+                        return unsafe { PDC_ungetch(result) };
                     } else {
-                        return result + 48;
+                        return unsafe { PDC_ungetch(result + 48) };
                     }
                 }
             }
@@ -152,47 +193,70 @@ fn convert_input_to_c_int(input: &Input) -> c_int {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use super::convert_input_to_c_int;
     use input::Input;
-    use libc::c_int;
 
     #[test]
     fn test_key_dl_to_special_keycode() {
-        assert_eq!(Input::KeyDL, to_special_keycode(KEY_OFFSET + 0x48));
+        assert_eq!(Input::KeyDL, to_special_keycode(KEY_OFFSET + 0x48).unwrap());
     }
 
     #[test]
     fn test_key_f15_to_input() {
-        assert_eq!(Input::KeyF15, to_special_keycode(KEY_OFFSET + 0x08 + 15));
+        assert_eq!(
+            Input::KeyF15,
+            to_special_keycode(KEY_OFFSET + 0x08 + 15).unwrap()
+        );
     }
 
     #[test]
     fn test_key_up_to_input() {
-        assert_eq!(Input::KeyUp, to_special_keycode(KEY_OFFSET + 3));
+        assert_eq!(Input::KeyUp, to_special_keycode(KEY_OFFSET + 3).unwrap());
     }
 
     #[test]
-    fn test_convert_input_to_c_int() {
-        let i = convert_input_to_c_int(&Input::Character('a'));
-        assert_eq!('a' as c_int, i);
+    fn test_ungetch() {
+        let w = unsafe { initscr() };
+
+        let chars = [
+            'a', 'b', 'c', 'ä', 'ö', 'å', 'A', 'B', 'C', 'Ä', 'Ö', 'Å', '𤭢', '𐍈',
+            '€', 'ᚠ', 'ᛇ', 'ᚻ', 'þ', 'ð', 'γ', 'λ', 'ώ', 'б', 'е', 'р', 'ვ',
+            'ე', 'პ', 'ხ', 'இ', 'ங', 'க', 'ಬ', 'ಇ', 'ಲ', 'ಸ',
+        ];
+
+        chars.into_iter().for_each(|c| {
+            _ungetch(&Input::Character(*c));
+            assert_eq!(_wgetch(w).unwrap(), Input::Character(*c));
+        });
+
+        let specials = [
+            Input::KeyResize,
+            Input::KeyMouse,
+            Input::KeyF1,
+            Input::KeyF15,
+            Input::KeyCodeYes,
+            Input::KeyBreak,
+            Input::KeyDown,
+            Input::KeyUp,
+            Input::KeyLeft,
+            Input::KeyRight,
+            Input::KeyHome,
+            Input::KeyBackspace,
+            Input::KeyNPage,
+            Input::KeyPPage,
+            Input::KeySTab,
+            Input::KeyCTab,
+            Input::KeyCATab,
+            Input::KeyEnter,
+        ];
+
+        specials.into_iter().for_each(|i| {
+            _ungetch(i);
+            assert_eq!(_wgetch(w).unwrap(), *i);
+        });
+
+        unsafe {
+            endwin();
+        }
     }
 
-    #[test]
-    fn test_convert_backspace_to_c_int() {
-        let i = convert_input_to_c_int(&Input::KeyBackspace);
-        assert_eq!(KEY_OFFSET + 0x07, i);
-    }
-
-    #[test]
-    fn test_convert_sdl_to_c_int() {
-        let i = convert_input_to_c_int(&Input::KeySDL);
-        assert_eq!(KEY_OFFSET + 0x7e, i);
-    }
-
-    #[test]
-    fn test_convert_key_mouse() {
-        let i = convert_input_to_c_int(&Input::KeyMouse);
-        let kc = to_special_keycode(i);
-        assert_eq!(i, convert_input_to_c_int(&kc));
-    }
 }
