@@ -6,10 +6,10 @@ extern crate log;
 
 extern crate libc;
 
-#[cfg(windows)]
-extern crate pdcurses;
 #[cfg(unix)]
 extern crate ncurses;
+#[cfg(windows)]
+extern crate pdcurses;
 
 use std::ffi::CString;
 use std::ptr;
@@ -319,9 +319,8 @@ pub fn napms(ms: i32) -> i32 {
 pub fn newterm(t: Option<&str>, output: FILE, input: FILE) -> ScrPtr {
     unsafe {
         curses::newterm(
-            t.map(|x| CString::new(x).unwrap().as_ptr()).unwrap_or(
-                std::ptr::null(),
-            ),
+            t.map(|x| CString::new(x).unwrap().as_ptr())
+                .unwrap_or(std::ptr::null()),
             output,
             input,
         )
@@ -368,6 +367,24 @@ pub fn noecho() -> i32 {
 /// nl() enables this. Initially, the translation does occur.
 pub fn nonl() -> i32 {
     unsafe { curses::nonl() }
+}
+
+/// Disable raw mode.
+///
+/// Raw mode is similar to cbreak mode, in that characters typed are immediately passed through to
+/// the user program. The difference is that in raw mode, the INTR, QUIT, SUSP, and STOP characters
+/// are passed through without being interpreted, and without generating a signal.
+pub fn noraw() -> i32 {
+    unsafe { curses::noraw() }
+}
+
+/// Enable raw mode.
+///
+/// Raw mode is similar to cbreak mode, in that characters typed are immediately passed through to
+/// the user program. The difference is that in raw mode, the INTR, QUIT, SUSP, and STOP characters
+/// are passed through without being interpreted, and without generating a signal.
+pub fn raw() -> i32 {
+    unsafe { curses::raw() }
 }
 
 /// Restore the terminal to "program" (in curses) state. This is done
