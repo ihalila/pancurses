@@ -140,11 +140,11 @@ pub fn _wgetch(w: WINDOW) -> Option<Input> {
 
             let v = vec![i as u8];
             try_decode(v, w)
-            .map(|s| Input::Character(s.chars().next().unwrap()))
-            .unwrap_or_else(|error| {
-                warn!("Decoding input as UTF-8 failed: {:?}", error);
-                Input::Unknown(i)
-            })
+                .map(|s| Input::Character(s.chars().next().unwrap()))
+                .unwrap_or_else(|error| {
+                    warn!("Decoding input as UTF-8 failed: {:?}", error);
+                    Input::Unknown(i)
+                })
         }))
     }
 }
@@ -188,28 +188,7 @@ mod tests {
             assert_eq!(_wgetch(w).unwrap(), Input::Character(*c));
         });
 
-        let specials = [
-            Input::KeyResize,
-            Input::KeyMouse,
-            Input::KeyF1,
-            Input::KeyF15,
-            Input::KeyCodeYes,
-            Input::KeyBreak,
-            Input::KeyDown,
-            Input::KeyUp,
-            Input::KeyLeft,
-            Input::KeyRight,
-            Input::KeyHome,
-            Input::KeyBackspace,
-            Input::KeyNPage,
-            Input::KeyPPage,
-            Input::KeySTab,
-            Input::KeyCTab,
-            Input::KeyCATab,
-            Input::KeyEnter,
-        ];
-
-        specials.into_iter().for_each(|i| {
+        SPECIAL_KEY_CODES.into_iter().for_each(|i| {
             _ungetch(i);
             assert_eq!(_wgetch(w).unwrap(), *i);
         });
