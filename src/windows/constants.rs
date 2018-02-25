@@ -40,6 +40,23 @@ pub const KEY_UNDO: i32 = (KEY_OFFSET + 0x96);
 pub const KEY_RESIZE: i32 = (KEY_OFFSET + 0x122);
 pub const KEY_MOUSE: i32 = (KEY_OFFSET + 0x11b);
 
+pub const KEY_NUMPAD_UP: i32 = 60610;
+pub const KEY_NUMPAD_DOWN: i32 = 60616;
+pub const KEY_NUMPAD_LEFT: i32 = 60612;
+pub const KEY_NUMPAD_RIGHT: i32 = 60614;
+
+pub const KEY_NUMPAD_END: i32 = 60615;
+pub const KEY_NUMPAD_HOME: i32 = 60609;
+pub const KEY_NUMPAD_PAGE_UP: i32 = 60611;
+pub const KEY_NUMPAD_PAGE_DOWN: i32 = 60617;
+pub const KEY_NUMPAD_INSERT: i32 = 60666;
+pub const KEY_NUMPAD_DELETE: i32 = 60622;
+pub const KEY_NUMPAD_ENTER: i32 = 60619;
+pub const KEY_NUMPAD_PLUS: i32 = 60625;
+pub const KEY_NUMPAD_MINUS: i32 = 60624;
+pub const KEY_NUMPAD_ASTERISK: i32 = 60623;
+pub const KEY_NUMPAD_SLASH: i32 = 60618;
+
 pub const SPECIAL_KEY_CODES: [Input; 102] = [
     Input::KeyCodeYes,
     Input::KeyBreak,

@@ -96,30 +96,49 @@ pub fn _set_title(title: &str) {
     unsafe { PDC_set_title(s.as_ptr()) }
 }
 
-/// Converts an integer returned by getch() to a Input value
+/// Converts an integer returned by getch() to an Input value
 pub fn to_special_keycode(i: i32) -> Option<Input> {
-    // Not the best, but until I add _all_ the keys between UNDO and RESIZE this will have to do
-    // Most of them are PDCurses specific anyway and would not map to Input if I want to keep it
-    // clean of implementation specific keys.
-    if i == KEY_RESIZE {
-        Some(Input::KeyResize)
-    } else if i == KEY_MOUSE {
-        Some(Input::KeyMouse)
-    } else {
-        // Since not all special key codes have been added to the SPECIAL_KEY_CODES array,
-        // we need to do some basic math if this input lands into it.
-        let index = if i <= KEY_F15 {
-            i - KEY_OFFSET // Input that is less than KEY_F15 can be converted directly into an
-                           // an index of the SPECIAL_KEY_CODES array.
-        } else {
-            i - KEY_OFFSET - 48 // Input past KEY_F15 has to be offset down a bit, since PDCurses
-                                // has values for 64 function keys
-        };
-        if index < 0 || index as usize >= SPECIAL_KEY_CODES.len() {
-            // Input is something else. This may require more processing to convert properly into utf8
-            None
-        } else {
-            Some(SPECIAL_KEY_CODES[index as usize])
+    // There's two sets of integer constants defined:
+    // - The SPECIAL_KEY_CODES array that contains all codes that are adjacent to each
+    // other for easy indexing into it
+    // - A bunch of scattered constants that need to be checked for
+    // TODO: Unify the constants into a map
+    match i {
+        KEY_RESIZE => Some(Input::KeyResize),
+        KEY_MOUSE => Some(Input::KeyMouse),
+
+        KEY_NUMPAD_UP => Some(Input::KeyUp),
+        KEY_NUMPAD_DOWN => Some(Input::KeyDown),
+        KEY_NUMPAD_LEFT => Some(Input::KeyLeft),
+        KEY_NUMPAD_RIGHT => Some(Input::KeyRight),
+        KEY_NUMPAD_END => Some(Input::KeyEnd),
+        KEY_NUMPAD_HOME => Some(Input::KeyHome),
+        KEY_NUMPAD_PAGE_UP => Some(Input::KeyPPage),
+        KEY_NUMPAD_PAGE_DOWN => Some(Input::KeyNPage),
+        KEY_NUMPAD_INSERT => Some(Input::KeyIC),
+        KEY_NUMPAD_DELETE => Some(Input::KeyDC),
+        KEY_NUMPAD_ENTER => Some(Input::Character('\n')),
+        KEY_NUMPAD_PLUS => Some(Input::Character('+')),
+        KEY_NUMPAD_MINUS => Some(Input::Character('-')),
+        KEY_NUMPAD_ASTERISK => Some(Input::Character('*')),
+        KEY_NUMPAD_SLASH => Some(Input::Character('/')),
+
+        _ => {
+            // Since not all special key codes have been added to the SPECIAL_KEY_CODES array,
+            // we need to do some basic math if this input lands into it.
+            let index = if i <= KEY_F15 {
+                i - KEY_OFFSET // Input that is less than KEY_F15 can be converted directly into an
+                               // an index of the SPECIAL_KEY_CODES array.
+            } else {
+                i - KEY_OFFSET - 48 // Input past KEY_F15 has to be offset down a bit, since PDCurses
+                                    // has values for 64 function keys
+            };
+            if index < 0 || index as usize >= SPECIAL_KEY_CODES.len() {
+                // Input is something else. This may require more processing to convert properly into utf8
+                None
+            } else {
+                Some(SPECIAL_KEY_CODES[index as usize])
+            }
         }
     }
 }
