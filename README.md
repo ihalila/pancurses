@@ -28,7 +28,7 @@ Check [pdcurses-sys](https://github.com/ihalila/pdcurses-sys) for more details.
 Cargo.toml
 ```toml
 [dependencies]
-pancurses = "0.14"
+pancurses = "0.15"
 ```
 
 main.rs
@@ -130,14 +130,14 @@ flags. Simply specify the feature in Cargo.toml like so:
 
 ```rust
 [dependencies.pancurses]
-version = "0.14"
+version = "0.15"
 features = ["win32a"]
 ```
 or
 
 ```rust
 [dependencies.pancurses]
-version = "0.14"
+version = "0.15"
 features = ["win32"]
 ```
 
