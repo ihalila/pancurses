@@ -1,7 +1,6 @@
 #![allow(non_camel_case_types, non_snake_case)]
 
 #[macro_use]
-#[cfg(any(feature = "win32a", all(not(feature = "win32"), not(feature = "win32a"))))]
 extern crate log;
 
 extern crate libc;
