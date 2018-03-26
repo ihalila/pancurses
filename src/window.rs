@@ -29,15 +29,15 @@ impl Window {
     ///
     /// The functionality is similar to calling window.addch() once for each character in the
     /// string.
-    pub fn addstr(&self, string: &str) -> i32 {
-        let s = CString::new(string).unwrap();
+	pub fn addstr<T: AsRef<str>>(&self, string: T) -> i32 {
+		let s = CString::new(string.as_ref()).unwrap();
         unsafe { curses::waddstr(self._window, s.as_ptr()) }
     }
 
     /// Write at most length characters; if length is negative, then the entire string will be
     /// added.
-    pub fn addnstr(&self, string: &str, length: usize) -> i32 {
-        let s = CString::new(string).unwrap();
+    pub fn addnstr<T: AsRef<str>>(&self, string: T, length: usize) -> i32 {
+        let s = CString::new(string.as_ref()).unwrap();
         unsafe { curses::waddnstr(self._window, s.as_ptr(), length as i32) }
     }
 
@@ -388,14 +388,14 @@ impl Window {
 
     /// Write all the characters of the string str to the given window. The functionality is
     /// similar to calling waddch() once for each character in the string.
-    pub fn mvaddstr(&self, y: i32, x: i32, string: &str) -> i32 {
-        let s = CString::new(string).unwrap();
+    pub fn mvaddstr<T: AsRef<str>>(&self, y: i32, x: i32, string: T) -> i32 {
+        let s = CString::new(string.as_ref()).unwrap();
         unsafe { curses::mvwaddstr(self._window, y, x, s.as_ptr()) }
     }
 
     /// Write the first'n' characters of the string str to the given window.
-    pub fn mvaddnstr(&self, y: i32, x: i32, string: &str, n: i32) -> i32 {
-        let s = CString::new(string).unwrap();
+    pub fn mvaddnstr<T: AsRef<str>>(&self, y: i32, x: i32, string: T, n: i32) -> i32 {
+        let s = CString::new(string.as_ref()).unwrap();
         unsafe { curses::mvwaddnstr(self._window, y, x, s.as_ptr(), n) }
     }
 
@@ -442,8 +442,8 @@ impl Window {
     }
 
     /// Add a string to the window at the specified cursor position.
-    pub fn mvprintw(&self, y: i32, x: i32, string: &str) -> i32 {
-        let s = CString::new(string).unwrap();
+    pub fn mvprintw<T: AsRef<str>>(&self, y: i32, x: i32, string: T) -> i32 {
+        let s = CString::new(string.as_ref()).unwrap();
         unsafe { curses::mvwprintw(self._window, y, x, s.as_ptr()) }
     }
 
@@ -482,8 +482,8 @@ impl Window {
     }
 
     /// Add a string to the window at the current cursor position.
-    pub fn printw(&self, string: &str) -> i32 {
-        let s = CString::new(string).unwrap();
+    pub fn printw<T: AsRef<str>>(&self, string: T) -> i32 {
+        let s = CString::new(string.as_ref()).unwrap();
         unsafe { curses::wprintw(self._window, s.as_ptr()) }
     }
 
