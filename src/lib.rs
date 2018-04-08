@@ -316,12 +316,12 @@ pub fn napms(ms: i32) -> i32 {
 /// (For the PDCurses backend it's just an alternative interface for initscr(). It always returns
 /// SP, or NULL.)
 pub fn newterm(t: Option<&str>, output: FILE, input: FILE) -> ScrPtr {
-    let termType = t.map(|x| CString::new(x).unwrap());
-    let typePtr = match termType {
-        Some(s) => s.as_ptr(),
+    let term_type = t.map(|x| CString::new(x).unwrap());
+    let type_ptr = match term_type {
+        Some(ref s) => s.as_ptr(),
         _ => std::ptr::null(),
     };
-    unsafe { curses::newterm(typePtr, output, input) }
+    unsafe { curses::newterm(type_ptr, output, input) }
 }
 
 /// Creates a new window with the given number of lines, nlines and columns, ncols.
