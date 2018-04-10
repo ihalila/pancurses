@@ -238,6 +238,7 @@ impl Window {
             _window: dup_win,
             _stdscr: false,
             _deleted: false,
+            _ispad: false,
         }
     }
 
@@ -582,6 +583,7 @@ impl Window {
                 _window: new_window,
                 _stdscr: false,
                 _deleted: false,
+                _ispad: false,
             })
         }
     }
