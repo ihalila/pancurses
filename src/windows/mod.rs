@@ -96,6 +96,10 @@ pub fn _set_title(title: &str) {
     unsafe { PDC_set_title(s.as_ptr()) }
 }
 
+pub fn _stdscr() -> *mut WINDOW {
+    unsafe { stdscr }
+}
+
 /// Converts an integer returned by getch() to an Input value
 pub fn to_special_keycode(i: i32) -> Option<Input> {
     // There's two sets of integer constants defined:
