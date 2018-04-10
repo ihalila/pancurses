@@ -334,6 +334,11 @@ pub fn newwin(nlines: i32, ncols: i32, begy: i32, begx: i32) -> Window {
     window::new_window(window_pointer, false)
 }
 
+pub fn newpad(lines: i32, cols: i32) -> Window {
+    let window_pointer = unsafe { curses::newpad(lines, cols) };
+    window::new_pad(window_pointer)
+}
+
 /// Enables the translation of a carriage return into a newline on input.
 ///
 /// nonl() disables this. Initially, the translation does occur.
