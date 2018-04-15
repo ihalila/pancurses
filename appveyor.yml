@@ -60,32 +60,32 @@ environment:
 
 ### GNU Toolchains ###
 
-  # Stable 64-bit GNU
-    - channel: stable
-      target: x86_64-pc-windows-gnu
-      MSYS_BITS: 64
-  # Stable 32-bit GNU
-    - channel: stable
-      target: i686-pc-windows-gnu
-      MSYS_BITS: 32
-  # Beta 64-bit GNU
-    - channel: beta
-      target: x86_64-pc-windows-gnu
-      MSYS_BITS: 64
-  # Beta 32-bit GNU
-    - channel: beta
-      target: i686-pc-windows-gnu
-      MSYS_BITS: 32
-  # Nightly 64-bit GNU
-    - channel: nightly
-      target: x86_64-pc-windows-gnu
-      MSYS_BITS: 64
-      #cargoflags: --features "unstable"
-  # Nightly 32-bit GNU
-    - channel: nightly
-      target: i686-pc-windows-gnu
-      MSYS_BITS: 32
-      #cargoflags: --features "unstable"
+  # # Stable 64-bit GNU
+  #   - channel: stable
+  #     target: x86_64-pc-windows-gnu
+  #     MSYS_BITS: 64
+  # # Stable 32-bit GNU
+  #   - channel: stable
+  #     target: i686-pc-windows-gnu
+  #     MSYS_BITS: 32
+  # # Beta 64-bit GNU
+  #   - channel: beta
+  #     target: x86_64-pc-windows-gnu
+  #     MSYS_BITS: 64
+  # # Beta 32-bit GNU
+  #   - channel: beta
+  #     target: i686-pc-windows-gnu
+  #     MSYS_BITS: 32
+  # # Nightly 64-bit GNU
+  #   - channel: nightly
+  #     target: x86_64-pc-windows-gnu
+  #     MSYS_BITS: 64
+  #     #cargoflags: --features "unstable"
+  # # Nightly 32-bit GNU
+  #   - channel: nightly
+  #     target: i686-pc-windows-gnu
+  #     MSYS_BITS: 32
+  #     #cargoflags: --features "unstable"
 
 ### Allowed failures ###
 
