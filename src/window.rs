@@ -470,6 +470,7 @@ impl Window {
         if !self._ispad {
             unsafe { curses::wnoutrefresh(self._window) }
         } else {
+            warn!("noutrefresh() expect a `window` type but called on a `pad` type!");
             0                   // FIXME
         }
     }
@@ -504,6 +505,7 @@ impl Window {
         if !self._ispad {
             unsafe { curses::wrefresh(self._window) }
         } else {
+            warn!("refresh() expect a `window` type but called on a `pad` type!");
             0               // FIXME
         }
     }
@@ -528,6 +530,7 @@ impl Window {
                                       smax_col)
             }
         } else {
+            warn!("prefresh() expect a `pad` type but called on a `window` type!");
             0               // FIXME
         }
     }
@@ -551,6 +554,7 @@ impl Window {
                                       smax_col)
             }
         } else {
+            warn!("pnoutrefresh() expect a `pad` type but called on a `window` type!");
             0               // FIXME
         }
     }
