@@ -7,6 +7,7 @@ use std::path::Path;
 
 use self::winreg::RegKey;
 use self::winreg::enums::HKEY_CURRENT_USER;
+use self::winreg::enums::KEY_SET_VALUE;
 
 pub fn pre_init() {
     let exe_name = env::current_exe()
@@ -64,7 +65,7 @@ pub fn pre_init() {
     split[4] = &rejoined_menu;
 
     // Write the modified values back into the registry
-    if let Err(e) = hkcu.open_subkey("Software\\PDCurses").and_then(|reg_key| {
+    if let Err(e) = hkcu.open_subkey_with_flags("Software\\PDCurses", KEY_SET_VALUE).and_then(|reg_key| {
         reg_key.set_value::<String, &str>(&exe_name, &split.join(","))
     })
     {
