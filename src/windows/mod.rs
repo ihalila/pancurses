@@ -5,6 +5,7 @@ use libc::c_int;
 use std::ffi::{CStr, CString};
 use std::char::decode_utf16;
 use std::iter;
+use std::cmp;
 
 pub mod constants;
 use self::constants::*;
@@ -188,7 +189,7 @@ pub fn _ungetch(input: &Input) -> i32 {
                 .into_iter()
                 .rev()
                 .map(|x| unsafe { PDC_ungetch(*x as c_int) })
-                .fold(0, |res, x| i32::min(res, x))
+                .fold(0, |res, x| cmp::min(res, x))
         }
         Input::Unknown(i) => unsafe { PDC_ungetch(i) },
         Input::KeyResize => unsafe { PDC_ungetch(KEY_RESIZE) },
