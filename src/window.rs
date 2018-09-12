@@ -90,7 +90,7 @@ impl Window {
     /// inserted to the window by addch() or insch(). Only the attribute part is used to set
     /// the background of non-blank characters, while both character and attributes are used
     /// for blank positions.
-    pub fn bgkdset<T: Into<chtype>>(&self, ch: T) {
+    pub fn bkgdset<T: Into<chtype>>(&self, ch: T) {
         unsafe { curses::wbkgdset(self._window, ch.into()) }
     }
 
