@@ -4,7 +4,7 @@ use self::constants::*;
 
 use ncurses::{box_, getmouse, keyname, setlocale, LcCategory, COLORS, COLOR_PAIRS};
 use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_ATTR_T, WINDOW};
-use ncurses::ll::{resize_term, wgetch, wmouse_trafo};
+use ncurses::ll::{resize_term, wgetch};
 
 use libc::c_int;
 use input::Input;
