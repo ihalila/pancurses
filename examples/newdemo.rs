@@ -251,9 +251,9 @@ fn sub_win_test(main_window: &Window, win: &Window) -> Result<(), i32> {
     let sw = w / 3;
     let sh = h / 3;
 
-    let swin1 = try!(win.derwin(sh, sw, 3, 5));
-    let swin2 = try!(win.subwin(sh, sw, by + 4, bx + 8));
-    let swin3 = try!(win.subwin(sh, sw, by + 5, bx + 11));
+    let swin1 = win.derwin(sh, sw, 3, 5)?;
+    let swin2 = win.subwin(sh, sw, by + 4, bx + 8)?;
+    let swin3 = win.subwin(sh, sw, by + 5, bx + 11)?;
 
     init_pair(8, COLOR_RED, COLOR_BLUE);
     swin1.bkgd(COLOR_PAIR(8));
