@@ -78,12 +78,6 @@ pub fn _keyname(code: i32) -> Option<String> {
     }
 }
 
-pub fn _mouse_trafo(w: &mut *mut WINDOW, y: &mut i32, x: &mut i32, to_screen: bool) {
-    unsafe {
-        wmouse_trafo(*w, y, x, to_screen as u8);
-    }
-}
-
 pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {
     unsafe { resize_term(nlines, ncols) }
 }

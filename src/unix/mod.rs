@@ -4,7 +4,7 @@ use self::constants::*;
 
 use ncurses::{box_, getmouse, keyname, setlocale, LcCategory, COLORS, COLOR_PAIRS};
 use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_ATTR_T, WINDOW};
-use ncurses::ll::{resize_term, wgetch, wmouse_trafo};
+use ncurses::ll::{resize_term, wgetch};
 
 use libc::c_int;
 use input::Input;
@@ -57,12 +57,6 @@ pub fn _getmouse() -> Result<MEVENT, i32> {
 
 pub fn _keyname(code: i32) -> Option<String> {
     keyname(code)
-}
-
-pub fn _mouse_trafo(w: &mut WINDOW, y: &mut i32, x: &mut i32, to_screen: bool) {
-    unsafe {
-        wmouse_trafo(w, y, x, to_screen as u8);
-    }
 }
 
 pub fn _resize_term(nlines: i32, ncols: i32) -> i32 {

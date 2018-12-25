@@ -369,7 +369,7 @@ impl Window {
     pub fn mouse_trafo(&mut self, y: i32, x: i32, to_screen: bool) -> (i32, i32) {
         let mut mut_y = y;
         let mut mut_x = x;
-        platform_specific::_mouse_trafo(&mut self._window, &mut mut_y, &mut mut_x, to_screen);
+        unsafe { curses::wmouse_trafo(self._window, &mut mut_y, &mut mut_x, to_screen as u8); }
         (mut_y, mut_x)
     }
 
