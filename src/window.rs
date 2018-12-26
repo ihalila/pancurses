@@ -366,7 +366,7 @@ impl Window {
     ///
     /// A to_screen parameter of true means to convert from window to screen;
     /// otherwise the reverse.
-    pub fn mouse_trafo(&mut self, y: i32, x: i32, to_screen: bool) -> (i32, i32) {
+    pub fn mouse_trafo(&self, y: i32, x: i32, to_screen: bool) -> (i32, i32) {
         let mut mut_y = y;
         let mut mut_x = x;
         unsafe { curses::wmouse_trafo(self._window, &mut mut_y, &mut mut_x, to_screen as u8); }
