@@ -500,7 +500,7 @@ impl Window {
     /// Resizes the window to the given dimensions. Doesn't resize subwindows on pdcurses
     /// so you have to resize them yourself.
     pub fn resize(&mut self, nlines: i32, ncols: i32) -> i32 {
-        unsafe { curses::wresize(self._window, lines, cols) }
+        unsafe { curses::wresize(self._window, nlines, ncols) }
     }
 
     /// If enabled and a scrolling region is set with setscrreg(), any attempt to move off
