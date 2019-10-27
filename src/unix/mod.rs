@@ -7,7 +7,7 @@ use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_
 use ncurses::ll::{resize_term, wgetch};
 
 use libc::c_int;
-use input::Input;
+use crate::input::Input;
 
 use std::string::FromUtf8Error;
 
@@ -146,7 +146,7 @@ pub fn _wgetch(w: WINDOW) -> Option<Input> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use input::Input;
+    use crate::input::Input;
     use ncurses::{endwin, initscr};
 
     #[test]

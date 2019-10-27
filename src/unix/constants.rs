@@ -1,4 +1,4 @@
-use input::Input;
+use crate::input::Input;
 use ncurses;
 use ncurses::ll::{attr_t, chtype, mmask_t};
 use ncurses::NCURSES_ATTR_SHIFT;
