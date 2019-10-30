@@ -26,7 +26,7 @@ fn main() {
         start_color();
     }
 
-    for (i, color) in COLOR_TABLE.into_iter().enumerate() {
+    for (i, color) in COLOR_TABLE.iter().enumerate() {
         init_pair(i as i16, *color, COLOR_BLACK);
     }
 
