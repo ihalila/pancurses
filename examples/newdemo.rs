@@ -119,7 +119,7 @@ fn main() {
 
         win.attrset(Attribute::Bold);
 
-        for (i, s) in AUS_MAP.into_iter().enumerate() {
+        for (i, s) in AUS_MAP.iter().enumerate() {
             win.mvaddstr(i as i32 + 1, 8, s);
             win.refresh();
             napms(100);
