@@ -1,4 +1,4 @@
-use {chtype, curses, platform_specific, ptr, Input, ToChtype, ERR};
+use crate::{chtype, curses, platform_specific, ptr, Input, ToChtype, ERR};
 use std::ffi::CString;
 
 #[derive(Debug)]

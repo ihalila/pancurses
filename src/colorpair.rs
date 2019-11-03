@@ -1,6 +1,6 @@
 use std::ops::BitOr;
 use super::{chtype, COLOR_PAIR};
-use attributes::{Attribute, Attributes};
+use crate::attributes::{Attribute, Attributes};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 pub struct ColorPair(pub u8);

@@ -38,7 +38,7 @@ mod attributes;
 pub use self::attributes::*;
 
 pub mod colorpair;
-pub use colorpair::ColorPair;
+pub use crate::colorpair::ColorPair;
 
 #[cfg(windows)]
 mod windows;
@@ -58,7 +58,7 @@ pub const OK: i32 = 0;
 pub const ERR: i32 = -1;
 
 mod window;
-pub use window::Window;
+pub use crate::window::Window;
 
 pub trait ToChtype {
     fn to_chtype(&self) -> chtype;
