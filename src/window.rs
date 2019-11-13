@@ -254,7 +254,7 @@ impl Window {
         unsafe { curses::getbegy(self._window) }
     }
 
-    // Get the upper-left x coordinate of this window
+    /// Get the upper-left x coordinate of this window
     pub fn get_beg_x(&self) -> i32 {
         unsafe { curses::getbegx(self._window) }
     }
