@@ -600,3 +600,6 @@ impl Drop for Window {
         }
     }
 }
+
+impl Send for Window {}
+impl Sync for Window {}
