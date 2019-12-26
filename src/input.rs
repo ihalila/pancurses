@@ -119,3 +119,6 @@ pub enum Input {
     KeyC1,
     KeyC3,
 }
+
+unsafe impl Send for Input {}
+unsafe impl Sync for Input {}
