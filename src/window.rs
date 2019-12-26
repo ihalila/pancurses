@@ -11,6 +11,9 @@ pub struct Window {
     _deleted: bool,
 }
 
+impl Send for Window {}
+impl Sync for Window {}
+
 #[cfg(windows)]
 type WindowPointer = *mut curses::WINDOW;
 #[cfg(unix)]
@@ -601,5 +604,3 @@ impl Drop for Window {
     }
 }
 
-impl Send for Window {}
-impl Sync for Window {}
