@@ -2,17 +2,19 @@
 pub mod constants;
 use self::constants::*;
 
-use ncurses::{box_, getmouse, keyname, setlocale, LcCategory, COLORS, COLOR_PAIRS};
+use ncurses::{box_, getmouse, keyname, COLORS, COLOR_PAIRS};
 use ncurses::ll::{chtype, ungetch, wattroff, wattron, wattrset, MEVENT, NCURSES_ATTR_T, WINDOW};
 use ncurses::ll::{resize_term, wgetch};
 
-use libc::c_int;
+use libc::{c_int, setlocale, LC_ALL};
 use crate::input::Input;
 
+use std::ffi::CString;
 use std::string::FromUtf8Error;
 
 pub fn pre_init() {
-    setlocale(LcCategory::all, "");
+    let buf = CString::new("").unwrap();
+    setlocale(LC_ALL, buf.as_ptr());
 }
 
 pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
