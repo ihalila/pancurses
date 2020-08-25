@@ -14,7 +14,7 @@ use std::string::FromUtf8Error;
 
 pub fn pre_init() {
     let buf = CString::new("").unwrap();
-    setlocale(LC_ALL, buf.as_ptr());
+    unsafe { setlocale(LC_ALL, buf.as_ptr()) };
 }
 
 pub fn _attron(w: WINDOW, attributes: chtype) -> i32 {
