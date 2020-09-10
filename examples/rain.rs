@@ -1,3 +1,5 @@
+#![allow(clippy::many_single_char_names)]
+
 /// **************************************************************************
 /// Copyright (c) 2002 Free Software Foundation, Inc.                        *
 ///                                                                          *

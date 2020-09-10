@@ -92,14 +92,14 @@ pub fn _ungetch(input: &Input) -> i32 {
             let mut utf8_buffer = [0; 4];
             c.encode_utf8(&mut utf8_buffer)
                 .as_bytes()
-                .into_iter()
+                .iter()
                 .rev()
                 .map(|x| unsafe { ungetch(*x as c_int) })
-                .fold(0, |res, x| i32::min(res, x))
+                .fold(0, |res, x| res.min(x))
         }
         Input::Unknown(i) => unsafe { ungetch(i) },
         specialKeyCode => {
-            for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
+            for (i, skc) in SPECIAL_KEY_CODES.iter().enumerate() {
                 if *skc == specialKeyCode {
                     let result = i as c_int + KEY_OFFSET;
                     if result <= KEY_F15 {
@@ -177,12 +177,12 @@ mod tests {
             'ე', 'პ', 'ხ', 'இ', 'ங', 'க', 'ಬ', 'ಇ', 'ಲ', 'ಸ',
         ];
 
-        chars.into_iter().for_each(|c| {
+        chars.iter().for_each(|c| {
             _ungetch(&Input::Character(*c));
             assert_eq!(_wgetch(w).unwrap(), Input::Character(*c));
         });
 
-        SPECIAL_KEY_CODES.into_iter().for_each(|i| {
+        SPECIAL_KEY_CODES.iter().for_each(|i| {
             _ungetch(i);
             assert_eq!(_wgetch(w).unwrap(), *i);
         });

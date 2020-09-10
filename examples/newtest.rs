@@ -22,7 +22,7 @@ fn main() {
 
     set_title("NewTest: tests various pancurses features");
 
-    mousemask(ALL_MOUSE_EVENTS, std::ptr::null_mut());
+    mousemask(ALL_MOUSE_EVENTS, None);
 
     window.attrset(COLOR_PAIR(1));
 

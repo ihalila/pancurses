@@ -151,13 +151,13 @@ pub fn _wgetch(w: *mut WINDOW) -> Option<Input> {
             decode_utf16(iter::once(i as u16))
                 .map(|result| {
                     result
-                        .map(|c| Input::Character(c))
+                        .map(Input::Character)
                         .unwrap_or_else(|first_error| {
                             let trailing = unsafe { wgetch(w) };
                             let data = [i as u16, trailing as u16];
-                            decode_utf16(data.into_iter().cloned())
+                            decode_utf16(data.iter().cloned())
                                 .map(|result| {
-                                    result.map(|c| Input::Character(c)).unwrap_or_else(
+                                    result.map(Input::Character).unwrap_or_else(
                                         |second_error| {
                                             warn!("Decoding input as UTF-16 failed. The two values that could not be decoded were {} and {}.", first_error.unpaired_surrogate(), second_error.unpaired_surrogate());
                                             Input::Unknown(second_error.unpaired_surrogate() as i32)
@@ -180,16 +180,16 @@ pub fn _ungetch(input: &Input) -> i32 {
             // Need to convert to UTF-16 since Rust chars are UTF-8 while PDCurses deals with UTF-16
             let mut utf16_buffer = [0; 2];
             c.encode_utf16(&mut utf16_buffer)
-                .into_iter()
+                .iter_mut()
                 .rev()
                 .map(|x| unsafe { PDC_ungetch(*x as c_int) })
-                .fold(0, |res, x| cmp::min(res, x))
+                .fold(0, cmp::min)
         }
         Input::Unknown(i) => unsafe { PDC_ungetch(i) },
         Input::KeyResize => unsafe { PDC_ungetch(KEY_RESIZE) },
         Input::KeyMouse => unsafe { PDC_ungetch(KEY_MOUSE) },
         specialKeyCode => {
-            for (i, skc) in SPECIAL_KEY_CODES.into_iter().enumerate() {
+            for (i, skc) in SPECIAL_KEY_CODES.iter().enumerate() {
                 if *skc == specialKeyCode {
                     let result = i as c_int + KEY_OFFSET;
                     if result <= KEY_F15 {
@@ -237,12 +237,12 @@ mod tests {
             'ე', 'პ', 'ხ', 'இ', 'ங', 'க', 'ಬ', 'ಇ', 'ಲ', 'ಸ',
         ];
 
-        chars.into_iter().for_each(|c| {
+        chars.iter().for_each(|c| {
             _ungetch(&Input::Character(*c));
             assert_eq!(_wgetch(w).unwrap(), Input::Character(*c));
         });
 
-        SPECIAL_KEY_CODES.into_iter().for_each(|i| {
+        SPECIAL_KEY_CODES.iter().for_each(|i| {
             _ungetch(i);
             assert_eq!(_wgetch(w).unwrap(), *i);
         });
