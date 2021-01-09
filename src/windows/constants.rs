@@ -35,10 +35,10 @@ pub const A_STRIKEOUT: chtype = 0x200 << PDC_CHARTEXT_BITS;
 pub const A_UNDERLINE: chtype = 0x010 << PDC_CHARTEXT_BITS;
 
 pub const KEY_OFFSET: i32 = 0xec00;
-pub const KEY_F15: i32 = (KEY_OFFSET + 0x17);
-pub const KEY_UNDO: i32 = (KEY_OFFSET + 0x96);
-pub const KEY_RESIZE: i32 = (KEY_OFFSET + 0x122);
-pub const KEY_MOUSE: i32 = (KEY_OFFSET + 0x11b);
+pub const KEY_F15: i32 = KEY_OFFSET + 0x17;
+pub const KEY_UNDO: i32 = KEY_OFFSET + 0x96;
+pub const KEY_RESIZE: i32 = KEY_OFFSET + 0x122;
+pub const KEY_MOUSE: i32 = KEY_OFFSET + 0x11b;
 
 pub const KEY_NUMPAD_UP: i32 = 60610;
 pub const KEY_NUMPAD_DOWN: i32 = 60616;

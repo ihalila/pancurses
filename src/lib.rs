@@ -278,8 +278,9 @@ pub fn mouseinterval(interval: i32) -> i32 {
 ///
 /// As a side effect, setting a zero mousemask may turn off the mouse pointer; setting a nonzero
 /// mask may turn it on. Whether this happens is device-dependent.
-pub fn mousemask(newmask: mmask_t, oldmask: *mut mmask_t) -> mmask_t {
-    unsafe { curses::mousemask(newmask, oldmask) }
+pub fn mousemask(newmask: mmask_t, oldmask: Option<&mut mmask_t>) -> mmask_t {
+    let oldmask_ptr = oldmask.map(|x| x as *mut _).unwrap_or(std::ptr::null_mut());
+    unsafe { curses::mousemask(newmask, oldmask_ptr) }
 }
 
 /// Returns a character string corresponding to the key `code`.

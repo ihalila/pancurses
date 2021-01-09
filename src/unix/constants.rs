@@ -67,16 +67,16 @@ pub const COLOR_CYAN: i16 = 6;
 pub const COLOR_WHITE: i16 = 7;
 
 pub const A_ALTCHARSET: attr_t = (1u32 << (14u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_ATTRIBUTES: attr_t = (!0u32 << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
+pub const A_ATTRIBUTES: attr_t = (!0u32 << NCURSES_ATTR_SHIFT) as attr_t;
 pub const A_BLINK: attr_t = (1u32 << (11u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_BOLD: attr_t = (1u32 << (13u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_CHARTEXT: attr_t = (1u32 << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_COLOR: attr_t = ((((1u32) << 8) - 1u32) << (0u32 + NCURSES_ATTR_SHIFT)) as attr_t;
+pub const A_CHARTEXT: attr_t = (1u32 << NCURSES_ATTR_SHIFT) as attr_t;
+pub const A_COLOR: attr_t = ((((1u32) << 8) - 1u32) << NCURSES_ATTR_SHIFT) as attr_t;
 pub const A_DIM: attr_t = (1u32 << (12u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_ITALIC: attr_t = (1u32 << (23 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_INVIS: attr_t = (1u32 << (15u32 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_LEFTLINE: attr_t = 0; // Not supported on ncurses
-pub const A_NORMAL: attr_t = 0u32 as attr_t;
+pub const A_NORMAL: attr_t = 0;
 pub const A_OVERLINE: attr_t = 0; // Not supported on ncurses
 pub const A_REVERSE: attr_t = (1u32 << (10 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_RIGHTLINE: attr_t = 0; // Not supported on ncurses
@@ -84,11 +84,11 @@ pub const A_STANDOUT: attr_t = (1u32 << (8 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_STRIKEOUT: attr_t = 0; // Not supported on ncurses
 pub const A_UNDERLINE: attr_t = (1u32 << (9 + NCURSES_ATTR_SHIFT)) as attr_t;
 
-pub const KEY_RESIZE: i32 = 0632;
+pub const KEY_RESIZE: i32 = 0o632;
 
 pub const KEY_OFFSET: i32 = 0o0400;
-pub const KEY_F15: i32 = (KEY_OFFSET + 0x17);
-pub const KEY_EVENT: i32 = (KEY_OFFSET + 0o633);
+pub const KEY_F15: i32 = KEY_OFFSET + 0x17;
+pub const KEY_EVENT: i32 = KEY_OFFSET + 0o633;
 
 pub const SPECIAL_KEY_CODES: [Input; 108] = [
     Input::KeyCodeYes,

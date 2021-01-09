@@ -72,6 +72,7 @@ impl Attributes {
     }
     attribute_setter!(set_dim, A_DIM);
 
+    #[cfg_attr(unix, allow(clippy::bad_bit_mask))]
     pub fn is_leftline(&self) -> bool {
         (self.raw & A_LEFTLINE) > 0
     }
@@ -94,6 +95,7 @@ impl Attributes {
         self.raw = 0
     }
 
+    #[cfg_attr(unix, allow(clippy::bad_bit_mask))]
     pub fn is_overline(&self) -> bool {
         (self.raw & A_OVERLINE) > 0
     }
@@ -104,11 +106,13 @@ impl Attributes {
     }
     attribute_setter!(set_reverse, A_REVERSE);
 
+    #[cfg_attr(unix, allow(clippy::bad_bit_mask))]
     pub fn is_rightline(&self) -> bool {
         (self.raw & A_RIGHTLINE) > 0
     }
     attribute_setter!(set_rightline, A_RIGHTLINE);
 
+    #[cfg_attr(unix, allow(clippy::bad_bit_mask))]
     pub fn is_strikeout(&self) -> bool {
         (self.raw & A_STRIKEOUT) > 0
     }
@@ -124,7 +128,7 @@ impl Attributes {
     }
     pub fn set_color_pair(&mut self, color_pair: ColorPair) {
         let color_chtype: chtype = color_pair.into();
-        self.raw = self.raw | color_chtype;
+        self.raw |= color_chtype;
         self.color_pair = color_pair;
     }
 }

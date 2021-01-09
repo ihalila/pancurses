@@ -95,6 +95,7 @@ impl Window {
     }
 
     /// Draw a border around the edges of the window.
+    #[allow(clippy::too_many_arguments)]
     pub fn border<T: ToChtype>(
         &self,
         left_side: T,
@@ -164,6 +165,7 @@ impl Window {
     /// "overlay", if TRUE, indicates that the copy is done non-destructively (as in overlay());
     /// blanks in the source window are not copied to the destination window. When overlay is
     /// FALSE, blanks are copied.
+    #[allow(clippy::too_many_arguments)]
     pub fn copywin(
         &self,
         destination_window: &Window,

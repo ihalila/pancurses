@@ -151,10 +151,7 @@ fn main() {
                     let char_index = visbuf_i as i32 - i;
                     let ch = if char_index >= 0 && char_index < message.len() as i32 {
                         let char_index = char_index as usize;
-                        match message[char_index..char_index + 1].chars().next() {
-                            Some(c) => c,
-                            None => ' ',
-                        }
+                        message[char_index..char_index + 1].chars().next().unwrap_or(' ')
                     } else {
                         ' '
                     };
@@ -237,10 +234,7 @@ fn wait_for_user(main_window: &Window) -> bool {
     nocbreak(); // Reset the halfdelay() value
     cbreak();
 
-    match ch {
-        Some(Input::Character('\x1B')) => true,
-        _ => false,
-    }
+    matches!(ch, Some(Input::Character('\x1B')))
 }
 
 fn sub_win_test(main_window: &Window, win: &Window) -> Result<(), i32> {
