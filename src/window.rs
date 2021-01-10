@@ -9,6 +9,8 @@ pub struct Window {
     _window: curses::WINDOW,
     _stdscr: bool,
     _deleted: bool,
+    _ispad: bool,           // Just to identify if the window is a pad; not sure what would
+                            // happen if we call method of window on a pad.
 }
 
 #[cfg(windows)]
@@ -238,6 +240,7 @@ impl Window {
             _window: dup_win,
             _stdscr: false,
             _deleted: false,
+            _ispad: false,
         }
     }
 
@@ -466,7 +469,12 @@ impl Window {
 
     /// Copies the window to the virtual screen.
     pub fn noutrefresh(&self) -> i32 {
-        unsafe { curses::wnoutrefresh(self._window) }
+        if !self._ispad {
+            unsafe { curses::wnoutrefresh(self._window) }
+        } else {
+            warn!("noutrefresh() expect a `window` type but called on a `pad` type!");
+            0                   // FIXME
+        }
     }
 
     /// Overlays this window on top of destination_window. This window and destination_window are
@@ -496,7 +504,61 @@ impl Window {
     /// manipulate data structures. Unless leaveok() has been enabled, the physical cursor of the
     /// terminal is left at the location of the window's cursor.
     pub fn refresh(&self) -> i32 {
-        unsafe { curses::wrefresh(self._window) }
+        if !self._ispad {
+            unsafe { curses::wrefresh(self._window) }
+        } else {
+            warn!("refresh() expect a `window` type but called on a `pad` type!");
+            0               // FIXME
+        }
+    }
+
+    // The new method; other related methods may need to be added too
+    pub fn prefresh(&self,
+                    pmin_row: i32, 
+                    pmin_col: i32, 
+                    smin_row: i32, 
+                    smin_col: i32, 
+                    smax_row: i32, 
+                    smax_col: i32
+            ) -> i32 {
+        if self._ispad {
+            unsafe {
+                curses::prefresh(self._window, 
+                                      pmin_row,
+                                      pmin_col,
+                                      smin_row,
+                                      smin_col,
+                                      smax_row,
+                                      smax_col)
+            }
+        } else {
+            warn!("prefresh() expect a `pad` type but called on a `window` type!");
+            0               // FIXME
+        }
+    }
+
+    pub fn pnoutrefresh(&self,
+                    pmin_row: i32, 
+                    pmin_col: i32, 
+                    smin_row: i32, 
+                    smin_col: i32, 
+                    smax_row: i32, 
+                    smax_col: i32
+            ) -> i32 {
+        if self._ispad {
+            unsafe {
+                curses::pnoutrefresh(self._window, 
+                                      pmin_row,
+                                      pmin_col,
+                                      smin_row,
+                                      smin_col,
+                                      smax_row,
+                                      smax_col)
+            }
+        } else {
+            warn!("pnoutrefresh() expect a `pad` type but called on a `window` type!");
+            0               // FIXME
+        }
     }
 
     /// If enabled and a scrolling region is set with setscrreg(), any attempt to move off
@@ -527,6 +589,7 @@ impl Window {
                 _window: new_window,
                 _stdscr: false,
                 _deleted: false,
+                _ispad: false,
             })
         }
     }
@@ -589,6 +652,16 @@ pub fn new_window(window_pointer: WindowPointer, is_stdscr: bool) -> Window {
         _window: window_pointer,
         _stdscr: is_stdscr,
         _deleted: false,
+        _ispad: false,
+    }
+}
+
+pub fn new_pad(window_pointer: WindowPointer) -> Window {   // A pad cannot be stdscr
+    Window {
+        _window: window_pointer,
+        _stdscr: false,
+        _deleted: false,
+        _ispad: true,
     }
 }
 
