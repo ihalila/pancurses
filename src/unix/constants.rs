@@ -1,7 +1,6 @@
 use crate::input::Input;
 use ncurses;
 use ncurses::ll::{attr_t, chtype, mmask_t};
-use ncurses::NCURSES_ATTR_SHIFT;
 
 pub use ncurses::{ACS_LLCORNER, ACS_LRCORNER, ACS_ULCORNER, ACS_URCORNER};
 pub use ncurses::{ACS_BTEE, ACS_HLINE, ACS_LTEE, ACS_PLUS, ACS_RTEE, ACS_TTEE, ACS_VLINE};
@@ -49,12 +48,8 @@ pub const BUTTON_SHIFT: mmask_t = ncurses::BUTTON_SHIFT as mmask_t;
 pub const BUTTON_CTRL: mmask_t = ncurses::BUTTON_CTRL as mmask_t;
 pub const BUTTON_ALT: mmask_t = ncurses::BUTTON_ALT as mmask_t;
 
-fn NCURSES_BITS(mask: u32, shift: u32) -> u32 {
-    mask << (shift + NCURSES_ATTR_SHIFT) as usize
-}
-
 pub fn COLOR_PAIR(n: chtype) -> attr_t {
-    NCURSES_BITS(n as u32, 0u32) as attr_t
+    ncurses::COLOR_PAIR(n as i16)
 }
 
 pub const COLOR_BLACK: i16 = 0;
@@ -66,23 +61,23 @@ pub const COLOR_MAGENTA: i16 = 5;
 pub const COLOR_CYAN: i16 = 6;
 pub const COLOR_WHITE: i16 = 7;
 
-pub const A_ALTCHARSET: attr_t = (1u32 << (14u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_ATTRIBUTES: attr_t = (!0u32 << NCURSES_ATTR_SHIFT) as attr_t;
-pub const A_BLINK: attr_t = (1u32 << (11u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_BOLD: attr_t = (1u32 << (13u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_CHARTEXT: attr_t = (1u32 << NCURSES_ATTR_SHIFT) as attr_t;
-pub const A_COLOR: attr_t = ((((1u32) << 8) - 1u32) << NCURSES_ATTR_SHIFT) as attr_t;
-pub const A_DIM: attr_t = (1u32 << (12u32 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_ITALIC: attr_t = (1u32 << (23 + NCURSES_ATTR_SHIFT)) as attr_t;
-pub const A_INVIS: attr_t = (1u32 << (15u32 + NCURSES_ATTR_SHIFT)) as attr_t;
+pub use ncurses::A_ALTCHARSET;
+pub use ncurses::A_ATTRIBUTES;
+pub use ncurses::A_BLINK;
+pub use ncurses::A_BOLD;
+pub use ncurses::A_CHARTEXT;
+pub use ncurses::A_COLOR;
+pub use ncurses::A_DIM;
+pub use ncurses::A_INVIS;
+pub use ncurses::A_REVERSE;
+pub use ncurses::A_STANDOUT;
+pub use ncurses::A_UNDERLINE;
+pub const A_ITALIC: attr_t = 0;
 pub const A_LEFTLINE: attr_t = 0; // Not supported on ncurses
 pub const A_NORMAL: attr_t = 0;
 pub const A_OVERLINE: attr_t = 0; // Not supported on ncurses
-pub const A_REVERSE: attr_t = (1u32 << (10 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_RIGHTLINE: attr_t = 0; // Not supported on ncurses
-pub const A_STANDOUT: attr_t = (1u32 << (8 + NCURSES_ATTR_SHIFT)) as attr_t;
 pub const A_STRIKEOUT: attr_t = 0; // Not supported on ncurses
-pub const A_UNDERLINE: attr_t = (1u32 << (9 + NCURSES_ATTR_SHIFT)) as attr_t;
 
 pub const KEY_RESIZE: i32 = 0o632;
 
