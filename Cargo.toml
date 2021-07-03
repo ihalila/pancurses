@@ -25,10 +25,10 @@ libc = "0.2"
 pdcurses-sys = "0.7"
 winreg = "0.5"
 [target.'cfg(unix)'.dependencies]
-ncurses = "5.91.0"
+ncurses = "5.101.0"
 
 [dev-dependencies]
-rand = "0.4.2"
+rand = "0.8.4"
 
 [features]
 wide = ["ncurses/wide"]
