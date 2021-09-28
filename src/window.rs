@@ -8,7 +8,6 @@ pub struct Window {
     #[cfg(unix)]
     _window: curses::WINDOW,
     _stdscr: bool,
-    _deleted: bool,
 }
 
 #[cfg(windows)]
@@ -207,9 +206,10 @@ impl Window {
 
     /// Deletes the window, freeing all associated memory. In the case of overlapping windows,
     /// subwindows should be deleted before the main window.
-    pub fn delwin(mut self) -> i32 {
-        self._deleted = true;
-        unsafe { curses::delwin(self._window) }
+    pub fn delwin(self) -> i32 {
+        let r = unsafe { curses::delwin(self._window) };
+        std::mem::forget(self);
+        r
     }
 
     /// The same as subwin(), except that begy and begx are relative to the origin of the window
@@ -237,7 +237,6 @@ impl Window {
         Window {
             _window: dup_win,
             _stdscr: false,
-            _deleted: false,
         }
     }
 
@@ -526,7 +525,6 @@ impl Window {
             Ok(Window {
                 _window: new_window,
                 _stdscr: false,
-                _deleted: false,
             })
         }
     }
@@ -588,14 +586,13 @@ pub fn new_window(window_pointer: WindowPointer, is_stdscr: bool) -> Window {
     Window {
         _window: window_pointer,
         _stdscr: is_stdscr,
-        _deleted: false,
     }
 }
 
 /// Automatically clean up window resources when dropped
 impl Drop for Window {
     fn drop(&mut self) {
-        if !self._stdscr && !self._deleted {
+        if !self._stdscr {
             unsafe {
                 curses::delwin(self._window);
             }
