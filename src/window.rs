@@ -497,6 +497,12 @@ impl Window {
     pub fn refresh(&self) -> i32 {
         unsafe { curses::wrefresh(self._window) }
     }
+    
+    /// Resizes the window to the given dimensions. Doesn't resize subwindows on pdcurses
+    /// so you have to resize them yourself.
+    pub fn resize(&mut self, nlines: i32, ncols: i32) -> i32 {
+        unsafe { curses::wresize(self._window, nlines, ncols) }
+    }
 
     /// If enabled and a scrolling region is set with setscrreg(), any attempt to move off
     /// the bottom margin will cause all lines in the scrolling region to scroll up one line.
