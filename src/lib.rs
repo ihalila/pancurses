@@ -239,6 +239,12 @@ pub fn initscr() -> Window {
     window::new_window(window_pointer, true)
 }
 
+/// Returns the default Window.
+pub fn stdscr() -> Window {
+    let window_pointer = platform_specific::_stdscr();
+    window::new_window(window_pointer, true)
+}
+
 /// Changes the definition of a color. It takes four arguments: the number of the color to be
 /// changed followed by three RGB values (for the amounts of red, green, and blue components).
 /// The first argument must be a legal color value; default colors are not allowed here.

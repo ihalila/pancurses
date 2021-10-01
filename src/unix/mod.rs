@@ -73,6 +73,10 @@ pub fn _set_title(_: &str) {
     //Not supported
 }
 
+pub fn _stdscr() -> WINDOW {
+    ::ncurses::stdscr()
+}
+
 /// Converts an integer returned by getch() to a Input value
 pub fn to_special_keycode(i: i32) -> Option<Input> {
     let index = if i <= KEY_F15 {
