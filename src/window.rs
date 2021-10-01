@@ -1,5 +1,6 @@
 use crate::{chtype, curses, platform_specific, ptr, Input, ToChtype, ERR};
 use std::ffi::CString;
+use std::char;
 
 #[derive(Debug)]
 pub struct Window {
@@ -283,6 +284,27 @@ impl Window {
     /// returned.
     pub fn getch(&self) -> Option<Input> {
         platform_specific::_wgetch(self._window)
+    }
+
+
+    /// Read wide character from the terminal associated with the window. Analogical to getch
+    #[cfg(feature = "wide")]
+    pub fn get_wch(&self) -> Option<Input> {
+        let mut result = 0;
+        let i = unsafe { curses::wget_wch(self._window, &mut result) };
+        if i < 0 {
+            None
+        } else if i == 0 {
+            match char::from_u32(result) {
+                Some(c) => Some(Input::Character(c)),
+                None => Some(Input::Unknown(result as i32)),
+            }
+        } else if (platform_specific::to_special_keycode(i) == Input::KeyCodeYes) {
+            Some(platform_specific::to_special_keycode(result as i32))
+        } else {
+            panic!("Unexpected return value from wget_wch");
+        }
+
     }
 
     /// Return the current x coordinate of the cursor
