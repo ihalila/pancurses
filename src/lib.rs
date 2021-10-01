@@ -43,16 +43,16 @@ pub use crate::colorpair::ColorPair;
 #[cfg(windows)]
 mod windows;
 #[cfg(windows)]
-pub use self::windows::constants::*;
-#[cfg(windows)]
 use self::windows as platform_specific;
+#[cfg(windows)]
+pub use self::windows::constants::*;
 
 #[cfg(unix)]
 mod unix;
 #[cfg(unix)]
-pub use self::unix::constants::*;
-#[cfg(unix)]
 use self::unix as platform_specific;
+#[cfg(unix)]
+pub use self::unix::constants::*;
 
 pub const OK: i32 = 0;
 pub const ERR: i32 = -1;
@@ -316,13 +316,17 @@ pub fn napms(ms: i32) -> i32 {
 ///
 /// (For the PDCurses backend it's just an alternative interface for initscr(). It always returns
 /// SP, or NULL.)
-pub fn newterm(t: Option<&str>, output: FILE, input: FILE) -> ScrPtr {
+pub fn newterm(t: Option<&str>, output: FILE, input: FILE) -> Window {
+    platform_specific::pre_init();
+
     let term_type = t.map(|x| CString::new(x).unwrap());
     let type_ptr = match term_type {
         Some(ref s) => s.as_ptr(),
         _ => std::ptr::null(),
     };
-    unsafe { curses::newterm(type_ptr, output, input) }
+    let window_pointer = unsafe { curses::newterm(type_ptr, output, input) };
+
+    window::new_window(window_pointer, true)
 }
 
 /// Creates a new window with the given number of lines, nlines and columns, ncols.
