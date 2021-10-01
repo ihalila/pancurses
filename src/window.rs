@@ -10,6 +10,9 @@ pub struct Window {
     _stdscr: bool,
 }
 
+unsafe impl Send for Window {}
+unsafe impl Sync for Window {}
+
 #[cfg(windows)]
 type WindowPointer = *mut curses::WINDOW;
 #[cfg(unix)]
