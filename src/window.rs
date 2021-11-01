@@ -19,7 +19,8 @@ impl Window {
     /// Adds the chtype ch to the window at the current cursor position, and advances the cursor.
     ///
     /// Note that chtypes can convey both text (a single character) and attributes, including a
-    /// color pair.
+    /// color pair. Does not support multi-byte unicode characters. Multi-byte characters should
+    /// be added with [`addstr`](Window::addstr).
     pub fn addch<T: ToChtype>(&self, ch: T) -> i32 {
         unsafe { curses::waddch(self._window, ch.to_chtype()) }
     }
@@ -383,6 +384,8 @@ impl Window {
     }
 
     /// moves the cursor to the specified position and adds ch to the specified window
+    /// Does not support multi-byte unicode characters. Multi-byte characters should
+    /// be added with [`mvaddstr`](Window::mvaddstr).
     pub fn mvaddch<T: ToChtype>(&self, y: i32, x: i32, ch: T) -> i32 {
         unsafe { curses::mvwaddch(self._window, y, x, ch.to_chtype()) }
     }
