@@ -586,6 +586,13 @@ impl Window {
     pub fn vline<T: ToChtype>(&self, ch: T, n: i32) -> i32 {
         unsafe { curses::wvline(self._window, ch.to_chtype(), n) }
     }
+	
+    /// wgetnstr reads at most n characters, thus preventing a possible overflow of the input buffer.
+    /// Any attempt to enter more characters (other than the terminating newline or carriage return) causes a beep.
+    /// Function keys also cause a beep and are ignored.
+    pub fn wgetnstr(&self, buf: &mut str, buflen: i32) -> i32 {
+        unsafe { curses::wgetnstr(self._window, buf.as_ptr(), buflen) }
+    }
 }
 
 pub fn new_window(window_pointer: WindowPointer, is_stdscr: bool) -> Window {
