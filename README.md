@@ -86,7 +86,10 @@ fn main() {
     let window = initscr();
 
     window.keypad(true); // Set keypad mode
-    mousemask(ALL_MOUSE_EVENTS, std::ptr::null_mut()); // Listen to all mouse events
+    let p: *mut u32 = std::ptr::null_mut();
+    unsafe {
+        mousemask(ALL_MOUSE_EVENTS, p.as_mut()); // Listen to all mouse events
+    }
 
     window.printw("Click in the terminal, press q to exit\n");
     window.refresh();
