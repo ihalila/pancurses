@@ -66,17 +66,17 @@ impl Window {
 
     /// Turns off the named attributes without affecting any other attributes.
     pub fn attroff<T: Into<chtype>>(&self, attributes: T) -> i32 {
-        platform_specific::_attroff(self._window, attributes.into())
+        unsafe { platform_specific::_attroff(self._window, attributes.into()) }
     }
 
     /// Turns on the named attributes without affecting any other attributes.
     pub fn attron<T: Into<chtype>>(&self, attributes: T) -> i32 {
-        platform_specific::_attron(self._window, attributes.into())
+        unsafe { platform_specific::_attron(self._window, attributes.into()) }
     }
 
     /// Sets the current attributes of the given window to attributes.
     pub fn attrset<T: Into<chtype>>(&self, attributes: T) -> i32 {
-        platform_specific::_attrset(self._window, attributes.into())
+        unsafe { platform_specific::_attrset(self._window, attributes.into()) }
     }
 
     /// Not only change the background, but apply it immediately to every cell in the window.
@@ -228,7 +228,7 @@ impl Window {
     /// Draw a border around the edge of the window. If any argument is zero, an appropriate
     /// default is used.
     pub fn draw_box<T: ToChtype>(&self, verch: T, horch: T) -> i32 {
-        platform_specific::_draw_box(self._window, verch.to_chtype(), horch.to_chtype())
+        unsafe { platform_specific::_draw_box(self._window, verch.to_chtype(), horch.to_chtype()) }
     }
 
     /// Creates an exact duplicate of the window.
