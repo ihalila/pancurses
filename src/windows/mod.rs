@@ -24,16 +24,16 @@ use self::win32 as flavor;
 
 pub use self::flavor::pre_init;
 
-pub fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattron(w, attributes) }
+pub unsafe fn _attron(w: *mut WINDOW, attributes: chtype) -> i32 {
+    wattron(w, attributes) 
 }
 
-pub fn _attroff(w: *mut WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattroff(w, attributes) }
+pub unsafe fn _attroff(w: *mut WINDOW, attributes: chtype) -> i32 {
+    wattroff(w, attributes) 
 }
 
-pub fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
-    unsafe { wattrset(w, attributes) }
+pub unsafe fn _attrset(w: *mut WINDOW, attributes: chtype) -> i32 {
+    wattrset(w, attributes)
 }
 
 pub fn _COLORS() -> i32 {
@@ -44,8 +44,8 @@ pub fn _COLOR_PAIRS() -> i32 {
     unsafe { COLOR_PAIRS }
 }
 
-pub fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
-    unsafe { _box(w, verch, horch) }
+pub unsafe fn _draw_box(w: *mut WINDOW, verch: chtype, horch: chtype) -> i32 {
+    _box(w, verch, horch)
 }
 
 pub fn _getmouse() -> Result<MEVENT, i32> {
