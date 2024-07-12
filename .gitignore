@@ -2,3 +2,4 @@ target/
 .project
 Cargo.lock
 .settings/
+rustc-ice-*.txt

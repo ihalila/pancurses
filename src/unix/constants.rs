@@ -62,28 +62,28 @@ pub use ncurses::COLOR_RED;
 pub use ncurses::COLOR_WHITE;
 pub use ncurses::COLOR_YELLOW;
 
-pub const A_ALTCHARSET: attr_t = ncurses::A_ALTCHARSET();
-pub const A_ATTRIBUTES: attr_t = ncurses::A_ATTRIBUTES();
-pub const A_BLINK: attr_t = ncurses::A_BLINK();
-pub const A_BOLD: attr_t = ncurses::A_BOLD();
-pub const A_CHARTEXT: attr_t = ncurses::A_CHARTEXT();
-pub const A_COLOR: attr_t = ncurses::A_COLOR();
-pub const A_DIM: attr_t = ncurses::A_DIM();
-pub const A_ITALIC: attr_t = ncurses::A_ITALIC();
-pub const A_INVIS: attr_t = ncurses::A_INVIS();
+pub const A_ALTCHARSET: attr_t = ncurses::A_ALTCHARSET;
+pub const A_ATTRIBUTES: attr_t = ncurses::A_ATTRIBUTES;
+pub const A_BLINK: attr_t = ncurses::A_BLINK;
+pub const A_BOLD: attr_t = ncurses::A_BOLD;
+pub const A_CHARTEXT: attr_t = ncurses::A_CHARTEXT;
+pub const A_COLOR: attr_t = ncurses::A_COLOR;
+pub const A_DIM: attr_t = ncurses::A_DIM;
+pub const A_ITALIC: attr_t = ncurses::A_ITALIC;
+pub const A_INVIS: attr_t = ncurses::A_INVIS;
 pub const A_LEFTLINE: attr_t = 0; // Not supported on ncurses
-pub const A_NORMAL: attr_t = ncurses::A_NORMAL();
+pub const A_NORMAL: attr_t = ncurses::A_NORMAL;
 pub const A_OVERLINE: attr_t = 0; // Not supported on ncurses
-pub const A_REVERSE: attr_t = ncurses::A_REVERSE();
+pub const A_REVERSE: attr_t = ncurses::A_REVERSE;
 pub const A_RIGHTLINE: attr_t = 0; // Not supported on ncurses
-pub const A_STANDOUT: attr_t = ncurses::A_STANDOUT();
+pub const A_STANDOUT: attr_t = ncurses::A_STANDOUT;
 pub const A_STRIKEOUT: attr_t = 0; // Not supported on ncurses
-pub const A_UNDERLINE: attr_t = ncurses::A_UNDERLINE();
+pub const A_UNDERLINE: attr_t = ncurses::A_UNDERLINE;
 
 pub const KEY_OFFSET: i32 = 0o0400;
 pub const KEY_RESIZE: i32 = ncurses::KEY_RESIZE;
-pub const KEY_F15: i32 = ncurses::KEY_F15;
-pub const KEY_EVENT: i32 = ncurses::KEY_EVENT;
+pub const KEY_F15: i32 = ncurses::KEY_F(15);
+//pub const KEY_EVENT: i32 = ncurses::KEY_EVENT; // doesn't exist anymore in /usr/include/ncurses.h -> curses.h of ncurses 6.4_p20230401 (gentoo) or in ncurses-rs https://github.com/jeaye/ncurses-rs/pull/201/files#diff-b9f534f90cc01f9fbdcf768139ee60ac1e0c33b114024029c8e2f3f1e32c8a97L215
 
 pub const SPECIAL_KEY_CODES: [Input; 108] = [
     Input::KeyCodeYes,
